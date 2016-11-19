@@ -1,12 +1,24 @@
 var http = require('http');
 var url = require('url');
+var fs = require('fs');
 
 
 function setEncoderParams(encoderParams) {
+
     console.log("setEncoderParams invoked");
     console.log(encoderParams);
 
+    // read existing file
+    var str = fs.readFileSync("encoders.json", "ascii");
+    var encoders = JSON.parse(str);
 
+    // add / overwrite record for encoder
+    var key = encoderParams.serialNumber;
+    encoders[key] = encoderParams;
+
+    // write updated file
+    var encodersStr = JSON.stringify(encoders, null, '\t');
+    fs.writeFileSync("encoders.json", encodersStr);
 }
 
 function send200(response) {

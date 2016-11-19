@@ -1,0 +1,32 @@
+{
+	"L8D68K000035": {
+		"serialNumber": "L8D68K000035",
+		"encoderName": "exampleEncoder",
+		"pipeline": "udp://239.194.0.2:1234/",
+		"source": "hdmi",
+		"videoCodec": "H264",
+		"videoFormat": "720p30",
+		"bitrate": "2Mb/s",
+		"streamType": "multicast",
+		"protocol": "UDP",
+		"ttl": "1",
+		"destinationAddress": "239.194.0.2",
+		"port": "1234",
+		"maximumBitrate": "6Mb/s"
+	},
+	"L8D68K000036": {
+		"serialNumber": "L8D68K000036",
+		"encoderName": "exampleEncoder",
+		"pipeline": "udp://239.194.0.2:1234/",
+		"source": "hdmi",
+		"videoCodec": "H264",
+		"videoFormat": "720p30",
+		"bitrate": "2Mb/s",
+		"streamType": "multicast",
+		"protocol": "UDP",
+		"ttl": "1",
+		"destinationAddress": "239.194.0.2",
+		"port": "1234",
+		"maximumBitrate": "6Mb/s"
+	}
+}
