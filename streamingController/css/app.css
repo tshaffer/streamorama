@@ -10,3 +10,8 @@ body {
 #encoderEncodingOptions {
     margin-left: 800px;
 }
+
+.sectionHeader {
+    font-weight: bold;
+    font-size: 16pt;
+}
