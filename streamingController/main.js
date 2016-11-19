@@ -1,6 +1,8 @@
 // note - replacing require with import does not work in this case
 const electron = require('electron');
 
+const {Menu} = electron;
+
 console.log("Streaming Controller Connected");
 
 // Module to control application life.
@@ -30,6 +32,17 @@ function createWindow() {
 
     // Open the DevTools.
     win.webContents.openDevTools();
+
+    win.webContents.on('context-menu', (e, props) => {
+        const { x, y } = props;
+
+        Menu.buildFromTemplate([{
+            label: 'Inspect element',
+            click() {
+                win.inspectElement(x, y);
+            }
+        }]).popup(win);
+    });
 
     // Emitted when the window is closed.
     win.on('closed', () => {
