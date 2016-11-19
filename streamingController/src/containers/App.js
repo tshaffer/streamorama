@@ -1,34 +1,19 @@
 import React from 'react';
 import {Component} from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-class App extends Component {
+import Encoder from '../components/encoder';
 
-    componentWillMount() {
-    }
+class App extends Component {
 
     render() {
 
         return (
-            <div>
-                Stream Pizza
-            </div>
+            <MuiThemeProvider>
+                <Encoder/>
+            </MuiThemeProvider>
         );
     }
 }
 
 export default App;
-
-// function mapDispatchToProps(dispatch) {
-//     return bindActionCreators({loadAppData},
-//         dispatch);
-// }
-//
-// App.propTypes = {
-//     loadAppData: React.PropTypes.func.isRequired,
-// };
-//
-// export default connect(null, mapDispatchToProps)(App);
