@@ -6,13 +6,13 @@
 		"source": "hdmi",
 		"videoCodec": "H264",
 		"videoFormat": "720p30",
-		"bitrate": "2Mb/s",
+		"bitrate": "2000",
 		"streamType": "multicast",
 		"protocol": "UDP",
 		"ttl": "1",
 		"destinationAddress": "239.194.0.2",
 		"port": "1234",
-		"maximumBitrate": "6Mb/s"
+		"maximumBitrate": "6900"
 	},
 	"L8D68K000036": {
 		"serialNumber": "L8D68K000036",
