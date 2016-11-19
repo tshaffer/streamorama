@@ -9,15 +9,22 @@ class Encoder extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: 1 };
+        this.state =
+        {
+            sourceValue: 0,
+            streamTypeValue: 1
+        };
     }
 
     // <RaisedButton label="Default" />
 
-    handleChange(event, index, value) {
-        this.setState({value});
+    handleSourceChange(event, index, sourceValue) {
+        this.setState({sourceValue});
     }
 
+    handleStreamTypeChange(event, index, streamTypeValue) {
+        this.setState({streamTypeValue});
+    }
 
 // <p>Source</p>
 
@@ -25,17 +32,35 @@ class Encoder extends Component {
 
         return (
             <div>
-                <div>
+                <div id="encoderStreamOptions">
                     <div>
                         <SelectField
                             floatingLabelText="Source"
-                            value={this.state.value}
-                            onChange={this.handleChange.bind(this)}
+                            value={this.state.sourceValue}
+                            onChange={this.handleSourceChange.bind(this)}
                         >
-                            <MenuItem value={1} primaryText="HDMI" />
-                            <MenuItem value={2} primaryText="File" />
+                            <MenuItem value={0} primaryText="HDMI" />
+                            <MenuItem value={1} primaryText="File" />
                         </SelectField>
                     </div>
+                    <p>
+                        Stream Options
+                    </p>
+                    <div>
+                        <SelectField
+                            floatingLabelText="Stream Type"
+                            value={this.state.streamTypeValue}
+                            onChange={this.handleStreamTypeChange.bind(this)}
+                        >
+                            <MenuItem value={0} primaryText="Unicast" />
+                            <MenuItem value={1} primaryText="Multicast" />
+                        </SelectField>
+                    </div>
+                </div>
+                <div id="encoderEncoderOptions">
+                    <p>
+                        Encoding Options
+                    </p>
                 </div>
             </div>
         );
