@@ -1,11 +1,18 @@
 var http = require('http');
 var url = require('url');
 
+
+function setEncoderParams(encoderParams) {
+    console.log("setEncoderParams invoked");
+    console.log(encoderParams);
+
+
+}
+
 function send200(response) {
     response.writeHead(200, { 'Content-Type': 'text/plain' });
     response.write('200: OK');
     response.end();
-
 }
 
 var server = http.createServer(function (request, response) {
@@ -17,15 +24,15 @@ var server = http.createServer(function (request, response) {
 
     parsedUrl = url.parse(request.url, true);
 
-    console.log("request url");
-    console.log(request.url);
+    // console.log("request url");
+    // console.log(request.url);
     console.log("parsed url pathname");
     console.log(parsedUrl.pathname);
-    console.log("parsed url query");
-    console.log(parsedUrl.query);
+    // console.log("parsed url query");
+    // console.log(parsedUrl.query);
 
-    if (parsedUrl.pathname === '/encoderParams' || request.url === '/') {
-        console.log("encoderParams invoked");
+    if (parsedUrl.pathname === '/setEncoderParams' || request.url === '/') {
+        setEncoderParams(parsedUrl.query);
     }
     send200(response);
 
