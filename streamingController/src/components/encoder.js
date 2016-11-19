@@ -1,6 +1,6 @@
 import React from 'react';
 import {Component} from 'react';
-// import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -16,7 +16,9 @@ class Encoder extends Component {
             streamTypeValue: 1,
             protocolValue: 0,
             videoCodecValue: 0,
-            videoFormatValue: 0
+            videoFormatValue: 0,
+            maxBitrateValue: 2,
+            destinationAddress: "239.194.0.2"
         };
     }
 
@@ -42,7 +44,19 @@ class Encoder extends Component {
         this.setState({videoFormatValue});
     }
 
+    handleMaxBitrateChange(event, maxBitrateValue) {
+        this.setState({maxBitrateValue});
+    }
+
+    handleDestinationAddressChange(event, destinationAddress) {
+        this.setState({destinationAddress});
+    }
+
     render() {
+
+        const style = {
+            margin: 12,
+        };
 
         return (
             <div>
@@ -91,6 +105,7 @@ class Encoder extends Component {
                             defaultValue="239.194.0.2"
                             floatingLabelText="Destination Address"
                             floatingLabelFixed={true}
+                            onChange={this.handleDestinationAddressChange.bind(this)}
                         />
                         <TextField
                             defaultValue="1234"
@@ -105,7 +120,7 @@ class Encoder extends Component {
                                 Maximum Bitrate:
                             </span>
                             <span>
-                                2
+                                {this.state.maxBitrateValue.toFixed(1)}
                             </span>
                             <span>
                                 Mb/s
@@ -115,6 +130,8 @@ class Encoder extends Component {
                             defaultValue={6.0}
                             min={1.0}
                             max={40.0}
+                            onChange={this.handleMaxBitrateChange.bind(this)}
+
                         />
                     </div>
                 </div>
@@ -125,6 +142,10 @@ class Encoder extends Component {
                             floatingLabelText="File Name"
                             floatingLabelFixed={true}
                         />
+                    </div>
+                    <div>
+                        <RaisedButton label="Start" style={style} />
+                        <RaisedButton label="Stop" style={style} />
                     </div>
                     <p
                         className="sectionHeader">

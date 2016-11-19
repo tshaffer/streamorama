@@ -6,9 +6,8 @@
   "author": "Ted Shaffer",
   "license": "MIT",
   "scripts": {
-    "streamer": "webpack --config ./webpack.config.js",
-    "streamerW": "webpack --config ./webpack.config.js --watch",
-    "start": "electron ."
+    "build": "webpack --config ./webpack.config.js",
+    "run": "electron ."
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
