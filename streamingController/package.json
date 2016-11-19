@@ -2,12 +2,14 @@
   "name": "streaming-controller",
   "version": "0.0.1",
   "description": "Control network of BrightSigns performing encoding and decoding",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "main.js",
   "author": "Ted Shaffer",
   "license": "MIT",
+  "scripts": {
+    "streamer": "webpack --config ./webpack.config.js",
+    "streamerW": "webpack --config ./webpack.config.js --watch",
+    "start": "electron ."
+  },
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.8",
@@ -19,10 +21,12 @@
     "webpack": "^1.13.3"
   },
   "dependencies": {
+    "material-ui": "^0.16.4",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0"
   }
