@@ -111,16 +111,14 @@ class Encoder extends Component {
                                 Mb/s
                             </span>
                         </p>
-                        <slider>
-                            <Slider
-                                defaultValue={6.0}
-                                min={1.0}
-                                max={40.0}
-                            />
-                        </slider>
+                        <Slider
+                            defaultValue={6.0}
+                            min={1.0}
+                            max={40.0}
+                        />
                     </div>
                 </div>
-                <div id="encoderEncoderOptions">
+                <div id="encoderEncodingOptions">
                     <div>
                         <TextField
                             defaultValue=""
@@ -163,13 +161,11 @@ class Encoder extends Component {
                                 Mb/s
                             </span>
                         </p>
-                        <slider>
-                            <Slider
-                                defaultValue={2.0}
-                                min={1.0}
-                                max={40.0}
-                            />
-                        </slider>
+                        <Slider
+                            defaultValue={2.0}
+                            min={1.0}
+                            max={40.0}
+                        />
                     </div>
                 </div>
             </div>
