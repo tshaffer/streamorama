@@ -19,7 +19,8 @@ class Encoder extends Component {
             videoCodecValue: 0,
             videoFormatValue: 0,
             maxBitrateValue: 2,
-            destinationAddress: "239.194.0.2"
+            destinationAddress: "239.194.0.2",
+            bitrateValue: 2
         };
     }
 
@@ -49,11 +50,13 @@ class Encoder extends Component {
             encoder.protocol = 'RTP';
         }
 
-        encoder.ttl = '';
+        encoder.ttl = this.ttlField.input.value;
 
-        encoder.destinationAddress = this.state.destinationAddress;
+        encoder.destinationAddress = this.destinationAddressField.input.value;
 
-        encoder.maxBitrate = this.state.maxBitrateValue.toFixed(1);
+        encoder.port = this.portField.input.value;
+
+        encoder.maxBitrate = this.maxBitrateField.state.value.toFixed(1);
 
         encoder.fileName = '';
 
@@ -71,7 +74,9 @@ class Encoder extends Component {
                 break;
         }
 
-        encoder.bitRate = 69;
+        encoder.bitRate = this.bitrateField.state.value.toFixed(1);
+
+        encoder.serialNumber = this.serialNumberField.input.value;
 
         this.props.addEncoder(encoder);
     }
@@ -100,11 +105,13 @@ class Encoder extends Component {
         this.setState({maxBitrateValue});
     }
 
-    handleDestinationAddressChange(event, destinationAddress) {
-        this.setState({destinationAddress});
+    handleBitrateChange(event, bitrateValue) {
+        this.setState({bitrateValue});
     }
 
     render() {
+
+        let self = this;
 
         const style = {
             margin: 12,
@@ -147,6 +154,9 @@ class Encoder extends Component {
                             <MenuItem value={1} primaryText="RTP"/>
                         </SelectField>
                         <TextField
+                            ref={(c) => {
+                                self.ttlField = c;
+                            }}
                             defaultValue="1"
                             floatingLabelText="TTL"
                             floatingLabelFixed={true}
@@ -154,12 +164,17 @@ class Encoder extends Component {
                     </div>
                     <div>
                         <TextField
+                            ref={(c) => {
+                                self.destinationAddressField = c;
+                            }}
                             defaultValue="239.194.0.2"
                             floatingLabelText="Destination Address"
                             floatingLabelFixed={true}
-                            onChange={this.handleDestinationAddressChange.bind(this)}
                         />
                         <TextField
+                            ref={(c) => {
+                                self.portField = c;
+                            }}
                             defaultValue="1234"
                             floatingLabelText="Port"
                             floatingLabelFixed={true}
@@ -179,15 +194,27 @@ class Encoder extends Component {
                             </span>
                         </p>
                         <Slider
+                            ref={(c) => {
+                                self.maxBitrateField = c;
+                            }}
                             defaultValue={6.0}
                             min={1.0}
                             max={40.0}
                             onChange={this.handleMaxBitrateChange.bind(this)}
-
                         />
                     </div>
                 </div>
                 <div id="encoderEncodingOptions">
+                    <div>
+                        <TextField
+                            ref={(c) => {
+                                self.serialNumberField = c;
+                            }}
+                            defaultValue=""
+                            floatingLabelText="Serial Number"
+                            floatingLabelFixed={true}
+                        />
+                    </div>
                     <div>
                         <TextField
                             defaultValue=""
@@ -232,16 +259,20 @@ class Encoder extends Component {
                                 Bitrate:
                             </span>
                             <span>
-                                2
+                                {this.state.bitrateValue.toFixed(1)}
                             </span>
                             <span>
                                 Mb/s
                             </span>
                         </p>
                         <Slider
+                            ref={(c) => {
+                                self.bitrateField = c;
+                            }}
                             defaultValue={2.0}
                             min={1.0}
                             max={40.0}
+                            onChange={this.handleBitrateChange.bind(this)}
                         />
                     </div>
                 </div>
