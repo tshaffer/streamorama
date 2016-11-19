@@ -8,7 +8,7 @@ export function addEncoder(encoder) {
     console.log("index.js::addEncoder");
     return {
         type: ADD_ENCODER,
-        payload: encoder
+        encoder
     };
 }
 

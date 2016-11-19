@@ -1,14 +1,27 @@
-/**
- * Created by tedshaffer on 11/19/16.
- */
 import { ADD_ENCODER } from '../actions/index';
 
-export default function(state = [], action) {
+const initialState =
+    {
+        encodersBySerialNumber: {}
+    };
+
+
+export default function(state = initialState, action) {
 
     switch (action.type) {
 
         case ADD_ENCODER:
-            return action.payload;
+            {
+                let newEncodersBySerialNumber = Object.assign({}, state.encodersBySerialNumber);
+
+                const encoder = action.encoder;
+                newEncodersBySerialNumber[encoder.serialNumber] = encoder;
+
+                let newState = {
+                    encodersBySerialNumber: newEncodersBySerialNumber
+                };
+                return newState;
+            }
     }
 
     return state;

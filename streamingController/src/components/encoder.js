@@ -1,5 +1,6 @@
 import React from 'react';
 import {Component} from 'react';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -22,7 +23,58 @@ class Encoder extends Component {
         };
     }
 
-    // <RaisedButton label="Default" />
+    handleStartStreaming(event) {
+        console.log('handleStartStreaming');
+
+        let encoder = {};
+
+        if (this.state.sourceValue === 0) {
+            encoder.source = "HDMI";
+        }
+        else {
+            encoder.source = "File";
+        }
+
+        if (this.state.streamTypeValue == 0) {
+            encoder.streamType = "Unicast";
+        }
+        else {
+            encoder.streamType = 'Multicast';
+        }
+
+        if (this.state.protocolValue === 0) {
+            encoder.protocol = 'UDP';
+        }
+        else {
+            encoder.protocol = 'RTP';
+        }
+
+        encoder.ttl = '';
+
+        encoder.destinationAddress = this.state.destinationAddress;
+
+        encoder.maxBitrate = this.state.maxBitrateValue.toFixed(1);
+
+        encoder.fileName = '';
+
+        encoder.videoCodec = 'H264';
+
+        switch (this.state.videoFormatValue) {
+            case 0:
+                encoder.videoFormat = '720p30';
+                break;
+            case 1:
+                encoder.videoFormat = '1080i60';
+                break;
+            default:
+                encoder.videoFormat = '1080p60';
+                break;
+        }
+
+        encoder.bitRate = 69;
+
+        this.props.addEncoder(encoder);
+    }
 
     handleSourceChange(event, index, sourceValue) {
         this.setState({sourceValue});
@@ -144,7 +196,11 @@ class Encoder extends Component {
                         />
                     </div>
                     <div>
-                        <RaisedButton label="Start" style={style} />
+                        <RaisedButton
+                            onClick={this.handleStartStreaming.bind(this)}
+                            label="Start"
+                            style={style}
+                        />
                         <RaisedButton label="Stop" style={style} />
                     </div>
                     <p
@@ -193,5 +249,9 @@ class Encoder extends Component {
         );
     }
 }
+
+Encoder.propTypes = {
+    addEncoder: React.PropTypes.func.isRequired
+};
 
 export default Encoder;

@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Encoder from '../components/encoder';
+import EncoderContainer from '../containers/encoderContainer';
 
 class App extends Component {
 
@@ -10,7 +10,7 @@ class App extends Component {
 
         return (
             <MuiThemeProvider>
-                <Encoder/>
+                <EncoderContainer/>
             </MuiThemeProvider>
         );
     }
