@@ -26,7 +26,7 @@ class Encoder extends Component {
         };
     }
 
-    handleStartStreaming(event) {
+    handleAddEncoder(event) {
         console.log('handleStartStreaming');
 
         let encoder = {};
@@ -119,6 +119,15 @@ class Encoder extends Component {
             margin: 12,
         };
 
+        // <div>
+        //     <RaisedButton
+        //         onClick={this.handleStartStreaming.bind(this)}
+        //         label="Start"
+        //         style={style}
+        //     />
+        //     <RaisedButton label="Stop" style={style} />
+        // </div>
+
         return (
 
             <MuiThemeProvider>
@@ -127,6 +136,16 @@ class Encoder extends Component {
                     <Link to="/">Back</Link>
                     <br/>
                     <div id="encoderStreamOptions">
+                        <div>
+                            <TextField
+                                ref={(c) => {
+                                    self.nameField = c;
+                                }}
+                                defaultValue=""
+                                floatingLabelText="Name"
+                                floatingLabelFixed={true}
+                            />
+                        </div>
                         <div>
                             <SelectField
                                 floatingLabelText="Source"
@@ -210,6 +229,13 @@ class Encoder extends Component {
                                 onChange={this.handleMaxBitrateChange.bind(this)}
                             />
                         </div>
+                        <div>
+                            <RaisedButton
+                                onClick={this.handleAddEncoder.bind(this)}
+                                label="Add Encoder"
+                                style={style}
+                            />
+                        </div>
                     </div>
                     <div id="encoderEncodingOptions">
                         <div>
@@ -228,14 +254,6 @@ class Encoder extends Component {
                                 floatingLabelText="File Name"
                                 floatingLabelFixed={true}
                             />
-                        </div>
-                        <div>
-                            <RaisedButton
-                                onClick={this.handleStartStreaming.bind(this)}
-                                label="Start"
-                                style={style}
-                            />
-                            <RaisedButton label="Stop" style={style} />
                         </div>
                         <p
                             className="sectionHeader">
