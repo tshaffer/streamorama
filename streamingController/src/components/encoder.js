@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -123,6 +124,8 @@ class Encoder extends Component {
             <MuiThemeProvider>
 
                 <div>
+                    <Link to="/">Back</Link>
+                    <br/>
                     <div id="encoderStreamOptions">
                         <div>
                             <SelectField
