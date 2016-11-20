@@ -11,37 +11,31 @@ import { Router, browserHistory, hashHistory } from 'react-router';
 import { Route } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import appReducer from './reducers';
+import reducers from './reducers';
 
 import App from './containers/app';
-
-// export const rootReducer = combineReducers({
-//     badm : baDmReducer,
-//     app : appReducer
-// });
-//
-// const store = createStore(
-//     rootReducer,
-//     applyMiddleware(
-//         thunkMiddleware
-//     )
-// );
+import EncoderContainer from './containers/encoderContainer';
+import AssignDecoderToEncoder from './components/AssignDecoderToEncoder';
+import ViewBrightSigns from './components/ViewBrightSigns';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-// ReactDOM.render(
-// <Provider store={store}>
-//     <Router history={hashHistory}>
-//     <Route path="/" component={App} />
-//     </Router>
-//     </Provider>
-//     , document.getElementById('content'));
+const store = createStore(
+    reducers,
+    applyMiddleware(
+        thunkMiddleware
+    )
+);
 
-import reducers from './reducers';
 ReactDOM.render(
-    <Provider store={createStore(reducers)}>
-        <App />
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={App} />
+            <Route path="/addEncoder" component={EncoderContainer} />
+            <Route path="/assignDecoderToEncoder" component={AssignDecoderToEncoder} />
+            <Route path="/viewBrightSigns" component={ViewBrightSigns} />
+        </Router>
     </Provider>
     , document.getElementById('content'));

@@ -20,9 +20,24 @@ export default function(state = initialState, action) {
                 let newState = {
                     encodersBySerialNumber: newEncodersBySerialNumber
                 };
+
+                // dumpState(newState);
+
                 return newState;
             }
     }
 
     return state;
+}
+
+function dumpState(state) {
+
+    console.log("encoders:");
+    for (var serialNumber in state.encodersBySerialNumber) {
+        if (state.encodersBySerialNumber.hasOwnProperty(serialNumber)) {
+            console.log("serial number:", serialNumber);
+            console.log(state.encodersBySerialNumber[serialNumber]);
+        }
+    }
+
 }

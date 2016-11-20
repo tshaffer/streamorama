@@ -1,5 +1,4 @@
-import React from 'react';
-import {Component} from 'react';
+import React, { Component } from 'react';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';

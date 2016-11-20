@@ -1,8 +1,16 @@
-import React from 'react';
-import {Component} from 'react';
+import React, { Component } from 'react';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+// import Landing from '../components/landing';
+
 import EncoderContainer from '../containers/encoderContainer';
+
+// return (
+//     <MuiThemeProvider>
+//         <Landing/>
+//     </MuiThemeProvider>
+// );
 
 class App extends Component {
 
@@ -10,7 +18,7 @@ class App extends Component {
 
         return (
             <MuiThemeProvider>
-                <EncoderContainer/>
+                <Landing/>
             </MuiThemeProvider>
         );
     }

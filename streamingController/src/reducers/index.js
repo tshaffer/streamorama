@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import EncoderReducer from './reducerEncoder';
+import EncodersReducer from './reducerEncoders';
 
 const rootReducer = combineReducers({
-    encoder: EncoderReducer
+    encoders: EncodersReducer
 });
 
 export default rootReducer;
