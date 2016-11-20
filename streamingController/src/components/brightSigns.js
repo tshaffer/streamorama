@@ -12,15 +12,23 @@ class BrightSigns extends Component {
             <MuiThemeProvider>
 
                 <div>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
+                    <Table
+                    >
+                        <TableHeader
+                            displaySelectAll={false}
+                            adjustForCheckbox={false}
+                            enableSelectAll={false}
+                        >
+                            <TableRow
+                            >
                                 <TableHeaderColumn>Source</TableHeaderColumn>
                                 <TableHeaderColumn>Address</TableHeaderColumn>
                                 <TableHeaderColumn>Format</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody
+                            displayRowCheckbox={false}
+                        >
                             <TableRow>
                                 <TableRowColumn>
                                     HDMI
