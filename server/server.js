@@ -19,8 +19,10 @@ app.get('/setEncoderParams', function(req, res) {
     console.log("setEncoderParams invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
-    var encoderParams = req.query;
-    console.log(encoderParams);
+    // var encoderParams = req.query;
+    // console.log(encoderParams);
+    var encoderParamsStr = req.query.encoderParams;
+    var encoderParams = JSON.parse(encoderParamsStr);
 
     // read existing file
     var str = fs.readFileSync("encoders.json", "ascii");
@@ -32,7 +34,7 @@ app.get('/setEncoderParams', function(req, res) {
 
     // write updated file
     var encodersStr = JSON.stringify(encoders, null, '\t');
-    // fs.writeFileSync("encoders.json", encodersStr);
+    fs.writeFileSync("encoders.json", encodersStr);
 
     res.send("ok");
 });

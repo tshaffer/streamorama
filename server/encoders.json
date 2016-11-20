@@ -1,4 +1,34 @@
 {
+	"1": {
+		"name": "encoder1",
+		"serialNumber": "1",
+		"source": "HDMI",
+		"streamType": "Multicast",
+		"protocol": "UDP",
+		"ttl": "1",
+		"destinationAddress": "239.194.0.1",
+		"port": "1234",
+		"maxBitrate": "6.0",
+		"fileName": "",
+		"videoCodec": "H264",
+		"videoFormat": "720p30",
+		"bitRate": "2.0"
+	},
+	"2": {
+		"name": "encoder2",
+		"serialNumber": "2",
+		"source": "HDMI",
+		"streamType": "Multicast",
+		"protocol": "UDP",
+		"ttl": "1",
+		"destinationAddress": "239.194.0.2",
+		"port": "1234",
+		"maxBitrate": "6.0",
+		"fileName": "",
+		"videoCodec": "H264",
+		"videoFormat": "720p30",
+		"bitRate": "2.0"
+	},
 	"L8D68K000035": {
 		"serialNumber": "L8D68K000035",
 		"encoderName": "exampleEncoder",
