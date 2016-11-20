@@ -1,0 +1,14 @@
+{
+  "name": "streamorama-server",
+  "version": "0.0.1",
+  "description": "Server for streamorama controller site",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Ted Shaffer",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

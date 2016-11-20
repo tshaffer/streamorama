@@ -28,5 +28,6 @@
 		"destinationAddress": "239.194.0.2",
 		"port": "1234",
 		"maximumBitrate": "6Mb/s"
-	}
+	},
+	"undefined": {}
 }

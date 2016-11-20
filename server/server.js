@@ -1,7 +1,14 @@
+var express = require('express');
+var path = require('path');
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
 
+var app = express();
+
+console.log("launch streamorama server app");
+
+app.use('/', express.static(path.join(__dirname, '../streamingController/')));
 
 function setEncoderParams(encoderParams) {
 
@@ -29,6 +36,8 @@ function send200(response) {
 
 var server = http.createServer(function (request, response) {
 
+    console.log("server callback invoked");
+
     var responseData = {};
     responseData.serverResponse = response;
 
@@ -36,16 +45,16 @@ var server = http.createServer(function (request, response) {
 
     parsedUrl = url.parse(request.url, true);
 
-    // console.log("request url");
-    // console.log(request.url);
+    console.log("request url");
+    console.log(request.url);
     console.log("parsed url pathname");
     console.log(parsedUrl.pathname);
-    // console.log("parsed url query");
-    // console.log(parsedUrl.query);
+    console.log("parsed url query");
+    console.log(parsedUrl.query);
 
-    if (parsedUrl.pathname === '/setEncoderParams' || request.url === '/') {
-        setEncoderParams(parsedUrl.query);
-    }
+    // if (parsedUrl.pathname === '/setEncoderParams' || request.url === '/') {
+    //     setEncoderParams(parsedUrl.query);
+    // }
     send200(response);
 
     // else if (request.url == '/') {                                      // default to index.html
