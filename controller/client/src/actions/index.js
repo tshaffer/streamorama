@@ -17,15 +17,47 @@ export function addEncoder(encoder) {
 
         dispatch(addEncoderToRedux(encoder));
 
-        // the remaining code in this function should only be executed when running as a web app
-        let setEncoderURL = "http://localhost:8080/setEncoderParams";
-        // setEncoderURL += "?name=encoder1&serialNumber=L8D68K000035&encoderName=exampleEncoder&pipeline=udp://239.194.0.2:1234/&source=hdmi&videoCodec=H264&videoFormat=720p30&bitrate=2Mb/s&streamType=multicast&protocol=UDP&ttl=1&destinationAddress=239.194.0.2&port=1234&maximumBitrate=6Mb/s";
+        let serverURL = "http://localhost:8080/setEncoderParams";
 
-        return axios.get(setEncoderURL, {
+        return axios.get(serverURL, {
             params: { encoderParams: encoder }
         }).then(function(data) {
             console.log("addEncoder - return from server call");
             console.log(data);
+        });
+    };
+}
+
+export function startEncoder(encoder) {
+
+    return function (dispatch, getState) {
+
+        let serverURL = "http://localhost:8080/startEncoder";
+
+        let promise = axios.get(serverURL, {
+            params: { serialNumber: encoder.serialNumber }
+        });
+
+        promise.then(function(data) {
+            console.log("startEncoder - return from server call");
+            // set status in redux
+        });
+    };
+}
+
+export function stopEncoder(encoder) {
+
+    return function (dispatch, getState) {
+
+        let serverURL = "http://localhost:8080/stopEncoder";
+
+        let promise = axios.get(serverURL, {
+            params: { serialNumber: encoder.serialNumber }
+        });
+
+        promise.then(function(data) {
+            console.log("stopEncoder - return from server call");
+            // set status in redux
         });
     };
 }

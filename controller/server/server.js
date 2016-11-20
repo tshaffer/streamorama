@@ -9,18 +9,14 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-console.log("launch streamorama server app");
-
 app.use('/', express.static(path.join(__dirname, '../client/')));
+
 
 app.get('/setEncoderParams', function(req, res) {
 
     console.log("setEncoderParams invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
-    // var encoderParams = req.query;
-    // console.log(encoderParams);
     var encoderParamsStr = req.query.encoderParams;
     var encoderParams = JSON.parse(encoderParamsStr);
 
@@ -39,6 +35,49 @@ app.get('/setEncoderParams', function(req, res) {
     res.send("ok");
 });
 
+app.get('/getEncoderTargetStatus', function(req, res) {
+
+    console.log("getEncoderTargetStatus invoked");
+    res.set('Access-Control-Allow-Origin', '*');
+
+    var serialNumber = req.query.serialNumber;
+    console.log("serialNumber: ", serialNumber);
+
+    var brightSignEncoder = brightSignEncoders[serialNumber];
+    if (brightSignEncoder) {
+        res.send(brightSignEncoder);
+    }
+});
+
+app.get('/startEncoder', function(req, res) {
+
+    console.log("setEncoderStatus invoked");
+    res.set('Access-Control-Allow-Origin', '*');
+
+    var serialNumber = req.query.serialNumber;
+    console.log("serialNumber: ", serialNumber);
+
+    var encoderTargetStatus = {};
+    encoderTargetStatus.encoding = true;
+    brightSignEncoders[serialNumber] = encoderTargetStatus;
+
+    res.send("ok");
+});
+
+app.get('/stopEncoder', function(req, res) {
+
+    console.log("setEncoderStatus invoked");
+    res.set('Access-Control-Allow-Origin', '*');
+
+    var serialNumber = req.query.serialNumber;
+    console.log("serialNumber: ", serialNumber);
+
+    var encoderTargetStatus = {};
+    encoderTargetStatus.encoding = false;
+    brightSignEncoders[serialNumber] = encoderTargetStatus;
+
+    res.send("ok");
+});
 
 function send200(response) {
     response.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -46,7 +85,9 @@ function send200(response) {
     response.end();
 }
 
-console.log("streamorama server listening on port 8080");
+var brightSignEncoders = {};
+
+console.log("launch streamorama server - listening on port 8080");
 
 var port = process.env.PORT || 8080;
 app.listen(port);

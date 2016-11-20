@@ -1,12 +1,12 @@
 {
 	"1": {
-		"name": "encoder1",
+		"name": "1",
 		"serialNumber": "1",
 		"source": "HDMI",
 		"streamType": "Multicast",
 		"protocol": "UDP",
 		"ttl": "1",
-		"destinationAddress": "239.194.0.1",
+		"destinationAddress": "239.194.0.2",
 		"port": "1234",
 		"maxBitrate": "6.0",
 		"fileName": "",
@@ -15,7 +15,7 @@
 		"bitRate": "2.0"
 	},
 	"2": {
-		"name": "encoder2",
+		"name": "2",
 		"serialNumber": "2",
 		"source": "HDMI",
 		"streamType": "Multicast",

@@ -13,10 +13,23 @@ class BrightSigns extends Component {
         console.log(encoder);
     }
 
+    handleStartEncoder(encoder) {
+        console.log('handleStartEncoder');
+        console.log(encoder);
+        this.props.startEncoder(encoder);
+    }
+
+    handleStopEncoder(encoder) {
+        console.log('handleStopEncoder');
+        console.log(encoder);
+        this.props.stopEncoder(encoder);
+    }
+
     buildEncoderRow(encoder) {
 
         const style = {
-            margin: 12,
+            // margin: 12,
+            margin: 0,
         };
 
         // onClick={this.handleEditEncoder.bind(this)}
@@ -47,7 +60,20 @@ class BrightSigns extends Component {
                         label="Edit"
                         style={style}
                     />
-
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleStartEncoder(encoder)}
+                        label="Start"
+                        style={style}
+                    />
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleStopEncoder(encoder)}
+                        label="Stop"
+                        style={style}
+                    />
                 </TableRowColumn>
             </TableRow>
         );
@@ -93,7 +119,9 @@ class BrightSigns extends Component {
                                 <TableHeaderColumn>Address</TableHeaderColumn>
                                 <TableHeaderColumn>Port</TableHeaderColumn>
                                 <TableHeaderColumn>Format</TableHeaderColumn>
-                                <TableHeaderColumn>Edit</TableHeaderColumn>
+                                <TableHeaderColumn/>
+                                <TableHeaderColumn/>
+                                <TableHeaderColumn/>
                             </TableRow>
                         </TableHeader>
                         <TableBody
@@ -110,7 +138,9 @@ class BrightSigns extends Component {
 }
 
 BrightSigns.propTypes = {
-    encoders: React.PropTypes.object.isRequired
+    encoders: React.PropTypes.object.isRequired,
+    startEncoder: React.PropTypes.func.isRequired,
+    stopEncoder: React.PropTypes.func.isRequired
 };
 
 export default BrightSigns;
