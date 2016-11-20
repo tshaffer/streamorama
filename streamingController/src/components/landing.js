@@ -13,8 +13,8 @@ class Landing extends Component {
         hashHistory.push('/assignDecoderToEncoder');
     }
 
-    handleViewBrightSigns() {
-        hashHistory.push('/viewBrightSigns');
+    handleBrightSigns() {
+        hashHistory.push('/brightSigns');
     }
 
     render() {
@@ -40,8 +40,8 @@ class Landing extends Component {
                 />
 
                 <RaisedButton
-                    onClick={this.handleViewBrightSigns.bind(this)}
-                    label="View BrightSigns"
+                    onClick={this.handleBrightSigns.bind(this)}
+                    label="BrightSigns"
                     style={style}
                 />
             </div>
