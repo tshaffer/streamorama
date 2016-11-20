@@ -19,19 +19,8 @@ app.get('/setEncoderParams', function(req, res) {
     console.log("setEncoderParams invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
-    // check what's in req.query
-    // var name = req.query.name;
-    //
-    // var promise = dbController.getBSNPresentation(name);
-    // promise.then(function(bsnPresentation) {
-    //     var response = {};
-    //     response.bsnPresentation = bsnPresentation;
-    //     res.send(response);
-    // }, function(err) {
-    //     res.send("fail");
-    // });
-
-    // console.log(encoderParams);
+    var encoderParams = req.query;
+    console.log(encoderParams);
 
     // read existing file
     var str = fs.readFileSync("encoders.json", "ascii");
@@ -43,8 +32,9 @@ app.get('/setEncoderParams', function(req, res) {
 
     // write updated file
     var encodersStr = JSON.stringify(encoders, null, '\t');
-    fs.writeFileSync("encoders.json", encodersStr);
+    // fs.writeFileSync("encoders.json", encodersStr);
 
+    res.send("ok");
 });
 
 
@@ -53,32 +43,6 @@ function send200(response) {
     response.write('200: OK');
     response.end();
 }
-
-// var server = http.createServer(function (request, response) {
-//
-//     console.log("server callback invoked");
-//
-//     var responseData = {};
-//     responseData.serverResponse = response;
-//
-//     var filePath = false;
-//
-//     parsedUrl = url.parse(request.url, true);
-//
-//     console.log("request url");
-//     console.log(request.url);
-//     console.log("parsed url pathname");
-//     console.log(parsedUrl.pathname);
-//     console.log("parsed url query");
-//     console.log(parsedUrl.query);
-//
-//     send200(response);
-// });
-//
-// server.listen(8080, function () {
-//     console.log("Server listening on port 8080.");
-// });
-//
 
 console.log("streamorama server listening on port 8080");
 
