@@ -14,9 +14,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import reducers from './reducers';
 
 import App from './containers/app';
-import EncoderContainer from './containers/encoderContainer';
+import EncoderContainer from './containers/EncoderContainer';
 import AssignDecoderToEncoder from './components/AssignDecoderToEncoder';
-import BrightSigns from './components/BrightSigns';
+import BrightSignsContainer from './containers/BrightSignsContainer';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -35,7 +35,7 @@ ReactDOM.render(
             <Route path="/" component={App} />
             <Route path="/addEncoder" component={EncoderContainer} />
             <Route path="/assignDecoderToEncoder" component={AssignDecoderToEncoder} />
-            <Route path="/brightSigns" component={BrightSigns} />
+            <Route path="/brightSigns" component={BrightSignsContainer} />
         </Router>
     </Provider>
     , document.getElementById('content'));
