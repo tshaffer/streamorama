@@ -12,27 +12,32 @@ class BrightSigns extends Component {
         return (
             <TableRow>
                 <TableRowColumn>
-                    HDMI
+                    {encoder.name}
                 </TableRowColumn>
                 <TableRowColumn>
-                    239.194.0.2
+                    {encoder.source}
                 </TableRowColumn>
                 <TableRowColumn>
-                    720p30
+                    {encoder.protocol}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.destinationAddress}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.port}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.videoFormat}
                 </TableRowColumn>
             </TableRow>
         );
     }
 
     buildEncoderRows() {
-        // let encoderRows = this.props.encoders.map(function (encoder, index) {
-        //     return this.buildEncoderRow(encoder);
-        // });
 
         const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
 
         let encoderRows = [];
-
 
         for (let serialNumber in encodersBySerialNumber) {
             if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
@@ -43,29 +48,6 @@ class BrightSigns extends Component {
 
         return encoderRows;
     }
-
-// {/*<TableRow>*/}
-// {/*<TableRowColumn>*/}
-// {/*HDMI*/}
-// {/*</TableRowColumn>*/}
-// {/*<TableRowColumn>*/}
-// {/*239.194.0.2*/}
-// </TableRowColumn>
-// <TableRowColumn>
-// 720p30
-// </TableRowColumn>
-// </TableRow>
-// <TableRow>
-// <TableRowColumn>
-//     HDMI
-//     </TableRowColumn>
-// <TableRowColumn>
-//     239.194.0.3
-// </TableRowColumn>
-// <TableRowColumn>
-//     1080i60
-// </TableRowColumn>
-// </TableRow>
 
     render() {
 
@@ -85,8 +67,11 @@ class BrightSigns extends Component {
                             enableSelectAll={false}
                         >
                             <TableRow>
+                                <TableHeaderColumn>Name</TableHeaderColumn>
                                 <TableHeaderColumn>Source</TableHeaderColumn>
+                                <TableHeaderColumn>Protocol</TableHeaderColumn>
                                 <TableHeaderColumn>Address</TableHeaderColumn>
+                                <TableHeaderColumn>Port</TableHeaderColumn>
                                 <TableHeaderColumn>Format</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>

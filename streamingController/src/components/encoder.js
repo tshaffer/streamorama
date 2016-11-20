@@ -31,6 +31,9 @@ class Encoder extends Component {
 
         let encoder = {};
 
+        encoder.name = this.nameField.input.value;
+        encoder.serialNumber = this.serialNumberField.input.value;
+
         if (this.state.sourceValue === 0) {
             encoder.source = "HDMI";
         }
@@ -77,8 +80,6 @@ class Encoder extends Component {
         }
 
         encoder.bitRate = this.bitrateField.state.value.toFixed(1);
-
-        encoder.serialNumber = this.serialNumberField.input.value;
 
         this.props.addEncoder(encoder);
     }
