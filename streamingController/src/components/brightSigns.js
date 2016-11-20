@@ -4,13 +4,25 @@ import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class BrightSigns extends Component {
 
+    handleEditEncoder(encoder) {
+        console.log('handleEditEncoder');
+        console.log(encoder);
+    }
+
     buildEncoderRow(encoder) {
 
+        const style = {
+            margin: 12,
+        };
+
+        // onClick={this.handleEditEncoder.bind(this)}
+
         return (
-            <TableRow>
+            <TableRow key={encoder.serialNumber}>
                 <TableRowColumn>
                     {encoder.name}
                 </TableRowColumn>
@@ -28,6 +40,14 @@ class BrightSigns extends Component {
                 </TableRowColumn>
                 <TableRowColumn>
                     {encoder.videoFormat}
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleEditEncoder(encoder)}
+                        label="Edit"
+                        style={style}
+                    />
+
                 </TableRowColumn>
             </TableRow>
         );
@@ -73,6 +93,7 @@ class BrightSigns extends Component {
                                 <TableHeaderColumn>Address</TableHeaderColumn>
                                 <TableHeaderColumn>Port</TableHeaderColumn>
                                 <TableHeaderColumn>Format</TableHeaderColumn>
+                                <TableHeaderColumn>Edit</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody
