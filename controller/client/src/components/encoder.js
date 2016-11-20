@@ -27,7 +27,7 @@ class Encoder extends Component {
     }
 
     handleAddEncoder(event) {
-        console.log('handleStartStreaming');
+        console.log('handleAddEncoder');
 
         let encoder = {};
 

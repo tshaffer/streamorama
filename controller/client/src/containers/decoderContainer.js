@@ -2,19 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Encoder from '../components/encoder';
+import Decoder from '../components/decoder';
 
-import { addEncoder } from '../actions/index';
+import { addDecoder } from '../actions/index';
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     bindActionCreators(
-        { addEncoder },
+        { addDecoder },
         dispatch)
 );
 
-const EncoderContainer = connect(
+const DecoderContainer = connect(
     null,
     mapDispatchToProps
-)(Encoder);
+)(Decoder);
 
-export default EncoderContainer;
+export default DecoderContainer;

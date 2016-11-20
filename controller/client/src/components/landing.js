@@ -9,6 +9,10 @@ class Landing extends Component {
         hashHistory.push('/addEncoder');
     }
 
+    handleAddDecoder() {
+        hashHistory.push('/addDecoder');
+    }
+
     handleAssignDecoderToEncoder() {
         hashHistory.push('/assignDecoderToEncoder');
     }
@@ -30,6 +34,12 @@ class Landing extends Component {
                 <RaisedButton
                     onClick={this.handleAddEncoder.bind(this)}
                     label="Add Encoder"
+                    style={style}
+                />
+
+                <RaisedButton
+                    onClick={this.handleAddDecoder.bind(this)}
+                    label="Add Decoder"
                     style={style}
                 />
 

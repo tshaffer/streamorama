@@ -11,6 +11,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, '../client/')));
 
+app.get('/addDecoder', function (req, res) {
+
+    console.log("setEncoderParams invoked");
+    res.set('Access-Control-Allow-Origin', '*');
+
+    var paramsStr = req.query.decoderParams;
+    var params = JSON.parse(paramsStr);
+    var name = params.name;
+    var serialNumber = params.serialNumber;
+    
+    res.send('ok');
+});
+
 
 app.get('/setEncoderParams', function(req, res) {
 
@@ -46,6 +59,10 @@ app.get('/getEncoderTargetStatus', function(req, res) {
     var brightSignEncoder = brightSignEncoders[serialNumber];
     if (brightSignEncoder) {
         res.send(brightSignEncoder);
+    }
+    else {
+        // no status on this encoder - let client know
+        res.sendStatus(204);
     }
 });
 

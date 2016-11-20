@@ -15,6 +15,7 @@ import reducers from './reducers';
 
 import App from './containers/app';
 import EncoderContainer from './containers/EncoderContainer';
+import DecoderContainer from './containers/DecoderContainer';
 import AssignDecoderToEncoder from './components/AssignDecoderToEncoder';
 import BrightSignsContainer from './containers/BrightSignsContainer';
 
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={App} />
             <Route path="/addEncoder" component={EncoderContainer} />
+            <Route path="/addDecoder" component={DecoderContainer} />
             <Route path="/assignDecoderToEncoder" component={AssignDecoderToEncoder} />
             <Route path="/brightSigns" component={BrightSignsContainer} />
         </Router>

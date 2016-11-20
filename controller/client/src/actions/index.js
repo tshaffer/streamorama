@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const ADD_ENCODER = 'ADD_ENCODER';
+export const ADD_DECODER = 'ADD_DECODER';
 
 function addEncoderToRedux(encoder) {
 
@@ -61,3 +62,30 @@ export function stopEncoder(encoder) {
         });
     };
 }
+
+function addDecoderToRedux(decoder) {
+
+    console.log("index.js::addDecoder");
+    return {
+        type: ADD_DECODER,
+        decoder
+    };
+}
+
+export function addDecoder(decoder) {
+
+    return function (dispatch, getState) {
+
+        dispatch(addDecoderToRedux(decoder));
+
+        let serverURL = "http://localhost:8080/addDecoder";
+
+        return axios.get(serverURL, {
+            params: { decoderParams: decoder }
+        }).then(function(data) {
+            console.log("addDecoder - return from server call");
+            console.log(data);
+        });
+    };
+}
+
