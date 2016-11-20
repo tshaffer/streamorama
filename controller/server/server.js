@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 console.log("launch streamorama server app");
 
-app.use('/', express.static(path.join(__dirname, '../streamingController/')));
+app.use('/', express.static(path.join(__dirname, '../client/')));
 
 app.get('/setEncoderParams', function(req, res) {
 
