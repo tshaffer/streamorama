@@ -21,7 +21,7 @@ class Encoder extends Component {
             videoCodecValue: 0,
             videoFormatValue: 0,
             maxBitrateValue: 2,
-            destinationAddress: "239.194.0.2",
+            destinationAddress: "239.0.153.200",
             bitrateValue: 2
         };
     }
@@ -80,6 +80,19 @@ class Encoder extends Component {
         }
 
         encoder.bitRate = this.bitrateField.state.value.toFixed(1);
+
+        // build pipeline and stream strings
+        const vBitRate = (Number(encoder.bitRate) * 1000).toString();
+        const maxBitrate = (Number(encoder.maxBitrate) * 1000).toString();
+
+        let str = "hdmi:, ";
+        str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + vBitRate;
+        str = str + ", " + encoder.protocol.toLowerCase() + "://";
+        str = str + encoder.destinationAddress + ":" + encoder.port + "/?ttl=" + encoder.ttl;
+        str = str + "&maxbitrate=" + maxBitrate;
+        encoder.pipeline = str;
+
+        encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
 
         this.props.addEncoder(encoder);
     }
@@ -194,7 +207,7 @@ class Encoder extends Component {
                                 ref={(c) => {
                                     self.destinationAddressField = c;
                                 }}
-                                defaultValue="239.194.0.2"
+                                defaultValue="239.0.153.200"
                                 floatingLabelText="Destination Address"
                                 floatingLabelFixed={true}
                             />
