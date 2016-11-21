@@ -132,33 +132,26 @@ class BrightSigns extends Component {
                     </Table>
 
                     <Table>
-                        <TableHeader>
+                        <TableHeader
+                            displaySelectAll={false}
+                            adjustForCheckbox={false}
+                            enableSelectAll={false}
+                        >
                             <TableRow>
-                                <TableHeaderColumn>ID</TableHeaderColumn>
                                 <TableHeaderColumn>Name</TableHeaderColumn>
-                                <TableHeaderColumn>Status</TableHeaderColumn>
+                                <TableHeaderColumn>Serial Number</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody
+                            displayRowCheckbox={false}
+                        >
                             <TableRow>
-                                <TableRowColumn>1</TableRowColumn>
-                                <TableRowColumn>John Smith</TableRowColumn>
-                                <TableRowColumn>Employed</TableRowColumn>
+                                <TableRowColumn>d1</TableRowColumn>
+                                <TableRowColumn>dsn1</TableRowColumn>
                             </TableRow>
                             <TableRow>
-                                <TableRowColumn>2</TableRowColumn>
-                                <TableRowColumn>Randal White</TableRowColumn>
-                                <TableRowColumn>Unemployed</TableRowColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableRowColumn>3</TableRowColumn>
-                                <TableRowColumn>Stephanie Sanders</TableRowColumn>
-                                <TableRowColumn>Employed</TableRowColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableRowColumn>4</TableRowColumn>
-                                <TableRowColumn>Steve Brown</TableRowColumn>
-                                <TableRowColumn>Employed</TableRowColumn>
+                                <TableRowColumn>d2</TableRowColumn>
+                                <TableRowColumn>dsn2</TableRowColumn>
                             </TableRow>
                         </TableBody>
                     </Table>
