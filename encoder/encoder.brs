@@ -39,7 +39,7 @@ Function encoder_ProcessEvent(event As Object) as Boolean
     print "encoder_ProcessEvent"
 
     retVal = false
-    
+
 	if type(event) = "roTimerEvent" then
 		if type(m.timer) = "roTimer" and event.GetSourceIdentity() = m.timer.GetIdentity() then
 		    m.ProcessTimerEvent()
@@ -53,6 +53,11 @@ end Function
 
 
 Function encoder_ProcessTimerEvent()
+
+    url = CreateObject("roUrlTransfer")
+    url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=1")
+    encoderTargetStatus$ = url.GetToString()
+    print encoderTargetStatus$
 
     stop
 
