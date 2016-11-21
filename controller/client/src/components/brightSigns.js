@@ -97,6 +97,12 @@ class BrightSigns extends Component {
 
     render() {
 
+        const style = {
+            // margin: 12,
+            margin: 0,
+        };
+
+
         const encoderRows = this.buildEncoderRows();
 
         return (
@@ -140,6 +146,7 @@ class BrightSigns extends Component {
                             <TableRow>
                                 <TableHeaderColumn>Name</TableHeaderColumn>
                                 <TableHeaderColumn>Serial Number</TableHeaderColumn>
+                                <TableHeaderColumn/>
                             </TableRow>
                         </TableHeader>
                         <TableBody
@@ -148,10 +155,22 @@ class BrightSigns extends Component {
                             <TableRow>
                                 <TableRowColumn>d1</TableRowColumn>
                                 <TableRowColumn>dsn1</TableRowColumn>
+                                <TableRowColumn>
+                                    <RaisedButton
+                                        label="Edit"
+                                        style={style}
+                                    />
+                                </TableRowColumn>
                             </TableRow>
                             <TableRow>
                                 <TableRowColumn>d2</TableRowColumn>
                                 <TableRowColumn>dsn2</TableRowColumn>
+                                <TableRowColumn>
+                                    <RaisedButton
+                                        label="Edit"
+                                        style={style}
+                                    />
+                                </TableRowColumn>
                             </TableRow>
                         </TableBody>
                     </Table>
