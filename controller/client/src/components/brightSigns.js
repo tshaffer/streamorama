@@ -52,7 +52,7 @@ class BrightSigns extends Component {
         };
 
         return (
-            <TableRow>
+            <TableRow key="0">
                 <TableRowColumn>d1</TableRowColumn>
                 <TableRowColumn>dsn1</TableRowColumn>
                 <TableRowColumn>
@@ -73,7 +73,7 @@ class BrightSigns extends Component {
         };
 
         return (
-            <TableRow>
+            <TableRow key="1">
                 <TableRowColumn>d2</TableRowColumn>
                 <TableRowColumn>dsn2</TableRowColumn>
                 <TableRowColumn>
