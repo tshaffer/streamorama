@@ -89,16 +89,28 @@ class BrightSigns extends Component {
 
 
         return (
-            <TableRow>
-                <TableRowColumn>d1</TableRowColumn>
-                <TableRowColumn>dsn1</TableRowColumn>
-                <TableRowColumn>
-                    <RaisedButton
-                        label="Edit"
-                        style={style}
-                    />
-                </TableRowColumn>
-            </TableRow>
+            <div>
+                <TableRow>
+                    <TableRowColumn>d1</TableRowColumn>
+                    <TableRowColumn>dsn1</TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton
+                            label="Edit"
+                            style={style}
+                        />
+                    </TableRowColumn>
+                </TableRow>
+                <TableRow>
+                    <TableRowColumn>d2</TableRowColumn>
+                    <TableRowColumn>dsn2</TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton
+                            label="Edit"
+                            style={style}
+                        />
+                    </TableRowColumn>
+                </TableRow>
+            </div>
         );
     }
 
