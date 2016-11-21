@@ -44,49 +44,12 @@ class BrightSigns extends Component {
         );
     }
 
-    buildDecoderRows() {
-
-        // const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
-        //
-        // let decoderRows = [];
-        //
-        // for (let serialNumber in decodersBySerialNumber) {
-        //     if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
-        //         const decoder = decodersBySerialNumber[serialNumber];
-        //         decoderRows.push(this.buildDecoderRow(decoder));
-        //     }
-        // }
-        //
-        // return decoderRows;
-
-        // {/*<div>*/}
-        //     {/*<TableRow>*/}
-        //         {/*<TableRowColumn>d1</TableRowColumn>*/}
-        //         {/*<TableRowColumn>dsn1</TableRowColumn>*/}
-        //         {/*<TableRowColumn>*/}
-        //             {/*<RaisedButton*/}
-        //                 {/*label="Edit"*/}
-        //                 {/*style={style}*/}
-        //             {/*/>*/}
-        //         {/*</TableRowColumn>*/}
-        //     {/*</TableRow>*/}
-        //     {/*<TableRow>*/}
-        //         <TableRowColumn>d2</TableRowColumn>
-        //         <TableRowColumn>dsn2</TableRowColumn>
-        //         <TableRowColumn>
-        //             <RaisedButton
-        //                 label="Edit"
-        //                 style={style}
-        //             />
-        //         </TableRowColumn>
-        //     </TableRow>
-        // </div>
+    buildDecoderRow0() {
 
         const style = {
             // margin: 12,
             margin: 0,
         };
-
 
         return (
             <TableRow>
@@ -101,6 +64,94 @@ class BrightSigns extends Component {
             </TableRow>
         );
     }
+
+    buildDecoderRow1() {
+
+        const style = {
+            // margin: 12,
+            margin: 0,
+        };
+
+        return (
+            <TableRow>
+                <TableRowColumn>d2</TableRowColumn>
+                <TableRowColumn>dsn2</TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        label="Edit"
+                        style={style}
+                    />
+                </TableRowColumn>
+            </TableRow>
+        );
+    }
+
+    buildDecoderRows() {
+
+        let decoderRows = [];
+        decoderRows.push(this.buildDecoderRow0());
+        decoderRows.push(this.buildDecoderRow1());
+
+        return decoderRows;
+    }
+
+    // buildDecoderRows() {
+
+    // const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
+    //
+    // let decoderRows = [];
+    //
+    // for (let serialNumber in decodersBySerialNumber) {
+    //     if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
+    //         const decoder = decodersBySerialNumber[serialNumber];
+    //         decoderRows.push(this.buildDecoderRow(decoder));
+    //     }
+    // }
+    //
+    // return decoderRows;
+
+    // {/*<div>*/}
+    //     {/*<TableRow>*/}
+    //         {/*<TableRowColumn>d1</TableRowColumn>*/}
+    //         {/*<TableRowColumn>dsn1</TableRowColumn>*/}
+    //         {/*<TableRowColumn>*/}
+    //             {/*<RaisedButton*/}
+    //                 {/*label="Edit"*/}
+    //                 {/*style={style}*/}
+    //             {/*/>*/}
+    //         {/*</TableRowColumn>*/}
+    //     {/*</TableRow>*/}
+    //     {/*<TableRow>*/}
+    //         <TableRowColumn>d2</TableRowColumn>
+    //         <TableRowColumn>dsn2</TableRowColumn>
+    //         <TableRowColumn>
+    //             <RaisedButton
+    //                 label="Edit"
+    //                 style={style}
+    //             />
+    //         </TableRowColumn>
+    //     </TableRow>
+    // </div>
+
+    // const style = {
+    //     // margin: 12,
+    //     margin: 0,
+    // };
+
+
+    //     return (
+    //         <TableRow>
+    //             <TableRowColumn>d1</TableRowColumn>
+    //             <TableRowColumn>dsn1</TableRowColumn>
+    //             <TableRowColumn>
+    //                 <RaisedButton
+    //                     label="Edit"
+    //                     style={style}
+    //                 />
+    //             </TableRowColumn>
+    //         </TableRow>
+    //     );
+    // }
 
 
     render() {
