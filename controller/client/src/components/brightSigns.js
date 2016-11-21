@@ -25,57 +25,62 @@ class BrightSigns extends Component {
         this.props.stopEncoder(encoder);
     }
 
+    handleEditDecoder(decoder) {
+        console.log('handleEditDecoder');
+        console.log(decoder);
+    }
+
     buildEncoderRow(encoder) {
 
         const style = {
             // margin: 12,
             margin: 0,
         };
-
-        // onClick={this.handleEditEncoder.bind(this)}
-
+        
         return (
-            <TableRow key={encoder.serialNumber}>
-                <TableRowColumn>
-                    {encoder.name}
-                </TableRowColumn>
-                <TableRowColumn>
-                    {encoder.source}
-                </TableRowColumn>
-                <TableRowColumn>
-                    {encoder.protocol}
-                </TableRowColumn>
-                <TableRowColumn>
-                    {encoder.destinationAddress}
-                </TableRowColumn>
-                <TableRowColumn>
-                    {encoder.port}
-                </TableRowColumn>
-                <TableRowColumn>
-                    {encoder.videoFormat}
-                </TableRowColumn>
-                <TableRowColumn>
-                    <RaisedButton
-                        onClick={() => this.handleEditEncoder(encoder)}
-                        label="Edit"
-                        style={style}
-                    />
-                </TableRowColumn>
-                <TableRowColumn>
-                    <RaisedButton
-                        onClick={() => this.handleStartEncoder(encoder)}
-                        label="Start"
-                        style={style}
-                    />
-                </TableRowColumn>
-                <TableRowColumn>
-                    <RaisedButton
-                        onClick={() => this.handleStopEncoder(encoder)}
-                        label="Stop"
-                        style={style}
-                    />
-                </TableRowColumn>
-            </TableRow>
+            <div>
+                <TableRow key={encoder.serialNumber}>
+                    <TableRowColumn>
+                        {encoder.name}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        {encoder.source}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        {encoder.protocol}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        {encoder.destinationAddress}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        {encoder.port}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        {encoder.videoFormat}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton
+                            onClick={() => this.handleEditEncoder(encoder)}
+                            label="Edit"
+                            style={style}
+                        />
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton
+                            onClick={() => this.handleStartEncoder(encoder)}
+                            label="Start"
+                            style={style}
+                        />
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton
+                            onClick={() => this.handleStopEncoder(encoder)}
+                            label="Stop"
+                            style={style}
+                        />
+                    </TableRowColumn>
+                </TableRow>
+            </div>
         );
     }
 
@@ -95,9 +100,55 @@ class BrightSigns extends Component {
         return encoderRows;
     }
 
+    buildDecoderRow(decoder) {
+
+        const style = {
+            // margin: 12,
+            margin: 0,
+        };
+
+        return (
+            <div>
+                <TableRow key={decoder.serialNumber}>
+                    <TableRowColumn>
+                        {decoder.name}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        {decoder.serialNumber}
+                    </TableRowColumn>
+                    <TableRowColumn>
+                        <RaisedButton
+                            onClick={() => this.handleEditDecoder(decoder)}
+                            label="Edit"
+                            style={style}
+                        />
+                    </TableRowColumn>
+                </TableRow>
+            </div>
+        );
+    }
+
+    buildDecoderRows() {
+
+        const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
+
+        let decoderRows = [];
+
+        for (let serialNumber in decodersBySerialNumber) {
+            if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
+                const decoder = decodersBySerialNumber[serialNumber];
+                decoderRows.push(this.buildDecoderRow(decoder));
+            }
+        }
+
+        return decoderRows;
+    }
+
+
     render() {
 
         const encoderRows = this.buildEncoderRows();
+        const decoderRows = this.buildDecoderRows();
 
         return (
 
@@ -105,8 +156,7 @@ class BrightSigns extends Component {
 
                 <div>
                     <Link to="/">Back</Link>
-                    <Table
-                    >
+                    <Table>
                         <TableHeader
                             displaySelectAll={false}
                             adjustForCheckbox={false}
@@ -130,6 +180,25 @@ class BrightSigns extends Component {
                             {encoderRows}
                         </TableBody>
                     </Table>
+
+                    <Table>
+                        <TableHeader
+                            displaySelectAll={false}
+                            adjustForCheckbox={false}
+                            enableSelectAll={false}
+                        >
+                            <TableRow>
+                                <TableHeaderColumn>Name</TableHeaderColumn>
+                                <TableHeaderColumn>Serial Number</TableHeaderColumn>
+                                <TableHeaderColumn/>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody
+                            displayRowCheckbox={false}
+                        >
+                            {decoderRows}
+                        </TableBody>
+                    </Table>
                 </div>
 
             </MuiThemeProvider>
@@ -139,8 +208,36 @@ class BrightSigns extends Component {
 
 BrightSigns.propTypes = {
     encoders: React.PropTypes.object.isRequired,
+    decoders: React.PropTypes.object.isRequired,
     startEncoder: React.PropTypes.func.isRequired,
     stopEncoder: React.PropTypes.func.isRequired
 };
 
 export default BrightSigns;
+
+// <p
+//     className="sectionHeader">
+//     Encoders
+// </p>
+
+// <p
+//     className="sectionHeader">
+//     Decoders
+// </p>
+// <Table>
+// <TableHeader
+// displaySelectAll={false}
+// adjustForCheckbox={false}
+// enableSelectAll={false}
+//     >
+//     <TableRow>
+//     <TableHeaderColumn>Name</TableHeaderColumn>
+//     <TableHeaderColumn>Serial Number</TableHeaderColumn>
+// </TableRow>
+// </TableHeader>
+// <TableBody
+// displayRowCheckbox={false}
+//     >
+//     {decoderRows}
+// </TableBody>
+// </Table>

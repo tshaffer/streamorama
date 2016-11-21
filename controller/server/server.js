@@ -20,7 +20,7 @@ app.get('/addDecoder', function (req, res) {
     var params = JSON.parse(paramsStr);
     var name = params.name;
     var serialNumber = params.serialNumber;
-    
+
     res.send('ok');
 });
 

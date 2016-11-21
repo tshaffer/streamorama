@@ -6,7 +6,8 @@ import BrightSigns from '../components/brightSigns';
 import { startEncoder, stopEncoder } from '../actions/index';
 
 const mapStateToProps = (state, ownProps) => ( {
-    encoders: state.encoders
+    encoders: state.encoders,
+    decoders: state.decoders
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => (
