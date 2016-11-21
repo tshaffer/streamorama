@@ -38,49 +38,47 @@ class BrightSigns extends Component {
         };
         
         return (
-            <div>
-                <TableRow key={encoder.serialNumber}>
-                    <TableRowColumn>
-                        {encoder.name}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.source}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.protocol}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.destinationAddress}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.port}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.videoFormat}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleEditEncoder(encoder)}
-                            label="Edit"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleStartEncoder(encoder)}
-                            label="Start"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleStopEncoder(encoder)}
-                            label="Stop"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                </TableRow>
-            </div>
+            <TableRow key={encoder.serialNumber}>
+                <TableRowColumn>
+                    {encoder.name}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.source}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.protocol}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.destinationAddress}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.port}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {encoder.videoFormat}
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleEditEncoder(encoder)}
+                        label="Edit"
+                        style={style}
+                    />
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleStartEncoder(encoder)}
+                        label="Start"
+                        style={style}
+                    />
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleStopEncoder(encoder)}
+                        label="Stop"
+                        style={style}
+                    />
+                </TableRowColumn>
+            </TableRow>
         );
     }
 
@@ -108,23 +106,21 @@ class BrightSigns extends Component {
         };
 
         return (
-            <div>
-                <TableRow key={decoder.serialNumber}>
-                    <TableRowColumn>
-                        {decoder.name}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {decoder.serialNumber}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleEditDecoder(decoder)}
-                            label="Edit"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                </TableRow>
-            </div>
+            <TableRow key={decoder.serialNumber}>
+                <TableRowColumn>
+                    {decoder.name}
+                </TableRowColumn>
+                <TableRowColumn>
+                    {decoder.serialNumber}
+                </TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        onClick={() => this.handleEditDecoder(decoder)}
+                        label="Edit"
+                        style={style}
+                    />
+                </TableRowColumn>
+            </TableRow>
         );
     }
 
@@ -214,30 +210,3 @@ BrightSigns.propTypes = {
 };
 
 export default BrightSigns;
-
-// <p
-//     className="sectionHeader">
-//     Encoders
-// </p>
-
-// <p
-//     className="sectionHeader">
-//     Decoders
-// </p>
-// <Table>
-// <TableHeader
-// displaySelectAll={false}
-// adjustForCheckbox={false}
-// enableSelectAll={false}
-//     >
-//     <TableRow>
-//     <TableHeaderColumn>Name</TableHeaderColumn>
-//     <TableHeaderColumn>Serial Number</TableHeaderColumn>
-// </TableRow>
-// </TableHeader>
-// <TableBody
-// displayRowCheckbox={false}
-//     >
-//     {decoderRows}
-// </TableBody>
-// </Table>
