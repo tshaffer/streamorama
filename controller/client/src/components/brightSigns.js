@@ -8,100 +8,16 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class BrightSigns extends Component {
 
-    handleEditEncoder(encoder) {
-        console.log('handleEditEncoder');
-        console.log(encoder);
-    }
-
-    handleStartEncoder(encoder) {
-        console.log('handleStartEncoder');
-        console.log(encoder);
-        this.props.startEncoder(encoder);
-    }
-
-    handleStopEncoder(encoder) {
-        console.log('handleStopEncoder');
-        console.log(encoder);
-        this.props.stopEncoder(encoder);
-    }
-
     handleEditDecoder(decoder) {
         console.log('handleEditDecoder');
         console.log(decoder);
     }
 
-    buildEncoderRow(encoder) {
-
-        const style = {
-            // margin: 12,
-            margin: 0,
-        };
-        
-        return (
-            <div>
-                <TableRow key={encoder.serialNumber}>
-                    <TableRowColumn>
-                        {encoder.name}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.source}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.protocol}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.destinationAddress}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.port}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        {encoder.videoFormat}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleEditEncoder(encoder)}
-                            label="Edit"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleStartEncoder(encoder)}
-                            label="Start"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                    <TableRowColumn>
-                        <RaisedButton
-                            onClick={() => this.handleStopEncoder(encoder)}
-                            label="Stop"
-                            style={style}
-                        />
-                    </TableRowColumn>
-                </TableRow>
-            </div>
-        );
-    }
-
-    buildEncoderRows() {
-
-        const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
-
-        let encoderRows = [];
-
-        for (let serialNumber in encodersBySerialNumber) {
-            if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
-                const encoder = encodersBySerialNumber[serialNumber];
-                encoderRows.push(this.buildEncoderRow(encoder));
-            }
-        }
-
-        return encoderRows;
-    }
-
     buildDecoderRow(decoder) {
 
+        console.log("buildDecoderRow");
+        console.log(decoder);
+
         const style = {
             // margin: 12,
             margin: 0,
@@ -109,7 +25,7 @@ class BrightSigns extends Component {
 
         return (
             <div>
-                <TableRow key={decoder.serialNumber}>
+                <TableRow key={decoder.serialNumber.toString()}>
                     <TableRowColumn>
                         {decoder.name}
                     </TableRowColumn>
@@ -147,7 +63,6 @@ class BrightSigns extends Component {
 
     render() {
 
-        const encoderRows = this.buildEncoderRows();
         const decoderRows = this.buildDecoderRows();
 
         return (
@@ -156,31 +71,6 @@ class BrightSigns extends Component {
 
                 <div>
                     <Link to="/">Back</Link>
-                    <Table>
-                        <TableHeader
-                            displaySelectAll={false}
-                            adjustForCheckbox={false}
-                            enableSelectAll={false}
-                        >
-                            <TableRow>
-                                <TableHeaderColumn>Name</TableHeaderColumn>
-                                <TableHeaderColumn>Source</TableHeaderColumn>
-                                <TableHeaderColumn>Protocol</TableHeaderColumn>
-                                <TableHeaderColumn>Address</TableHeaderColumn>
-                                <TableHeaderColumn>Port</TableHeaderColumn>
-                                <TableHeaderColumn>Format</TableHeaderColumn>
-                                <TableHeaderColumn/>
-                                <TableHeaderColumn/>
-                                <TableHeaderColumn/>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody
-                            displayRowCheckbox={false}
-                        >
-                            {encoderRows}
-                        </TableBody>
-                    </Table>
-
                     <Table>
                         <TableHeader
                             displaySelectAll={false}
@@ -207,37 +97,7 @@ class BrightSigns extends Component {
 }
 
 BrightSigns.propTypes = {
-    encoders: React.PropTypes.object.isRequired,
     decoders: React.PropTypes.object.isRequired,
-    startEncoder: React.PropTypes.func.isRequired,
-    stopEncoder: React.PropTypes.func.isRequired
 };
 
 export default BrightSigns;
-
-// <p
-//     className="sectionHeader">
-//     Encoders
-// </p>
-
-// <p
-//     className="sectionHeader">
-//     Decoders
-// </p>
-// <Table>
-// <TableHeader
-// displaySelectAll={false}
-// adjustForCheckbox={false}
-// enableSelectAll={false}
-//     >
-//     <TableRow>
-//     <TableHeaderColumn>Name</TableHeaderColumn>
-//     <TableHeaderColumn>Serial Number</TableHeaderColumn>
-// </TableRow>
-// </TableHeader>
-// <TableBody
-// displayRowCheckbox={false}
-//     >
-//     {decoderRows}
-// </TableBody>
-// </Table>
