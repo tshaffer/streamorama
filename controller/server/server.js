@@ -34,15 +34,15 @@ app.get('/setEncoderParams', function(req, res) {
     var encoderParams = JSON.parse(encoderParamsStr);
 
     // read existing file
-    var str = fs.readFileSync("encoders.json", "ascii");
-    var encoders = JSON.parse(str);
+    // var str = fs.readFileSync("encoders.json", "ascii");
+    // var encoders = JSON.parse(str);
 
     // add / overwrite record for encoder
     var key = encoderParams.serialNumber;
-    encoders[key] = encoderParams;
+    brightSignEncoders[key] = encoderParams;
 
     // write updated file
-    var encodersStr = JSON.stringify(encoders, null, '\t');
+    var encodersStr = JSON.stringify(brightSignEncoders, null, '\t');
     fs.writeFileSync("encoders.json", encodersStr);
 
     res.send("ok");
@@ -105,6 +105,9 @@ function send200(response) {
 var brightSignEncoders = {};
 
 console.log("launch streamorama server - listening on port 8080");
+
+var str = fs.readFileSync("encoders.json", "ascii");
+brightSignEncoders = JSON.parse(str);
 
 var port = process.env.PORT || 8080;
 app.listen(port);
