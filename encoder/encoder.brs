@@ -20,6 +20,8 @@ print "newEncoder"
     encoder.userVariables = userVariables
     encoder.bsp = bsp
 
+    encoder.isEncoding = false
+
 	encoder.timer = CreateObject("roTimer")
 	encoder.timer.SetPort(encoder.msgPort)
 	encoder.timer.SetElapsed(1, 0)
@@ -54,21 +56,36 @@ end Function
 
 Function encoder_ProcessTimerEvent()
 
-    url = CreateObject("roUrlTransfer")
-    url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=1")
-    encoderTargetStatus$ = url.GetToString()
-    print encoderTargetStatus$
+    if not m.isEncoding then
+        url = CreateObject("roUrlTransfer")
+        url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=1")
+        encoder$ = url.GetToString()
+        encoder = ParseJson(encoder$)
 
-    stop
+        pipeline$ = encoder.pipeline
+        m.StartStreaming(pipeline$)
+    endif
 
-    return false
+    return true
 
 End Function
 
 
-Sub encoder_StartStreaming(streamUrl$ As String)
+Sub encoder_StartStreaming(pipeline$ As String)
 
     print "StartStreaming"
+
+    m.streamer = CreateObject("roMediaStreamer")
+    m.pipeline$ = pipeline$
+    print "--- Starting streaming with pipeline: ";m.pipeline$
+    m.streamer.SetPipeline(m.pipeline$)
+    ok = m.streamer.Start()
+    if ok then
+        print "********************* SUCCESS ********************"
+        m.isEncoding = true
+    else
+        print "********************* FAILURE ********************"
+    endif
 
 End Sub
 
