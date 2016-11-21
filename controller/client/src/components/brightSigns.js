@@ -46,18 +46,60 @@ class BrightSigns extends Component {
 
     buildDecoderRows() {
 
-        const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
+        // const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
+        //
+        // let decoderRows = [];
+        //
+        // for (let serialNumber in decodersBySerialNumber) {
+        //     if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
+        //         const decoder = decodersBySerialNumber[serialNumber];
+        //         decoderRows.push(this.buildDecoderRow(decoder));
+        //     }
+        // }
+        //
+        // return decoderRows;
 
-        let decoderRows = [];
+        // {/*<div>*/}
+        //     {/*<TableRow>*/}
+        //         {/*<TableRowColumn>d1</TableRowColumn>*/}
+        //         {/*<TableRowColumn>dsn1</TableRowColumn>*/}
+        //         {/*<TableRowColumn>*/}
+        //             {/*<RaisedButton*/}
+        //                 {/*label="Edit"*/}
+        //                 {/*style={style}*/}
+        //             {/*/>*/}
+        //         {/*</TableRowColumn>*/}
+        //     {/*</TableRow>*/}
+        //     {/*<TableRow>*/}
+        //         <TableRowColumn>d2</TableRowColumn>
+        //         <TableRowColumn>dsn2</TableRowColumn>
+        //         <TableRowColumn>
+        //             <RaisedButton
+        //                 label="Edit"
+        //                 style={style}
+        //             />
+        //         </TableRowColumn>
+        //     </TableRow>
+        // </div>
 
-        for (let serialNumber in decodersBySerialNumber) {
-            if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
-                const decoder = decodersBySerialNumber[serialNumber];
-                decoderRows.push(this.buildDecoderRow(decoder));
-            }
-        }
+        const style = {
+            // margin: 12,
+            margin: 0,
+        };
 
-        return decoderRows;
+
+        return (
+            <TableRow>
+                <TableRowColumn>d1</TableRowColumn>
+                <TableRowColumn>dsn1</TableRowColumn>
+                <TableRowColumn>
+                    <RaisedButton
+                        label="Edit"
+                        style={style}
+                    />
+                </TableRowColumn>
+            </TableRow>
+        );
     }
 
 
