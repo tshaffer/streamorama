@@ -16,7 +16,7 @@ import reducers from './reducers';
 import App from './containers/app';
 import EncoderContainer from './containers/EncoderContainer';
 import DecoderContainer from './containers/DecoderContainer';
-import AssignDecoderToEncoder from './components/AssignDecoderToEncoder';
+import AssignEncoderToDecoderContainer from './containers/AssignEncoderToDecoderContainer';
 import BrightSignsContainer from './containers/BrightSignsContainer';
 
 // Needed for onTouchTap
@@ -36,7 +36,7 @@ ReactDOM.render(
             <Route path="/" component={App} />
             <Route path="/addEncoder" component={EncoderContainer} />
             <Route path="/addDecoder" component={DecoderContainer} />
-            <Route path="/assignDecoderToEncoder" component={AssignDecoderToEncoder} />
+            <Route path="/assignEncoderToDecoder" component={AssignEncoderToDecoderContainer} />
             <Route path="/brightSigns" component={BrightSignsContainer} />
         </Router>
     </Provider>

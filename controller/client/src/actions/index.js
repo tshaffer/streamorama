@@ -3,6 +3,11 @@ import axios from 'axios';
 export const ADD_ENCODER = 'ADD_ENCODER';
 export const ADD_DECODER = 'ADD_DECODER';
 
+export function assignEncoderToDecoder(encoder, decoder) {
+    console.log("assignEncoderToDecoder");
+
+}
+
 function addEncoderToRedux(encoder) {
 
     console.log("index.js::addEncoder");

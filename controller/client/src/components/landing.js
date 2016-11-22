@@ -13,8 +13,8 @@ class Landing extends Component {
         hashHistory.push('/addDecoder');
     }
 
-    handleAssignDecoderToEncoder() {
-        hashHistory.push('/assignDecoderToEncoder');
+    handleAssignEncoderToDecoder() {
+        hashHistory.push('/assignEncoderToDecoder');
     }
 
     handleBrightSigns() {
@@ -44,8 +44,8 @@ class Landing extends Component {
                 />
 
                 <RaisedButton
-                    onClick={this.handleAssignDecoderToEncoder.bind(this)}
-                    label="Assign Decoder to Encoder"
+                    onClick={this.handleAssignEncoderToDecoder.bind(this)}
+                    label="Assign Encoders to Decoders"
                     style={style}
                 />
 

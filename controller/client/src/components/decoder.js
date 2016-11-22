@@ -17,6 +17,7 @@ class Decoder extends Component {
 
         decoder.name = this.nameField.input.value;
         decoder.serialNumber = this.serialNumberField.input.value;
+        decoder.assignedEncoder = "";
 
         this.props.addDecoder(decoder);
     }

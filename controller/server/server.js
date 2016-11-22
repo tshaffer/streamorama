@@ -16,10 +16,16 @@ app.get('/addDecoder', function (req, res) {
     console.log("setEncoderParams invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
-    var paramsStr = req.query.decoderParams;
-    var params = JSON.parse(paramsStr);
-    var name = params.name;
-    var serialNumber = params.serialNumber;
+    var decoderParamsStr = req.query.decoderParams;
+    var decoderParams = JSON.parse(decoderParamsStr);
+
+    // add / overwrite record for decoder
+    var key = decoderParams.serialNumber;
+    brightSignDecoders[key] = decoderParams;
+
+    // write updated file
+    var decodersStr = JSON.stringify(brightSignDecoders, null, '\t');
+    fs.writeFileSync("decoders.json", decodersStr);
 
     res.send('ok');
 });
@@ -32,10 +38,6 @@ app.get('/setEncoderParams', function(req, res) {
 
     var encoderParamsStr = req.query.encoderParams;
     var encoderParams = JSON.parse(encoderParamsStr);
-
-    // read existing file
-    // var str = fs.readFileSync("encoders.json", "ascii");
-    // var encoders = JSON.parse(str);
 
     // add / overwrite record for encoder
     var key = encoderParams.serialNumber;
@@ -96,18 +98,17 @@ app.get('/stopEncoder', function(req, res) {
     res.send("ok");
 });
 
-function send200(response) {
-    response.writeHead(200, { 'Content-Type': 'text/plain' });
-    response.write('200: OK');
-    response.end();
-}
 
 var brightSignEncoders = {};
+var brightSignDecoders = {};
 
 console.log("launch streamorama server - listening on port 8080");
 
-var str = fs.readFileSync("encoders.json", "ascii");
-brightSignEncoders = JSON.parse(str);
+var encodersStr = fs.readFileSync("encoders.json", "ascii");
+brightSignEncoders = JSON.parse(encodersStr);
+
+var decodersStr = fs.readFileSync("decoders.json", "ascii");
+brightSignDecoders = JSON.parse(decodersStr);
 
 var port = process.env.PORT || 8080;
 app.listen(port);
