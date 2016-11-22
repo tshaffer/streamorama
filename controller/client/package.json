@@ -6,9 +6,9 @@
   "author": "Ted Shaffer",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js",
-    "buildW": "webpack --config ./webpackw.config.js",
-    "run": "electron ."
+    "build": "webpack --config ./webpackw.config.js",
+    "buildElectron": "webpack --config ./webpack.config.js",
+    "runElectron": "electron ."
   },
   "devDependencies": {
     "babel-core": "^6.18.2",

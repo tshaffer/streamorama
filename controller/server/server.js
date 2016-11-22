@@ -11,6 +11,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, '../client/')));
 
+app.get('/getEncoders', function(req, res) {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send(brightSignEncoders);
+});
+
+app.get('/getDecoders', function(req, res) {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send(brightSignDecoders);
+});
+
 app.get('/addDecoder', function (req, res) {
 
     console.log("setEncoderParams invoked");
