@@ -1,4 +1,4 @@
-import { ADD_ENCODER } from '../actions/index';
+import { ADD_ENCODER, SET_ENCODERS } from '../actions/index';
 
 const initialState =
     {
@@ -9,6 +9,19 @@ const initialState =
 export default function(state = initialState, action) {
 
     switch (action.type) {
+
+        case SET_ENCODERS:
+            {
+                let newEncodersBySerialNumber = Object.assign({}, action.encoders);
+
+                let newState = {
+                    encodersBySerialNumber: newEncodersBySerialNumber
+                };
+
+                // dumpState(newState);
+
+                return newState;
+            }
 
         case ADD_ENCODER:
             {

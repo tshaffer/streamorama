@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const ADD_ENCODER = 'ADD_ENCODER';
+export const SET_ENCODERS = 'SET_ENCODERS';
 export const ADD_DECODER = 'ADD_DECODER';
+export const SET_DECODERS = 'SET_DECODERS';
 
 export function assignEncoderToDecoder(encoder, decoder) {
     console.log("assignEncoderToDecoder");
@@ -14,6 +16,20 @@ function addEncoderToRedux(encoder) {
     return {
         type: ADD_ENCODER,
         encoder
+    };
+}
+
+export function setEncoders(encoders) {
+    return {
+        type: SET_ENCODERS,
+        encoders
+    };
+}
+
+export function setDecoders(decoders) {
+    return {
+        type: SET_DECODERS,
+        decoders
     };
 }
 

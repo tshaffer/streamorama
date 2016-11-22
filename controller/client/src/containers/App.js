@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import axios from 'axios';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Landing from '../components/landing';
 
+import { setEncoders, setDecoders } from '../actions/index';
+
 class App extends Component {
 
     componentWillMount() {
+
+        let self = this;
 
         let encoders = [];
         let decoders = [];
@@ -20,13 +27,8 @@ class App extends Component {
             .then(function (encodersResponse) {
                 console.log(encodersResponse);
 
-                const encodersBySerialNumber = encodersResponse.data;
-                for (let encoderSerialNumber in encodersBySerialNumber) {
-                    const encoder = encodersBySerialNumber[encoderSerialNumber];
-                    encoders.push(encoder);
-                }
-                
-                console.log("found ", encoders.length + " encoders");
+                self.props.setEncoders(encodersResponse.data);
+                console.log("populate store with encoders");
             })
             .catch(function (encodersError) {
                 console.log(encodersError);
@@ -38,13 +40,8 @@ class App extends Component {
             .then(function (decodersResponse) {
                 console.log(decodersResponse);
 
-                const decodersBySerialNumber = decodersResponse.data;
-                for (let decoderSerialNumber in decodersBySerialNumber) {
-                    const decoder = decodersBySerialNumber[decoderSerialNumber];
-                    decoders.push(decoder);
-                }
-
-                console.log("found ", decoders.length + " decoders");
+                self.props.setDecoders(decodersResponse.data);
+                console.log("populate store with decoders");
             })
             .catch(function (decodersError) {
                 console.log(decodersError);
@@ -60,4 +57,15 @@ class App extends Component {
     }
 }
 
-export default App;
+App.propTypes = {
+    setEncoders: React.PropTypes.func.isRequired,
+    setDecoders: React.PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => (
+    bindActionCreators(
+        { setEncoders, setDecoders },
+        dispatch)
+);
+
+export default connect(null, mapDispatchToProps)(App);
