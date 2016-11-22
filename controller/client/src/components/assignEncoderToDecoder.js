@@ -13,7 +13,8 @@ class AssignEncoderToDecoder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            decoderIndex: 0
+            // decoderIndex: 0
+            decoderArray: [0, 0, 0]
         };
     }
 
@@ -23,11 +24,14 @@ class AssignEncoderToDecoder extends Component {
         console.log(decoder);
     }
 
-    handleDecoderChange(event, index, decoderIndex) {
-        this.setState({decoderIndex});
+    handleDecoderChange(decoder, di, event, index, decoderIndex) {
+        const decoderArray = this.state.decoderArray;
+        decoderArray[di] = decoderIndex;
+        this.setState( { decoderArray });
+        // this.setState({decoderIndex});
     }
 
-    buildRow(decoder) {
+    buildRow(decoder, di) {
 
         const style = {
             margin: 2,
@@ -40,8 +44,14 @@ class AssignEncoderToDecoder extends Component {
                 </TableRowColumn>
                 <TableRowColumn>
                     <SelectField
-                        value={this.state.decoderIndex}
-                        onChange={this.handleDecoderChange.bind(this)}
+                        value={this.state.decoderArray[di]}
+                        onChange={ (event, index, decoderIndex) => {
+                            console.log("onChange");
+                            console.log(di);
+                            console.log(index);
+                            console.log(decoderIndex);
+                            this.handleDecoderChange(decoder, di, event, index, decoderIndex);
+                        }}
                     >
                         <MenuItem value={0} primaryText="Encoder 1"/>
                         <MenuItem value={1} primaryText="Encoder 2"/>
@@ -63,11 +73,13 @@ class AssignEncoderToDecoder extends Component {
         const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
 
         let rows = [];
+        let di = 0;
 
         for (let serialNumber in decodersBySerialNumber) {
             if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
                 const decoder = decodersBySerialNumber[serialNumber];
-                rows.push(this.buildRow(decoder));
+                rows.push(this.buildRow(decoder, di));
+                di++;
             }
         }
 
