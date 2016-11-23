@@ -114,6 +114,9 @@ class BrightSigns extends Component {
                     {decoder.serialNumber}
                 </TableRowColumn>
                 <TableRowColumn>
+                    {decoder.assignedEncoder === "" ? "None" : decoder.assignedEncoder}
+                </TableRowColumn>
+                <TableRowColumn>
                     <RaisedButton
                         onClick={() => this.handleEditDecoder(decoder)}
                         label="Edit"
@@ -186,6 +189,7 @@ class BrightSigns extends Component {
                             <TableRow>
                                 <TableHeaderColumn>Name</TableHeaderColumn>
                                 <TableHeaderColumn>Serial Number</TableHeaderColumn>
+                                <TableHeaderColumn>Assigned Encoder</TableHeaderColumn>
                                 <TableHeaderColumn/>
                             </TableRow>
                         </TableHeader>
