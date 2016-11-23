@@ -1,10 +1,17 @@
 {
 	"1": {
 		"name": "decoder1",
-		"serialNumber": "dsn1"
+		"serialNumber": "dsn1",
+		"assignedEncoder": ""
 	},
 	"2": {
 		"name": "decoder2",
-		"serialNumber": "dsn2"
+		"serialNumber": "dsn2",
+		"assignedEncoder": ""
+	},
+	"dsn3": {
+		"name": "decoder3",
+		"serialNumber": "dsn3",
+		"assignedEncoder": ""
 	}
 }
