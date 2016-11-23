@@ -12,29 +12,49 @@ class AssignEncoderToDecoder extends Component {
 
     constructor(props) {
         super(props);
+
+        // values in encoderIndicesByDecoderRow refer to index into this.props.encoders (for each decoder)
         this.state = {
-            // decoderIndex: 0
-            decoderArray: [0, 0, 0]
+            encoderIndicesByDecoderRow: [0, 0, 0]
         };
     }
 
-    handleAssignEncoderToDecoder(decoder) {
+    handleAssignEncoderToDecoder(decoder, encoder) {
         console.log("assignEncoderToDecoder:");
         console.log("decoder: ");
         console.log(decoder);
+        console.log("encoder: ");
+        console.log(encoder);
+
+        // set decoder.assigned to encoder
     }
 
-    handleDecoderChange(decoder, di, event, index, decoderIndex) {
-        const decoderArray = this.state.decoderArray;
-        decoderArray[di] = decoderIndex;
-        this.setState( { decoderArray });
+    handleEncoderChange(decoder, decoderIndex, event, index, encoderIndex) {
+        const encoderIndicesByDecoderRow = this.state.encoderIndicesByDecoderRow;
+        encoderIndicesByDecoderRow[decoderIndex] = encoderIndex;
+        this.setState( { encoderIndicesByDecoderRow });
     }
 
-    buildRow(decoder, di, encoderOptions) {
+    getEncoderByIndex(encoderIndex) {
 
-        const style = {
-            margin: 2,
-        };
+        const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
+
+        let index = 0;
+
+        for (let serialNumber in encodersBySerialNumber) {
+            if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
+                const encoder = encodersBySerialNumber[serialNumber];
+                if (encoderIndex == index ) {
+                    return encoder;
+                }
+                index++;
+            }
+        }
+    }
+
+    buildRow(decoder, decoderIndex, encoderOptions) {
+
+        let self = this;
 
         return (
             <TableRow key={decoder.serialNumber}>
@@ -43,9 +63,9 @@ class AssignEncoderToDecoder extends Component {
                 </TableRowColumn>
                 <TableRowColumn>
                     <SelectField
-                        value={this.state.decoderArray[di]}
-                        onChange={(event, index, decoderIndex) => {
-                            this.handleDecoderChange(decoder, di, event, index, decoderIndex);
+                        value={this.state.encoderIndicesByDecoderRow[decoderIndex]}
+                        onChange={(event, encoderRowIndex, encoderIndex) => {
+                            self.handleEncoderChange(decoder, decoderIndex, event, encoderRowIndex, encoderIndex);
                         }}
                     >
                         {encoderOptions}
@@ -53,9 +73,12 @@ class AssignEncoderToDecoder extends Component {
                 </TableRowColumn>
                 <TableRowColumn>
                     <RaisedButton
-                        onClick={() => this.handleAssignEncoderToDecoder(decoder)}
+                        onClick={() => {
+                            const encoderIndex = self.state.encoderIndicesByDecoderRow[decoderIndex];
+                            const encoder = self.getEncoderByIndex(encoderIndex);
+                            self.handleAssignEncoderToDecoder(decoder, encoder);
+                        }}
                         label="Assign"
-                        style={style}
                     />
                 </TableRowColumn>
             </TableRow>
@@ -67,13 +90,13 @@ class AssignEncoderToDecoder extends Component {
         const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
 
         let rows = [];
-        let di = 0;
+        let decoderIndex = 0;
 
         for (let serialNumber in decodersBySerialNumber) {
             if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
                 const decoder = decodersBySerialNumber[serialNumber];
-                rows.push(this.buildRow(decoder, di, encoderOptions));
-                di++;
+                rows.push(this.buildRow(decoder, decoderIndex, encoderOptions));
+                decoderIndex++;
             }
         }
 
@@ -92,14 +115,14 @@ class AssignEncoderToDecoder extends Component {
 
         const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
 
-        let index = 0;
+        let encoderIndex = 0;
         let encoderOptions = [];
 
         for (let serialNumber in encodersBySerialNumber) {
             if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
                 const encoder = encodersBySerialNumber[serialNumber];
-                encoderOptions.push(this.buildEncoderOption(index, encoder));
-                index++;
+                encoderOptions.push(this.buildEncoderOption(encoderIndex, encoder));
+                encoderIndex++;
             }
         }
 
