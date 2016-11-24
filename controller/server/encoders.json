@@ -51,7 +51,7 @@
 		"stream": "udp://239.0.153.202:1234/"
 	},
 	"esn3": {
-		"name": "encoder4",
+		"name": "encoder3",
 		"serialNumber": "esn3",
 		"source": "HDMI",
 		"streamType": "Multicast",
