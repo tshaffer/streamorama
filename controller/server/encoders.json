@@ -66,7 +66,7 @@
 		"bitRate": "2.0",
 		"pipeline": "hdmi:, encoder:vformat=720p30&vbitrate=2000, udp://239.0.153.204:1234/?ttl=1&maxbitrate=6000",
 		"stream": "udp://239.0.153.203:1234/"
-	}
+	},
 	"esn4": {
 		"name": "encoder4",
 		"serialNumber": "esn4",
