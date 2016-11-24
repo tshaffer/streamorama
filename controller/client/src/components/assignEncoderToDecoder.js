@@ -109,7 +109,10 @@ class AssignEncoderToDecoder extends Component {
                     <RaisedButton
                         onClick={() => {
                             const encoderIndex = self.state.encoderIndicesByDecoderRow[decoderIndex] - 1;
-                            const encoder = self.getEncoderByIndex(encoderIndex);
+                            let encoder = "";
+                            if (encoderIndex >= 0) {
+                                encoder = self.getEncoderByIndex(encoderIndex);
+                            }
                             self.handleAssignEncoderToDecoder(decoder, encoder);
                         }}
                         label="Assign"
