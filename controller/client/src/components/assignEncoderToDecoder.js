@@ -21,12 +21,14 @@ class AssignEncoderToDecoder extends Component {
 
     handleAssignEncoderToDecoder(decoder, encoder) {
         console.log("assignEncoderToDecoder:");
-        console.log("decoder: ");
-        console.log(decoder);
-        console.log("encoder: ");
+        console.log("assign encoder: ");
         console.log(encoder);
+        console.log("to decoder: ");
+        console.log(decoder);
 
-        // set decoder.assigned to encoder
+        decoder.assignedEncoder = encoder;
+
+        this.props.setDecoder(decoder);
     }
 
     handleEncoderChange(decoder, decoderIndex, event, index, encoderIndex) {
@@ -169,6 +171,7 @@ class AssignEncoderToDecoder extends Component {
 AssignEncoderToDecoder.propTypes = {
     encoders: React.PropTypes.object.isRequired,
     decoders: React.PropTypes.object.isRequired,
+    setDecoder: React.PropTypes.func.isRequired
 };
 
 

@@ -114,7 +114,7 @@ class BrightSigns extends Component {
                     {decoder.serialNumber}
                 </TableRowColumn>
                 <TableRowColumn>
-                    {decoder.assignedEncoder === "" ? "None" : decoder.assignedEncoder}
+                    {decoder.assignedEncoder === "" ? "None" : decoder.assignedEncoder.name}
                 </TableRowColumn>
                 <TableRowColumn>
                     <RaisedButton

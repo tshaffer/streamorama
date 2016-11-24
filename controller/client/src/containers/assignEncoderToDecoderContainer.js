@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import AssignEncoderToDecoder from '../components/assignEncoderToDecoder';
 
-import { assignEncoderToDecoder } from '../actions/index';
+import { assignEncoderToDecoder, setDecoder } from '../actions/index';
 
 const mapStateToProps = (state, ownProps) => ( {
     encoders: state.encoders,
@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ( {
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     bindActionCreators(
-        { assignEncoderToDecoder },
+        { assignEncoderToDecoder, setDecoder },
         dispatch)
 );
 

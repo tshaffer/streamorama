@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 
 import Decoder from '../components/decoder';
 
-import { addDecoder } from '../actions/index';
+import { setDecoder } from '../actions/index';
 
 const mapDispatchToProps = (dispatch, ownProps) => (
     bindActionCreators(
-        { addDecoder },
+        { setDecoder },
         dispatch)
 );
 

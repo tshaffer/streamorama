@@ -21,9 +21,9 @@ app.get('/getDecoders', function(req, res) {
     res.send(brightSignDecoders);
 });
 
-app.get('/addDecoder', function (req, res) {
+app.get('/setDecoder', function (req, res) {
 
-    console.log("setEncoderParams invoked");
+    console.log("setDecoder invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
     var decoderParamsStr = req.query.decoderParams;
