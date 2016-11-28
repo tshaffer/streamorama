@@ -31,6 +31,9 @@ print "newEncoder"
 	encoder.ProcessTimerEvent = encoder_ProcessTimerEvent
 	encoder.StartStreaming = encoder_StartStreaming
 
+    deviceInfo = CreateObject("roDeviceInfo")
+    encoder.serialNumber = deviceInfo.GetDeviceUniqueId()
+
 	return encoder
 
 End Function
@@ -58,12 +61,15 @@ Function encoder_ProcessTimerEvent()
 
     if not m.isEncoding then
         url = CreateObject("roUrlTransfer")
-        url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=1")
+        url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=" + m.serialNumber)
         encoder$ = url.GetToString()
-        encoder = ParseJson(encoder$)
 
-        pipeline$ = encoder.pipeline
-        m.StartStreaming(pipeline$)
+        if len(encoder$) > 0 then
+            encoder = ParseJson(encoder$)
+            pipeline$ = encoder.pipeline
+            m.StartStreaming(pipeline$)
+        endif
+
     endif
 
     return true

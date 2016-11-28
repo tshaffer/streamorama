@@ -31,6 +31,9 @@ print "newDecoder"
 	decoder.ProcessTimerEvent = decoder_ProcessTimerEvent
 	decoder.StartStreaming = decoder_StartStreaming
 
+    deviceInfo = CreateObject("roDeviceInfo")
+    decoder.serialNumber = deviceInfo.GetDeviceUniqueId()
+
 	return decoder
 
 End Function
@@ -56,38 +59,24 @@ end Function
 
 Function decoder_ProcessTimerEvent()
 
+stop
+
     if not m.isStreaming then
         url = CreateObject("roUrlTransfer")
-        url.SetUrl("http://10.1.0.180:8080/getDecoderTargetStatus?serialNumber=1")
+        url.SetUrl("http://10.1.0.180:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
         decoder$ = url.GetToString()
-        decoder = ParseJson(decoder$)
 
-        pipeline$ = decoder.pipeline
-        m.StartStreaming(pipeline$)
+        if len(decoder$) > 0 then
+            decoder = ParseJson(decoder$)
+            streamUrl$ = decoder.assignedEncoder.stream
+            m.StartStreaming(streamUrl$)
+        endif
+
     endif
 
     return true
 
 End Function
-
-
-Sub encoder_StartStreaming(pipeline$ As String)
-
-    print "StartStreaming"
-
-    m.streamer = CreateObject("roMediaStreamer")
-    m.pipeline$ = pipeline$
-    print "--- Starting streaming with pipeline: ";m.pipeline$
-    m.streamer.SetPipeline(m.pipeline$)
-    ok = m.streamer.Start()
-    if ok then
-        print "********************* SUCCESS ********************"
-        m.isEncoding = true
-    else
-        print "********************* FAILURE ********************"
-    endif
-
-End Sub
 
 
 Sub decoder_StartStreaming(streamUrl$)
@@ -97,11 +86,13 @@ Sub decoder_StartStreaming(streamUrl$)
     aa = {}
     aa["Rtsp"] = m.rtspStream
 
-''    m.stateMachine.videoPlayer.SetLoopMode(1)
-''   ok = m.stateMachine.videoPlayer.PlayFile(aa)
+    videoPlayer = m.bsp.sign.zonesHSM[0].videoPlayer
+    ok = videoPlayer.PlayFile(aa)
 
     if ok = 0 then
         print "Error playing rtsp file in STStreamPlayingEventHandler: url = " + streamUrl$
+    else
+        print "SUCCESS"
     endif
 
 End Sub

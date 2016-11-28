@@ -78,6 +78,24 @@ app.get('/getEncoderTargetStatus', function(req, res) {
     }
 });
 
+app.get('/getDecoderTargetStatus', function(req, res) {
+
+    console.log("getDecoderTargetStatus invoked");
+    res.set('Access-Control-Allow-Origin', '*');
+
+    var serialNumber = req.query.serialNumber;
+    console.log("serialNumber: ", serialNumber);
+
+    var brightSignDecoder = brightSignDecoders[serialNumber];
+    if (brightSignDecoder) {
+        res.send(brightSignDecoder);
+    }
+    else {
+        // no status on this encoder - let client know
+        res.sendStatus(204);
+    }
+});
+
 app.get('/startEncoder', function(req, res) {
 
     console.log("setEncoderStatus invoked");
