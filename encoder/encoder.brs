@@ -24,7 +24,7 @@ print "newEncoder"
 
 	encoder.timer = CreateObject("roTimer")
 	encoder.timer.SetPort(encoder.msgPort)
-	encoder.timer.SetElapsed(1, 0)
+	encoder.timer.SetElapsed(10, 0)
 	encoder.timer.Start()
 
 	encoder.ProcessEvent = encoder_ProcessEvent
@@ -49,6 +49,7 @@ Function encoder_ProcessEvent(event As Object) as Boolean
 		if type(m.timer) = "roTimer" and event.GetSourceIdentity() = m.timer.GetIdentity() then
 		    m.ProcessTimerEvent()
 			retval = true
+			m.timer.Start()
 		end if
 	endif
 

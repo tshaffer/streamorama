@@ -35,7 +35,7 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={App} />
             <Route path="/addEncoder" component={EncoderContainer} />
-            <Route path="/addDecoder" component={DecoderContainer} />
+            <Route path="/setDecoder" component={DecoderContainer} />
             <Route path="/assignEncoderToDecoder" component={AssignEncoderToDecoderContainer} />
             <Route path="/brightSigns" component={BrightSignsContainer} />
         </Router>

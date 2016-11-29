@@ -10,8 +10,8 @@ import TextField from 'material-ui/TextField';
 
 class Decoder extends Component {
 
-    handleAddDecoder(event) {
-        console.log('handleAddDecoder');
+    handleSetDecoder(event) {
+        console.log('handleSetDecoder');
 
         let decoder = {};
 
@@ -19,7 +19,7 @@ class Decoder extends Component {
         decoder.serialNumber = this.serialNumberField.input.value;
         decoder.assignedEncoder = "";
 
-        this.props.addDecoder(decoder);
+        this.props.setDecoder(decoder);
     }
 
     render() {
@@ -64,7 +64,7 @@ class Decoder extends Component {
                         </div>
                         <div>
                             <RaisedButton
-                                onClick={this.handleAddDecoder.bind(this)}
+                                onClick={this.handleSetDecoder.bind(this)}
                                 label="Add Decoder"
                                 style={style}
                             />
@@ -78,7 +78,7 @@ class Decoder extends Component {
 }
 
 Decoder.propTypes = {
-    addDecoder: React.PropTypes.func.isRequired
+    setDecoder: React.PropTypes.func.isRequired
 };
 
 export default Decoder;

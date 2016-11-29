@@ -24,7 +24,7 @@ print "newDecoder"
     
 	decoder.timer = CreateObject("roTimer")
 	decoder.timer.SetPort(decoder.msgPort)
-	decoder.timer.SetElapsed(1, 0)
+	decoder.timer.SetElapsed(10, 0)
 	decoder.timer.Start()
 
 	decoder.ProcessEvent = decoder_ProcessEvent
@@ -48,6 +48,7 @@ Function decoder_ProcessEvent(event As Object) as Boolean
 	if type(event) = "roTimerEvent" then
 		if type(m.timer) = "roTimer" and event.GetSourceIdentity() = m.timer.GetIdentity() then
 		    m.ProcessTimerEvent()
+		    m.timer.Start()
 			retval = true
 		end if
 	endif
@@ -59,8 +60,6 @@ end Function
 
 Function decoder_ProcessTimerEvent()
 
-stop
-
     if not m.isStreaming then
         url = CreateObject("roUrlTransfer")
         url.SetUrl("http://10.1.0.180:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
@@ -68,8 +67,10 @@ stop
 
         if len(decoder$) > 0 then
             decoder = ParseJson(decoder$)
-            streamUrl$ = decoder.assignedEncoder.stream
-            m.StartStreaming(streamUrl$)
+            if type(decoder) = "roAssociativeArray" then
+                streamUrl$ = decoder.assignedEncoder.stream
+                m.StartStreaming(streamUrl$)
+            endif
         endif
 
     endif
