@@ -46,8 +46,12 @@ app.get('/setEncoderParams', function(req, res) {
     console.log("setEncoderParams invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
-    var encoderParamsStr = req.query.encoderParams;
-    var encoderParams = JSON.parse(encoderParamsStr);
+    // comment out this code temporarily, until I figure out how to send a JSON object from a BrightSign
+    // var encoderParamsStr = req.query.encoderParams;
+    // var encoderParams = JSON.parse(encoderParamsStr);
+    var encoderParams = {};
+    encoderParams.serialNumber = req.query.serialNumber;
+    encoderParams.name = req.query.name;
 
     // add / overwrite record for encoder
     var key = encoderParams.serialNumber;

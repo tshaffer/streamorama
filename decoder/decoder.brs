@@ -62,7 +62,8 @@ Function decoder_ProcessTimerEvent()
 
     if not m.isStreaming then
         url = CreateObject("roUrlTransfer")
-        url.SetUrl("http://10.1.0.180:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
+''        url.SetUrl("http://10.1.0.180:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
+        url.SetUrl("http://192.168.0.108:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
         decoder$ = url.GetToString()
 
         if len(decoder$) > 0 then

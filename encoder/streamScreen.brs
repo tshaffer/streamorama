@@ -36,6 +36,7 @@ print "newEncoder"
 	encoder.ProcessEvent = encoder_ProcessEvent
 	encoder.ProcessTimerEvent = encoder_ProcessTimerEvent
 	' encoder.StartStreaming = encoder_StartStreaming
+    encoder.RegisterWithServer = encoder_RegisterWithServer
 
     deviceInfo = CreateObject("roDeviceInfo")
     encoder.serialNumber = deviceInfo.GetDeviceUniqueId()
@@ -67,6 +68,8 @@ Function encoder_ProcessEvent(event As Object) as Boolean
             m.strmr.reset()
             m.strmr.SetPipeline(pipleline$+address$)
             m.strmr.start()
+
+            m.RegisterWithServer()
         else
             print "Failed to create Display streamer..."
         endif
@@ -85,22 +88,43 @@ Function encoder_ProcessEvent(event As Object) as Boolean
 end Function
 
 
+Function encoder_RegisterWithServer()
+
+    encoderParams = {}
+    encoderParams.name = "ScreenStreamer"
+    encoderParams.serialNumber = m.serialNumber
+    encoderParams.source = "Screen"
+    encoderParams.streamType = "Unicast"
+    encoderParams.protocol = "RTP"
+''    encoderParams. =
+''    encoderParams. =
+''    encoderParams. =
+
+    url = CreateObject("roUrlTransfer")
+''    url.SetUrl("http://10.1.0.180:8080/setEncoderParams?encoderParams=" + encoderParams)
+    urlParams$ = "?name=ScreenStreamer&serialNumber=" + m.serialNumber
+    url.SetUrl("http://192.168.0.108:8080/setEncoderParams" + urlParams$)
+    setEncoderParamsResponse$ = url.GetToString()
+
+End Function
+
+
 Function encoder_ProcessTimerEvent()
 
-    if not m.isEncoding then
-        url = CreateObject("roUrlTransfer")
-        url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=" + m.serialNumber)
-        encoder$ = url.GetToString()
+''    if not m.isEncoding then
+''        url = CreateObject("roUrlTransfer")
+''        url.SetUrl("http://10.1.0.180:8080/getEncoderTargetStatus?serialNumber=" + m.serialNumber)
+''        encoder$ = url.GetToString()
 
-        if len(encoder$) > 0 then
-            encoder = ParseJson(encoder$)
-            pipeline$ = encoder.pipeline
-            m.StartStreaming(pipeline$)
-        endif
+''        if len(encoder$) > 0 then
+''            encoder = ParseJson(encoder$)
+''            pipeline$ = encoder.pipeline
+''            m.StartStreaming(pipeline$)
+''        endif
 
-    endif
+''    endif
 
-    return true
+''    return true
 
 End Function
 

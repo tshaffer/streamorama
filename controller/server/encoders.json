@@ -32,5 +32,10 @@
 		"bitRate": "2.0",
 		"pipeline": "hdmi:, encoder:vformat=720p30&vbitrate=2000, udp://239.0.153.201:1234/?ttl=1&maxbitrate=3000",
 		"stream": "udp://239.0.153.201:1234/"
+	},
+	"R5C67M000024": {
+		"serialNumber": "R5C67M000024",
+		"name": "ScreenStreamer",
+		"stream": "rtsp://192.168.0.107:8090/mem:/display/stream.ts"
 	}
 }
