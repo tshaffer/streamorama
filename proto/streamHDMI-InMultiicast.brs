@@ -33,7 +33,6 @@ Function newserver(msgPort As Object, userVariables As Object, bsp as Object)
 
 	'only 1 streaming option below can be set to start automatically
 	s.streamdisplayenabled = false	'stream display output automatically
-''	s.streamdisplayenabled = true	'stream display output automatically
 ''	s.hdmioutenabled = false	'stream hdmi output automatically
 	s.hdmioutenabled = true	    'stream hdmi output automatically
 	s.hdmimultienabled = false		'stream hdmi output automatically to multicast
@@ -52,7 +51,7 @@ Function newserver(msgPort As Object, userVariables As Object, bsp as Object)
 	s.http = false
 	s.strmstarted = false
 
-	s.multicast$ = "" 'example rtp://239.192.0.0:5004/"
+	s.multicast$ = "rtp://239.0.0.81:5004" 'example rtp://239.192.0.0:5004/"
 	s.tunerdefault$ = "tuner:///RfChannel=15&VirtualChannel=11.1, mem:/rf"
 	s.gettuned = server_gettuned
 
@@ -105,9 +104,10 @@ Function server_ProcessEvent(event As Object) as boolean
 			else if m.hdmioutenabled then
 				print "start HDMI out enabled"
 				m.strmstarted = true
+
 				pipleline$="hdmi:,encoder:vformat=720p60&vbitrate=8000,"
 				address$ = "mem:/hdmi"
-				'address$ = m.multicast$	'to use multicast address instead
+				if m.multicast$ <> "" then address$ = m.multicast$
 
 				if type(m.strmr) <> "roMediaStreamer" then m.strmr = CreateObject("roMediaStreamer")
 					if m.strmr <> invalid then

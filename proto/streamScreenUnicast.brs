@@ -32,10 +32,9 @@ Function newserver(msgPort As Object, userVariables As Object, bsp as Object)
 	s.version = 1.22
 
 	'only 1 streaming option below can be set to start automatically
-	s.streamdisplayenabled = false	'stream display output automatically
-''	s.streamdisplayenabled = true	'stream display output automatically
-''	s.hdmioutenabled = false	'stream hdmi output automatically
-	s.hdmioutenabled = true	    'stream hdmi output automatically
+''	s.streamdisplayenabled = false	'stream display output automatically
+	s.streamdisplayenabled = true	'stream display output automatically
+	s.hdmioutenabled = false	'stream hdmi output automatically
 	s.hdmimultienabled = false		'stream hdmi output automatically to multicast
 
 	s.msgPort = msgPort
