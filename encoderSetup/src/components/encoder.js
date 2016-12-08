@@ -117,7 +117,9 @@ class Encoder extends Component {
     let self = this;
 
     const style = {
-      margin: 12,
+      marginLeft: '2px',
+      marginTop: '16px',
+      fontSize: '24px'
     };
 
     return (
@@ -125,6 +127,7 @@ class Encoder extends Component {
       <MuiThemeProvider>
 
         <div>
+          <h1>BrightSign Encoder Setup</h1>
           <div id="encoderStreamOptions">
             <div>
               <SelectField
@@ -136,10 +139,6 @@ class Encoder extends Component {
                 <MenuItem value={1} primaryText="Display"/>
               </SelectField>
             </div>
-            <p
-              className="sectionHeader">
-              Stream Options
-            </p>
             <div>
               <SelectField
                 floatingLabelText="Protocol"
@@ -186,10 +185,6 @@ class Encoder extends Component {
             </div>
           </div>
           <div id="encoderEncodingOptions">
-            <p
-              className="sectionHeader">
-              Encoding Options
-            </p>
             <div>
               <SelectField
                 floatingLabelText="Video Codec"
