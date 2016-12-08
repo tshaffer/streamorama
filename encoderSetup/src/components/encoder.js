@@ -15,7 +15,6 @@ class Encoder extends Component {
     this.state =
     {
       sourceValue: 0,
-      streamTypeValue: 1,
       protocolValue: 0,
       videoCodecValue: 0,
       videoFormatValue: 0,
@@ -30,21 +29,11 @@ class Encoder extends Component {
 
     let encoder = {};
 
-    encoder.name = this.nameField.input.value;
-    encoder.serialNumber = this.serialNumberField.input.value;
-
     if (this.state.sourceValue === 0) {
       encoder.source = "HDMI";
     }
     else {
-      encoder.source = "File";
-    }
-
-    if (this.state.streamTypeValue === 0) {
-      encoder.streamType = "Unicast";
-    }
-    else {
-      encoder.streamType = 'Multicast';
+      encoder.source = "Display";
     }
 
     if (this.state.protocolValue === 0) {
@@ -60,9 +49,7 @@ class Encoder extends Component {
 
     encoder.port = this.portField.input.value;
 
-    encoder.maxBitrate = this.maxBitrateField.state.value.toFixed(1);
-
-    encoder.fileName = '';
+    encoder.maxBitrate = this.state.maxBitrate;
 
     encoder.videoCodec = 'H264';
 
@@ -133,15 +120,6 @@ class Encoder extends Component {
       margin: 12,
     };
 
-    // <div>
-    //     <RaisedButton
-    //         onClick={this.handleStartStreaming.bind(this)}
-    //         label="Start"
-    //         style={style}
-    //     />
-    //     <RaisedButton label="Stop" style={style} />
-    // </div>
-
     return (
 
       <MuiThemeProvider>
@@ -149,39 +127,19 @@ class Encoder extends Component {
         <div>
           <div id="encoderStreamOptions">
             <div>
-              <TextField
-                ref={(c) => {
-                  self.nameField = c;
-                }}
-                defaultValue=""
-                floatingLabelText="Name"
-                floatingLabelFixed={true}
-              />
-            </div>
-            <div>
               <SelectField
                 floatingLabelText="Source"
                 value={this.state.sourceValue}
                 onChange={this.handleSourceChange.bind(this)}
               >
                 <MenuItem value={0} primaryText="HDMI"/>
-                <MenuItem value={1} primaryText="File"/>
+                <MenuItem value={1} primaryText="Display"/>
               </SelectField>
             </div>
             <p
               className="sectionHeader">
               Stream Options
             </p>
-            <div>
-              <SelectField
-                floatingLabelText="Stream Type"
-                value={this.state.streamTypeValue}
-                onChange={this.handleStreamTypeChange.bind(this)}
-              >
-                <MenuItem value={0} primaryText="Unicast"/>
-                <MenuItem value={1} primaryText="Multicast"/>
-              </SelectField>
-            </div>
             <div>
               <SelectField
                 floatingLabelText="Protocol"
@@ -220,53 +178,14 @@ class Encoder extends Component {
 
             </div>
             <div>
-              <p>
-                <span>
-                  Maximum Bitrate:
-                </span>
-                <span>
-                  {this.state.maxBitrateValue.toFixed(1)}
-                </span>
-                <span>
-                  Mb/s
-                </span>
-              </p>
-              <Slider
-                ref={(c) => {
-                  self.maxBitrateField = c;
-                }}
-                defaultValue={6.0}
-                min={1.0}
-                max={40.0}
-                onChange={this.handleMaxBitrateChange.bind(this)}
-              />
-            </div>
-            <div>
               <RaisedButton
                 onClick={this.handleAddEncoder.bind(this)}
-                label="Add Encoder"
+                label="Setup Device"
                 style={style}
               />
             </div>
           </div>
           <div id="encoderEncodingOptions">
-            <div>
-              <TextField
-                ref={(c) => {
-                  self.serialNumberField = c;
-                }}
-                defaultValue=""
-                floatingLabelText="Serial Number"
-                floatingLabelFixed={true}
-              />
-            </div>
-            <div>
-              <TextField
-                defaultValue=""
-                floatingLabelText="File Name"
-                floatingLabelFixed={true}
-              />
-            </div>
             <p
               className="sectionHeader">
               Encoding Options
