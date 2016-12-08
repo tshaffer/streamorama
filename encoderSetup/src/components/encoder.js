@@ -20,7 +20,8 @@ class Encoder extends Component {
       videoFormatValue: 0,
       destinationAddress: "239.0.153.200",
       bitrateValue: 2,
-      maxBitrateValue: 20,
+      maxBitrateValue: 4,
+      port: "1234"
     };
   }
 
@@ -74,7 +75,7 @@ class Encoder extends Component {
     str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + encoder.bitRate;
     str = str + ", " + encoder.protocol.toLowerCase() + "://";
     str = str + encoder.destinationAddress + ":" + encoder.port + "/?ttl=" + encoder.ttl;
-    str = str + "&maxbitrate=" + encoder.maxBitrate;
+    str = str + "&maxbitrate=" + encoder.maxBitRate;
     encoder.pipeline = str;
 
     encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
