@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -26,6 +26,16 @@ class Encoder extends Component {
 
   handleAddEncoder() {
     console.log('handleAddEncoder');
+
+    // test
+    // const getAutorunUrl = "/GetAutorun";
+    // axios.get(getAutorunUrl)
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (err) {
+    //     console.log(err);
+    //   });
 
     let encoder = {};
 
