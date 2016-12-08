@@ -1,0 +1,17 @@
+body {
+    height: 100%;
+}
+
+#encoderStreamOptions {
+    width: 800px;
+    float: left;
+}
+
+#encoderEncodingOptions {
+    margin-left: 800px;
+}
+
+.sectionHeader {
+    font-weight: bold;
+    font-size: 16pt;
+}
