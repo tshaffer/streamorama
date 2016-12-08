@@ -18,11 +18,13 @@ class Encoder extends Component {
       protocolValue: 0,
       videoCodecValue: 0,
       videoFormatValue: 0,
-      maxBitrateValue: 80,
       destinationAddress: "239.0.153.200",
-      bitrateValue: 2
+      bitrateValue: 2,
+      maxBitrateValue: 20,
     };
   }
+
+  // maxBitrateValue: 80,
 
   handleAddEncoder() {
     console.log('handleAddEncoder');
@@ -49,8 +51,6 @@ class Encoder extends Component {
 
     encoder.port = this.portField.input.value;
 
-    encoder.maxBitRate = this.state.maxBitrateValue.toFixed(1);
-
     encoder.videoCodec = 'H264';
 
     switch (this.state.videoFormatValue) {
@@ -65,17 +65,16 @@ class Encoder extends Component {
         break;
     }
 
-    encoder.bitRate = this.bitrateField.state.value.toFixed(1);
+    encoder.bitRate = (this.bitrateField.state.value * 1000).toString();
+    encoder.maxBitRate = (this.state.maxBitrateValue * 1000).toString();
 
     // build pipeline and stream strings
-    const vBitRate = (Number(encoder.bitRate) * 1000).toString();
-    const maxBitrate = (Number(encoder.maxBitrate) * 1000).toString();
 
     let str = "hdmi:, ";
-    str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + vBitRate;
+    str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + encoder.bitRate;
     str = str + ", " + encoder.protocol.toLowerCase() + "://";
     str = str + encoder.destinationAddress + ":" + encoder.port + "/?ttl=" + encoder.ttl;
-    str = str + "&maxbitrate=" + maxBitrate;
+    str = str + "&maxbitrate=" + encoder.maxBitrate;
     encoder.pipeline = str;
 
     encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";

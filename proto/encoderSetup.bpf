@@ -185,7 +185,7 @@
       <Image>\\Mac\Home\Documents\Projects\streamorama\proto</Image>
       <Video>\\Mac\Home\Documents\Projects\streamorama\proto</Video>
       <Audio>\\Mac\Home\Documents\Projects\streamorama\proto</Audio>
-      <Media>\\Mac\Home\Documents\Projects\streamorama\proto</Media>
+      <Media>\\Mac\Home\Documents\All Media\Images</Media>
       <Fonts>\\Mac\Home\Documents\Projects\streamorama\proto</Fonts>
       <HTML>\\Mac\Home\Documents\Projects\streamoramaServerPackage</HTML>
       <PluginScriptsAutoruns>\\Mac\Home\Documents\Projects\streamorama\proto</PluginScriptsAutoruns>
@@ -250,15 +250,15 @@
           <initialState>Live Text</initialState>
           <state>
             <name>Live Text</name>
-            <x>47</x>
-            <y>32</y>
+            <x>138</x>
+            <y>34</y>
             <width>114</width>
             <height>97</height>
             <id>0</id>
             <templatePlaylistItem>
               <stateName>Live Text</stateName>
               <constantTextTemplateItem>
-                <text>Navigate to web page to setup device as encoder</text>
+                <text>Navigate to web site to setup encoder</text>
                 <textWidget>
                   <numberOfLines>1</numberOfLines>
                   <delay>5</delay>
@@ -273,9 +273,9 @@
                   <fontSize>0</fontSize>
                 </widget>
                 <backgroundColorSpecified>False</backgroundColorSpecified>
-                <x>100</x>
-                <y>338</y>
-                <width>1669</width>
+                <x>259</x>
+                <y>340</y>
+                <width>1119</width>
                 <height>64</height>
                 <layer>1</layer>
               </constantTextTemplateItem>
