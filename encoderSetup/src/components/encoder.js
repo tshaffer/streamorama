@@ -18,7 +18,7 @@ class Encoder extends Component {
       protocolValue: 0,
       videoCodecValue: 0,
       videoFormatValue: 0,
-      maxBitrateValue: 2,
+      maxBitrateValue: 80,
       destinationAddress: "239.0.153.200",
       bitrateValue: 2
     };
@@ -26,16 +26,6 @@ class Encoder extends Component {
 
   handleAddEncoder() {
     console.log('handleAddEncoder');
-
-    // test
-    // const getAutorunUrl = "/GetAutorun";
-    // axios.get(getAutorunUrl)
-    //   .then(function (response) {
-    //     console.log(response.data);
-    //   })
-    //   .catch(function (err) {
-    //     console.log(err);
-    //   });
 
     let encoder = {};
 
@@ -59,7 +49,7 @@ class Encoder extends Component {
 
     encoder.port = this.portField.input.value;
 
-    encoder.maxBitrate = this.state.maxBitrate;
+    encoder.maxBitRate = this.state.maxBitrateValue.toFixed(1);
 
     encoder.videoCodec = 'H264';
 
@@ -90,7 +80,17 @@ class Encoder extends Component {
 
     encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
 
-    // this.props.addEncoder(encoder);
+    axios.get('/SetupEncoder', {
+      params: {
+        encoderParams: encoder
+      }
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   // _ === event - to satisfy eslint rules
