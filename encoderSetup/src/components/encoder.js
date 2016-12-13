@@ -14,6 +14,7 @@ class Encoder extends Component {
     super(props);
     this.state =
     {
+      serialNumber: "TBD",
       sourceValue: 0,
       protocolValue: 0,
       videoCodecValue: 0,
@@ -31,6 +32,9 @@ class Encoder extends Component {
     console.log('handleAddEncoder');
 
     let encoder = {};
+
+    encoder.name = this.nameField.input.value;
+    encoder.serialNumber = this.serialNumberField.input.value;
 
     if (this.state.sourceValue === 0) {
       encoder.source = "HDMI";
@@ -94,23 +98,23 @@ class Encoder extends Component {
   }
 
   // _ === event - to satisfy eslint rules
-  handleSourceChange(_, index, sourceValue) {
+  handleSourceChange(_, __, sourceValue) {
     this.setState({sourceValue});
   }
 
-  handleStreamTypeChange(_, index, streamTypeValue) {
+  handleStreamTypeChange(_, __, streamTypeValue) {
     this.setState({streamTypeValue});
   }
 
-  handleProtocolChange(_, index, protocolValue) {
+  handleProtocolChange(_, __, protocolValue) {
     this.setState({protocolValue});
   }
 
-  handleVideoCodecChange(_, index, videoCodecValue) {
+  handleVideoCodecChange(_, __, videoCodecValue) {
     this.setState({videoCodecValue});
   }
 
-  handleVideoFormatChange(_, index, videoFormatValue) {
+  handleVideoFormatChange(_, __, videoFormatValue) {
     this.setState({videoFormatValue});
   }
 
@@ -139,6 +143,16 @@ class Encoder extends Component {
         <div>
           <h1>BrightSign Encoder Setup</h1>
           <div id="encoderStreamOptions">
+            <div>
+              <TextField
+                ref={(c) => {
+                  self.nameField = c;
+                }}
+                defaultValue=""
+                floatingLabelText="Name"
+                floatingLabelFixed={true}
+              />
+            </div>
             <div>
               <SelectField
                 floatingLabelText="Source"
@@ -195,6 +209,14 @@ class Encoder extends Component {
             </div>
           </div>
           <div id="encoderEncodingOptions">
+            <TextField
+              ref={(c) => {
+                self.serialNumberField = c;
+              }}
+              defaultValue={this.state.serialNumber}
+              floatingLabelText="Serial Number"
+              floatingLabelFixed={true}
+            />
             <div>
               <SelectField
                 floatingLabelText="Video Codec"
