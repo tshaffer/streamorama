@@ -38,9 +38,11 @@ class Encoder extends Component {
 
     if (this.state.sourceValue === 0) {
       encoder.source = "HDMI";
+      encoder.mode = "2";
     }
     else {
       encoder.source = "Display";
+      encoder.mode = "1";
     }
 
     if (this.state.protocolValue === 0) {
@@ -75,7 +77,7 @@ class Encoder extends Component {
 
     // build pipeline and stream strings
 
-    let str = "hdmi:, ";
+    let str = encoder.source + ":mode=" + encoder.mode + ", ";
     str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + encoder.bitRate;
     str = str + ", " + encoder.protocol.toLowerCase() + "://";
     str = str + encoder.destinationAddress + ":" + encoder.port + "/?ttl=" + encoder.ttl;
@@ -234,6 +236,7 @@ class Encoder extends Component {
               >
                 <MenuItem value={0} primaryText="720p30"/>
                 <MenuItem value={1} primaryText="1080i60"/>
+                <MenuItem value={1} primaryText="1080p60"/>
               </SelectField>
             </div>
             <div>
