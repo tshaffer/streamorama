@@ -21,22 +21,24 @@ class Encoder extends Component {
       videoFormatValue: 0,
       destinationAddress: "239.0.153.200",
       bitrateValue: 2,
-      maxBitrateValue: 4,
+      maxBitrateValue: 8,   // TODO: find out what this should really be set to
       port: "1234"
     };
   }
-
-  // maxBitrateValue: 80,
 
   handleAddEncoder() {
     console.log('handleAddEncoder');
 
     let encoder = {};
 
+    encoder.serverUrl = this.serverUrlField.input.value;
     encoder.name = this.nameField.input.value;
     encoder.serialNumber = this.serialNumberField.input.value;
 
-    if (this.state.sourceValue === 0) {
+    if (this.state.sourceValue === 1) {
+      encoder.source = "none";
+    }
+    else if (this.state.sourceValue === 1) {
       encoder.source = "HDMI";
       encoder.mode = "2";
     }
@@ -76,15 +78,19 @@ class Encoder extends Component {
     encoder.maxBitRate = (this.state.maxBitrateValue * 1000).toString();
 
     // build pipeline and stream strings
-
-    let str = encoder.source + ":mode=" + encoder.mode + ", ";
-    str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + encoder.bitRate;
-    str = str + ", " + encoder.protocol.toLowerCase() + "://";
-    str = str + encoder.destinationAddress + ":" + encoder.port + "/?ttl=" + encoder.ttl;
-    str = str + "&maxbitrate=" + encoder.maxBitRate;
-    encoder.pipeline = str;
-
-    encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
+    if (encoder.source !== "none") {
+      let str = encoder.source + ":mode=" + encoder.mode + ", ";
+      str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + encoder.bitRate;
+      str = str + ", " + encoder.protocol.toLowerCase() + "://";
+      str = str + encoder.destinationAddress + ":" + encoder.port + "/?ttl=" + encoder.ttl;
+      str = str + "&maxbitrate=" + encoder.maxBitRate;
+      encoder.pipeline = str;
+      encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
+    }
+    else {
+      encoder.pipeline = "";
+      encoder.stream = "";
+    }
 
     axios.get('/SetupEncoder', {
       params: {
@@ -144,6 +150,16 @@ class Encoder extends Component {
 
         <div>
           <h1>BrightSign Encoder Setup</h1>
+          <div id="serverUrl">
+            <TextField
+              ref={(c) => {
+                self.serverUrlField = c;
+              }}
+              defaultValue=""
+              floatingLabelText="Server Url"
+              floatingLabelFixed={true}
+            />
+          </div>
           <div id="encoderStreamOptions">
             <div>
               <TextField
@@ -161,8 +177,9 @@ class Encoder extends Component {
                 value={this.state.sourceValue}
                 onChange={this.handleSourceChange.bind(this)}
               >
-                <MenuItem value={0} primaryText="HDMI"/>
-                <MenuItem value={1} primaryText="Display"/>
+                <MenuItem value={0} primaryText="None"/>
+                <MenuItem value={1} primaryText="HDMI"/>
+                <MenuItem value={2} primaryText="Display"/>
               </SelectField>
             </div>
             <div>
