@@ -15,10 +15,10 @@ class Encoder extends Component {
     this.state =
     {
       serialNumber: "TBD",
-      sourceValue: 0,
+      sourceValue: 'none',
       protocolValue: 0,
       videoCodecValue: 0,
-      videoFormatValue: 0,
+      videoFormatValue: '1080p60',
       destinationAddress: "239.0.153.200",
       bitrateValue: 2,
       maxBitrateValue: 8,   // TODO: find out what this should really be set to
@@ -35,10 +35,10 @@ class Encoder extends Component {
     encoder.name = this.nameField.input.value;
     encoder.serialNumber = this.serialNumberField.input.value;
 
-    if (this.state.sourceValue === 1) {
+    if (this.state.sourceValue === 'none') {
       encoder.source = "none";
     }
-    else if (this.state.sourceValue === 1) {
+    else if (this.state.sourceValue === 'hdmi') {
       encoder.source = "HDMI";
       encoder.mode = "2";
     }
@@ -63,10 +63,10 @@ class Encoder extends Component {
     encoder.videoCodec = 'H264';
 
     switch (this.state.videoFormatValue) {
-      case 0:
+      case '720p30':
         encoder.videoFormat = '720p30';
         break;
-      case 1:
+      case '1080i60':
         encoder.videoFormat = '1080i60';
         break;
       default:
@@ -108,6 +108,8 @@ class Encoder extends Component {
   // _ === event - to satisfy eslint rules
   handleSourceChange(_, __, sourceValue) {
     this.setState({sourceValue});
+    // this.setState({videoFormatValue});
+
   }
 
   handleStreamTypeChange(_, __, streamTypeValue) {
@@ -177,9 +179,9 @@ class Encoder extends Component {
                 value={this.state.sourceValue}
                 onChange={this.handleSourceChange.bind(this)}
               >
-                <MenuItem value={0} primaryText="None"/>
-                <MenuItem value={1} primaryText="HDMI"/>
-                <MenuItem value={2} primaryText="Display"/>
+                <MenuItem value={'none'} primaryText="None"/>
+                <MenuItem value={'hdmi'} primaryText="HDMI"/>
+                <MenuItem value={'display'} primaryText="Display"/>
               </SelectField>
             </div>
             <div>
@@ -251,9 +253,9 @@ class Encoder extends Component {
                 value={this.state.videoFormatValue}
                 onChange={this.handleVideoFormatChange.bind(this)}
               >
-                <MenuItem value={0} primaryText="720p30"/>
-                <MenuItem value={1} primaryText="1080i60"/>
-                <MenuItem value={1} primaryText="1080p60"/>
+                <MenuItem value={'720p30'} primaryText="720p30"/>
+                <MenuItem value={'1080i60'} primaryText="1080i60"/>
+                <MenuItem value={'1080p60'} primaryText="1080p60"/>
               </SelectField>
             </div>
             <div>
