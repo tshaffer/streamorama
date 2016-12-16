@@ -29,7 +29,20 @@ class Encoder extends Component {
     };
   }
 
+  componentWillMount() {
+    axios.get('/GetSystemInfo', {})
+      .then( (response) => {
+        console.log(response);
+        const serialNumber = response.data.deviceuniqueid$;
+        this.setState({serialNumber: serialNumber});
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+  }
+
   handleAddEncoder() {
+
     console.log('handleAddEncoder');
 
     let encoder = {};
@@ -40,7 +53,7 @@ class Encoder extends Component {
 
       encoder.serverUrl = this.serverUrlField.input.value;
       encoder.name = this.nameField.input.value;
-      encoder.serialNumber = this.serialNumberField.input.value;
+      encoder.serialNumber = this.state.serialNumber;
 
       if (this.state.sourceValue === 'hdmi') {
         encoder.source = "HDMI";
@@ -100,6 +113,18 @@ class Encoder extends Component {
         console.log(response);
       })
       .catch(function (error) {
+        console.log(error);
+      });
+
+    axios.get('http://10.1.0.180:8080/setEncoderParams', {
+      params: {
+        encoderParams: encoder
+      }
+    })
+      .then( (response) => {
+        console.log(response);
+      })
+      .catch( (error) => {
         console.log(error);
       });
   }
@@ -255,7 +280,7 @@ class Encoder extends Component {
               ref={(c) => {
                 self.serialNumberField = c;
               }}
-              defaultValue={this.state.serialNumber}
+              value={this.state.serialNumber}
               floatingLabelText="Serial Number"
               floatingLabelFixed={true}
             />
