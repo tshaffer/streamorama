@@ -17,7 +17,7 @@ class Encoder extends Component {
     {
       encoderEnabled: true,
       serialNumber: "TBD",
-      sourceValue: 'Display',
+      sourceValue: 'display',
       protocolValue: 0,
       videoCodecValue: 0,
       videoFormatValue: '1080p60',
@@ -194,6 +194,7 @@ class Encoder extends Component {
                 floatingLabelText="Source"
                 value={this.state.sourceValue}
                 onChange={this.handleSourceChange.bind(this)}
+                disabled={!this.state.encoderEnabled}
               >
                 <MenuItem value={'hdmi'} primaryText="HDMI"/>
                 <MenuItem value={'display'} primaryText="Display"/>
@@ -204,6 +205,7 @@ class Encoder extends Component {
                 floatingLabelText="Protocol"
                 value={this.state.protocolValue}
                 onChange={this.handleProtocolChange.bind(this)}
+                disabled={!this.state.encoderEnabled}
               >
                 <MenuItem value={0} primaryText="UDP"/>
                 <MenuItem value={1} primaryText="RTP"/>
@@ -215,6 +217,7 @@ class Encoder extends Component {
                 defaultValue="1"
                 floatingLabelText="TTL"
                 floatingLabelFixed={true}
+                disabled={!this.state.encoderEnabled}
               />
             </div>
             <div>
@@ -225,6 +228,7 @@ class Encoder extends Component {
                 defaultValue="239.0.153.200"
                 floatingLabelText="Destination Address"
                 floatingLabelFixed={true}
+                disabled={!this.state.encoderEnabled}
               />
               <TextField
                 ref={(c) => {
@@ -233,13 +237,14 @@ class Encoder extends Component {
                 defaultValue="1234"
                 floatingLabelText="Port"
                 floatingLabelFixed={true}
+                disabled={!this.state.encoderEnabled}
               />
 
             </div>
             <div>
               <RaisedButton
                 onClick={this.handleAddEncoder.bind(this)}
-                label="Setup Device"
+                label="Set Encoder Parameters"
                 style={style}
               />
             </div>
@@ -258,6 +263,7 @@ class Encoder extends Component {
                 floatingLabelText="Video Codec"
                 value={this.state.videoCodecValue}
                 onChange={this.handleVideoCodecChange.bind(this)}
+                disabled={!this.state.encoderEnabled}
               >
                 <MenuItem value={0} primaryText="H264"/>
               </SelectField>
@@ -293,6 +299,7 @@ class Encoder extends Component {
                 min={1.0}
                 max={40.0}
                 onChange={this.handleBitrateChange.bind(this)}
+                disabled={!this.state.encoderEnabled}
               />
             </div>
           </div>
