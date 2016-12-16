@@ -52,6 +52,7 @@ class Encoder extends Component {
     if (encoder.enabled) {
 
       encoder.serverUrl = this.serverUrlField.input.value;
+
       encoder.name = this.nameField.input.value;
       encoder.serialNumber = this.state.serialNumber;
 
@@ -116,7 +117,8 @@ class Encoder extends Component {
         console.log(error);
       });
 
-    axios.get('http://10.1.0.180:8080/setEncoderParams', {
+    // axios.get('http://10.1.0.180:8080/setEncoderParams', {
+    axios.get(encoder.serverUrl + '/setEncoderParams', {
       params: {
         encoderParams: encoder
       }
@@ -129,7 +131,6 @@ class Encoder extends Component {
       });
   }
 
-  // _ === event - to satisfy eslint rules
   handleSourceChange(_, __, sourceValue) {
     this.setState({sourceValue});
     this.setState({videoFormatEnabled: sourceValue === 'hdmi'});
@@ -197,7 +198,7 @@ class Encoder extends Component {
               ref={(c) => {
                 self.serverUrlField = c;
               }}
-              defaultValue=""
+              defaultValue={"http://10.1.0.180:8080"}
               floatingLabelText="Server Url"
               floatingLabelFixed={true}
               disabled={!this.state.encoderEnabled}

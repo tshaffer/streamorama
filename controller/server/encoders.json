@@ -18,8 +18,8 @@
 	},
 	"L8C67L000084": {
 		"enabled": true,
-		"serverUrl": "",
-		"name": "flibbetMeister",
+		"serverUrl": "http://10.1.0.180:8080",
+		"name": "FlibbetFool",
 		"serialNumber": "L8C67L000084",
 		"source": "Display",
 		"mode": "1",
