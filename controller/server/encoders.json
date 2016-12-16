@@ -38,5 +38,5 @@
 		"serialNumber": "R5C67M000024",
 		"name": "ScreenStreamer",
 		"stream": "rtsp://192.168.0.107:8090/mem:/display/stream.ts"
-	},
+	}
 }

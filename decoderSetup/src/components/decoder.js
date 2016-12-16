@@ -25,6 +25,18 @@ class Decoder extends Component {
   }
 
   handleConnectToServer() {
+
+    let serverUrl = this.serverUrlField.input.value;
+    serverUrl = "http://10.1.0.180:8080";
+
+    axios.get(serverUrl + '/getEncoders', {})
+      .then( (response) => {
+        console.log(response);
+        const encoders = response.data;
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
   }
 
   handleEncoderChange(_, __, encoderValue) {
@@ -42,6 +54,8 @@ class Decoder extends Component {
         marginBottom: 16,
       }
     };
+
+    let encoders = <noscript/>;
 
     return (
       <MuiThemeProvider>
