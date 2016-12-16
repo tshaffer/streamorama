@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
 import Slider from 'material-ui/Slider';
+import TextField from 'material-ui/TextField';
 
 class Encoder extends Component {
 
@@ -14,8 +15,9 @@ class Encoder extends Component {
     super(props);
     this.state =
     {
+      encoderEnabled: true,
       serialNumber: "TBD",
-      sourceValue: 'none',
+      sourceValue: 'Display',
       protocolValue: 0,
       videoCodecValue: 0,
       videoFormatValue: '1080p60',
@@ -31,54 +33,54 @@ class Encoder extends Component {
 
     let encoder = {};
 
-    encoder.serverUrl = this.serverUrlField.input.value;
-    encoder.name = this.nameField.input.value;
-    encoder.serialNumber = this.serialNumberField.input.value;
+    encoder.enabled = this.state.encoderEnabled;
 
-    if (this.state.sourceValue === 'none') {
-      encoder.source = "none";
-    }
-    else if (this.state.sourceValue === 'hdmi') {
-      encoder.source = "HDMI";
-      encoder.mode = "2";
-    }
-    else {
-      encoder.source = "Display";
-      encoder.mode = "1";
-    }
+    if (encoder.enabled) {
 
-    if (this.state.protocolValue === 0) {
-      encoder.protocol = 'UDP';
-    }
-    else {
-      encoder.protocol = 'RTP';
-    }
+      encoder.serverUrl = this.serverUrlField.input.value;
+      encoder.name = this.nameField.input.value;
+      encoder.serialNumber = this.serialNumberField.input.value;
 
-    encoder.ttl = this.ttlField.input.value;
+      if (this.state.sourceValue === 'hdmi') {
+        encoder.source = "HDMI";
+        encoder.mode = "2";
+      }
+      else {
+        encoder.source = "Display";
+        encoder.mode = "1";
+      }
 
-    encoder.destinationAddress = this.destinationAddressField.input.value;
+      if (this.state.protocolValue === 0) {
+        encoder.protocol = 'UDP';
+      }
+      else {
+        encoder.protocol = 'RTP';
+      }
 
-    encoder.port = this.portField.input.value;
+      encoder.ttl = this.ttlField.input.value;
 
-    encoder.videoCodec = 'H264';
+      encoder.destinationAddress = this.destinationAddressField.input.value;
 
-    switch (this.state.videoFormatValue) {
-      case '720p30':
-        encoder.videoFormat = '720p30';
-        break;
-      case '1080i60':
-        encoder.videoFormat = '1080i60';
-        break;
-      default:
-        encoder.videoFormat = '1080p60';
-        break;
-    }
+      encoder.port = this.portField.input.value;
 
-    encoder.bitRate = (this.bitrateField.state.value * 1000).toString();
-    encoder.maxBitRate = (this.state.maxBitrateValue * 1000).toString();
+      encoder.videoCodec = 'H264';
 
-    // build pipeline and stream strings
-    if (encoder.source !== "none") {
+      switch (this.state.videoFormatValue) {
+        case '720p30':
+          encoder.videoFormat = '720p30';
+          break;
+        case '1080i60':
+          encoder.videoFormat = '1080i60';
+          break;
+        default:
+          encoder.videoFormat = '1080p60';
+          break;
+      }
+
+      encoder.bitRate = (this.bitrateField.state.value * 1000).toString();
+      encoder.maxBitRate = (this.state.maxBitrateValue * 1000).toString();
+
+      // build pipeline and stream strings
       let str = encoder.source + ":mode=" + encoder.mode + ", ";
       str = str + "encoder:vformat=" + encoder.videoFormat + "&vbitrate=" + encoder.bitRate;
       str = str + ", " + encoder.protocol.toLowerCase() + "://";
@@ -86,10 +88,6 @@ class Encoder extends Component {
       str = str + "&maxbitrate=" + encoder.maxBitRate;
       encoder.pipeline = str;
       encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
-    }
-    else {
-      encoder.pipeline = "";
-      encoder.stream = "";
     }
 
     axios.get('/SetupEncoder', {
@@ -143,7 +141,10 @@ class Encoder extends Component {
     const style = {
       marginLeft: '2px',
       marginTop: '16px',
-      fontSize: '24px'
+      fontSize: '24px',
+      checkbox: {
+        marginBottom: 16,
+      }
     };
 
     return (
@@ -152,6 +153,19 @@ class Encoder extends Component {
 
         <div>
           <h1>BrightSign Encoder Setup</h1>
+          <div>
+            <Checkbox
+              ref={(c) => {
+                self.enableEncodingCB = c;
+              }}
+              label="Enable Encoding"
+              onCheck={(_, isInputChecked) => {
+                this.setState({encoderEnabled : isInputChecked});
+              }}
+              style={style.checkbox}
+              defaultChecked={true}
+            />
+          </div>
           <div id="serverUrl">
             <TextField
               ref={(c) => {
@@ -179,7 +193,6 @@ class Encoder extends Component {
                 value={this.state.sourceValue}
                 onChange={this.handleSourceChange.bind(this)}
               >
-                <MenuItem value={'none'} primaryText="None"/>
                 <MenuItem value={'hdmi'} primaryText="HDMI"/>
                 <MenuItem value={'display'} primaryText="Display"/>
               </SelectField>
@@ -189,6 +202,7 @@ class Encoder extends Component {
                 floatingLabelText="Protocol"
                 value={this.state.protocolValue}
                 onChange={this.handleProtocolChange.bind(this)}
+                disabled={true}
               >
                 <MenuItem value={0} primaryText="UDP"/>
                 <MenuItem value={1} primaryText="RTP"/>
