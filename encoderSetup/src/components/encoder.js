@@ -283,6 +283,7 @@ class Encoder extends Component {
               value={this.state.serialNumber}
               floatingLabelText="Serial Number"
               floatingLabelFixed={true}
+              readOnly={true}
             />
             <div>
               <SelectField
