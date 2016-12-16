@@ -21,6 +21,7 @@ class Encoder extends Component {
       protocolValue: 0,
       videoCodecValue: 0,
       videoFormatValue: '1080p60',
+      videoFormatEnabled: true,
       destinationAddress: "239.0.153.200",
       bitrateValue: 2,
       maxBitrateValue: 8,   // TODO: find out what this should really be set to
@@ -106,7 +107,7 @@ class Encoder extends Component {
   // _ === event - to satisfy eslint rules
   handleSourceChange(_, __, sourceValue) {
     this.setState({sourceValue});
-    // this.setState({videoFormatValue});
+    this.setState({videoFormatEnabled: sourceValue === 'hdmi'});
 
   }
 
@@ -273,6 +274,7 @@ class Encoder extends Component {
                 floatingLabelText="Video Format"
                 value={this.state.videoFormatValue}
                 onChange={this.handleVideoFormatChange.bind(this)}
+                disabled={this.state.sourceValue === 'display' || !this.state.encoderEnabled}
               >
                 <MenuItem value={'720p30'} primaryText="720p30"/>
                 <MenuItem value={'1080i60'} primaryText="1080i60"/>
