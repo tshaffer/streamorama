@@ -174,6 +174,7 @@ class Encoder extends Component {
               defaultValue=""
               floatingLabelText="Server Url"
               floatingLabelFixed={true}
+              disabled={!this.state.encoderEnabled}
             />
           </div>
           <div id="encoderStreamOptions">
@@ -185,6 +186,7 @@ class Encoder extends Component {
                 defaultValue=""
                 floatingLabelText="Name"
                 floatingLabelFixed={true}
+                disabled={!this.state.encoderEnabled}
               />
             </div>
             <div>
@@ -202,7 +204,6 @@ class Encoder extends Component {
                 floatingLabelText="Protocol"
                 value={this.state.protocolValue}
                 onChange={this.handleProtocolChange.bind(this)}
-                disabled={true}
               >
                 <MenuItem value={0} primaryText="UDP"/>
                 <MenuItem value={1} primaryText="RTP"/>
