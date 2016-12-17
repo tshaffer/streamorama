@@ -8,7 +8,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
-class Decoder extends Component {
+
+export default class Decoder extends Component {
 
   constructor(props) {
     super(props);
@@ -26,6 +27,8 @@ class Decoder extends Component {
 
   handleConnectToServer() {
 
+    let self = this;
+
     let serverUrl = this.serverUrlField.input.value;
     serverUrl = "http://10.1.0.180:8080";
 
@@ -33,6 +36,9 @@ class Decoder extends Component {
       .then( (response) => {
         console.log(response);
         const encoders = response.data;
+        encoders.forEach( (encoder) => {
+          self.props.onAddEncoder(encoder);
+        });
       })
       .catch( (error) => {
         console.log(error);
@@ -106,5 +112,7 @@ class Decoder extends Component {
   }
 }
 
-export default Decoder;
+Decoder.propTypes = {
+  onAddEncoder: React.PropTypes.func.isRequired
+};
 
