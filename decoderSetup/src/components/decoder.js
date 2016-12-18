@@ -6,6 +6,7 @@ import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
+import MenuItem from 'material-ui/MenuItem';
 
 
 export default class Decoder extends Component {
@@ -17,6 +18,7 @@ export default class Decoder extends Component {
       decoderEnabled: true,
       serialNumber: "TBD",
       latency: 0,
+      encoderValue: ''
     };
   }
 
@@ -41,6 +43,8 @@ export default class Decoder extends Component {
           if (encoders.hasOwnProperty(serialNumber)) {
             const encoder = encoders[serialNumber];
             self.props.onAddEncoder(encoder);
+            this.setState( { encoderValue: encoder.serialNumber });
+
           }
         }
       })
@@ -49,7 +53,47 @@ export default class Decoder extends Component {
       });
   }
 
-  handleEncoderChange(_, __, encoderValue) {
+  handleEncoderChange(_, __, serialNumber) {
+    this.setState( { encoderValue: serialNumber });
+  }
+
+  buildEncoderRow(encoder) {
+
+    // <MenuItem value={'hdmi'} primaryText="HDMI"/>
+    // <MenuItem value={'display'} primaryText="Display"/>
+
+    const serialNumber = encoder.serialNumber;
+    const primaryText = encoder.name;
+
+    return (
+      <MenuItem
+        value={serialNumber}
+        primaryText={primaryText}
+        key={serialNumber}
+      />
+    );
+  }
+
+  getEncodersJSX() {
+
+    let self = this;
+
+    let encoder = null;
+
+    const encoders = [];
+    for (let serialNumber in this.props.encoders.encodersBySerialNumber) {
+      if (this.props.encoders.encodersBySerialNumber.hasOwnProperty(serialNumber)) {
+        encoder = this.props.encoders.encodersBySerialNumber[serialNumber];
+        encoders.push(encoder);
+      }
+    }
+
+    let encoderRows = encoders.map(function(encoder) {
+      const encoderRow = self.buildEncoderRow(encoder);
+      return encoderRow;
+    });
+
+    return encoderRows;
   }
 
   render() {
@@ -65,7 +109,13 @@ export default class Decoder extends Component {
       }
     };
 
-    let encoders = <noscript/>;
+    let encoders;
+    if (this.props.encoders.length === 0) {
+      encoders = <noscript/>;
+    }
+    else {
+      encoders = this.getEncodersJSX();
+    }
 
     return (
       <MuiThemeProvider>
@@ -117,6 +167,7 @@ export default class Decoder extends Component {
 }
 
 Decoder.propTypes = {
-  onAddEncoder: React.PropTypes.func.isRequired
+  onAddEncoder: React.PropTypes.func.isRequired,
+  encoders: React.PropTypes.object.isRequired
 };
 
