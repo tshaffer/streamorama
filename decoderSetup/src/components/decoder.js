@@ -29,15 +29,20 @@ export default class Decoder extends Component {
     let self = this;
 
     let serverUrl = this.serverUrlField.input.value;
-    serverUrl = "http://10.1.0.180:8080";
+    // serverUrl = "http://10.1.0.180:8080";
+    serverUrl = "http://192.168.0.105:8080";
 
     axios.get(serverUrl + '/getEncoders', {})
       .then( (response) => {
         console.log(response);
         const encoders = response.data;
-        encoders.forEach( (encoder) => {
-          self.props.onAddEncoder(encoder);
-        });
+
+        for (let serialNumber in encoders) {
+          if (encoders.hasOwnProperty(serialNumber)) {
+            const encoder = encoders[serialNumber];
+            self.props.onAddEncoder(encoder);
+          }
+        }
       })
       .catch( (error) => {
         console.log(error);
@@ -84,7 +89,7 @@ export default class Decoder extends Component {
               ref={(c) => {
                 self.serverUrlField = c;
               }}
-              defaultValue={"http://10.1.0.180:8080"}
+              defaultValue={"http://192.168.0.105:8080"}
               floatingLabelText="Server Url"
               floatingLabelFixed={true}
               disabled={!this.state.decoderEnabled}
