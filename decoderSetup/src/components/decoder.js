@@ -23,7 +23,15 @@ export default class Decoder extends Component {
   }
 
   componentWillMount() {
-    console.log("Decoder::componentWillMount");
+    axios.get('/GetSystemInfo', {})
+      .then( (response) => {
+        console.log(response);
+        const serialNumber = response.data.deviceuniqueid$;
+        this.setState({serialNumber: serialNumber});
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
   }
 
   handleConnectToServer() {
@@ -32,7 +40,7 @@ export default class Decoder extends Component {
 
     let serverUrl = this.serverUrlField.input.value;
     // serverUrl = "http://10.1.0.180:8080";
-    serverUrl = "http://192.168.0.105:8080";
+    // serverUrl = "http://192.168.0.105:8080";
 
     axios.get(serverUrl + '/getEncoders', {})
       .then( (response) => {
@@ -52,6 +60,31 @@ export default class Decoder extends Component {
         console.log(error);
       });
   }
+
+  handleSetupDecoder() {
+
+    let serverUrl = this.serverUrlField.input.value;
+
+    let decoder = {};
+    decoder.serialNumber = this.state.serialNumber;
+    decoder.name = this.nameField.input.value;
+    decoder.assignedEncoder = this.props.encoders.encodersBySerialNumber[this.state.encoderValue];
+
+    // invoke handler on streamorama server (running on LAN server) that registers this device as a decoder
+    axios.get(serverUrl + '/setDecoder', {
+      params: {
+        decoderParams: decoder
+      }
+    })
+      .then( (response) => {
+        console.log(response);
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+
+  }
+
 
   handleEncoderChange(_, __, serialNumber) {
     this.setState( { encoderValue: serialNumber });
@@ -151,6 +184,17 @@ export default class Decoder extends Component {
             />
           </div>
           <div>
+            <TextField
+              ref={(c) => {
+                self.nameField = c;
+              }}
+              defaultValue=""
+              floatingLabelText="Name"
+              floatingLabelFixed={true}
+              disabled={!this.state.decoderEnabled}
+            />
+          </div>
+          <div>
             <SelectField
               floatingLabelText="Encoders"
               value={this.state.encoderValue}
@@ -160,6 +204,12 @@ export default class Decoder extends Component {
               {encoders}
             </SelectField>
           </div>
+          <RaisedButton
+            onClick={this.handleSetupDecoder.bind(this)}
+            label="Setup Decoder"
+            style={style}
+          />
+
         </div>
       </MuiThemeProvider>
     );
