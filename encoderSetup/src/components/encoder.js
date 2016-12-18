@@ -105,6 +105,7 @@ class Encoder extends Component {
       encoder.stream = encoder.protocol.toLowerCase() + "://" + encoder.destinationAddress + ":" + encoder.port + "/";
     }
 
+    // invoke handler on device to set the encoder parameters
     axios.get('/SetupEncoder', {
       params: {
         encoderParams: encoder
@@ -117,7 +118,7 @@ class Encoder extends Component {
         console.log(error);
       });
 
-    // axios.get('http://10.1.0.180:8080/setEncoderParams', {
+    // invoke handler on streamorama server (running on LAN server) that registers this device as an encoder
     axios.get(encoder.serverUrl + '/setEncoderParams', {
       params: {
         encoderParams: encoder

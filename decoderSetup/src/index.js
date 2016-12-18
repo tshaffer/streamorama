@@ -26,9 +26,9 @@ const store = createStore(
 );
 
 ReactDOM.render(
-<Provider store={store}>
-  <Router history={hashHistory}>
-  <Route path="/" component={App} />
-  </Router>
+  <Provider store={store}>
+    <Router history={hashHistory}>
+      <Route path="/" component={App} />
+    </Router>
   </Provider>
   , document.getElementById('content'));

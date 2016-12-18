@@ -4,7 +4,7 @@ import Decoder from '../components/decoder';
 
 import { addEncoder } from '../actions/index';
 
-function mapStateToProps (state, ownProps) {
+function mapStateToProps (state) {
   return {
     encoders: state.encoders,
   };

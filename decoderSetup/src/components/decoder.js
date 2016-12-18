@@ -5,7 +5,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 
 
@@ -14,11 +13,11 @@ export default class Decoder extends Component {
   constructor(props) {
     super(props);
     this.state =
-      {
-        decoderEnabled: true,
-        serialNumber: "TBD",
-        latency: 0,
-      };
+    {
+      decoderEnabled: true,
+      serialNumber: "TBD",
+      latency: 0,
+    };
   }
 
   componentWillMount() {
