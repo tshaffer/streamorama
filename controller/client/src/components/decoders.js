@@ -124,6 +124,12 @@ export default class Decoders extends Component {
     index = 0;
     let encoder = null;
 
+    if (encoderIndex === 0) {
+      // TODO assign to None - not yet handled!!
+      debugger;
+    }
+
+    encoderIndex--;
     for (let serialNumber in encodersBySerialNumber) {
       if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
         encoder = encodersBySerialNumber[serialNumber];
