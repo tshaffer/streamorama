@@ -6,6 +6,7 @@ import axios from 'axios';
 export const ADD_DECODER = 'ADD_DECODER';
 export const SET_DECODERS = 'SET_DECODERS';
 
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -23,6 +24,27 @@ export function setDecoders(decoders) {
     decoders
   };
 }
+
+// ------------------------------------
+// Action Creators
+// ------------------------------------
+export function setDecoder(decoder) {
+
+  return function (dispatch, _) {
+
+    dispatch(addDecoder(decoder));
+
+    let serverURL = 'http://localhost:8080/setDecoder';
+
+    return axios.get(serverURL, {
+      params: { decoderParams: decoder }
+    }).then(function(data) {
+      console.log('setDecoder - return from server call');
+      console.log(data);
+    });
+  };
+}
+
 
 export function loadDecoders() {
 

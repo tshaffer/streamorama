@@ -94,9 +94,52 @@ export default class Decoders extends Component {
 
   // handleEncoderChange(decoder, decoderIndex, event, index, encoderIndex) {
   handleEncoderChange(_, decoderIndex, __, ___, encoderIndex) {
+
+    // TODO - combine into a single line of code?
     const encoderIndicesByDecoderRow = this.encoderIndicesByDecoderRow;
     encoderIndicesByDecoderRow[decoderIndex] = encoderIndex;
     this.encoderIndicesByDecoderRow = encoderIndicesByDecoderRow;
+
+    // TODO get encoders / decoders referenced by index - better way?
+    const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
+    const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
+
+    let index = 0;
+    let decoder = null;
+
+    for (let serialNumber in decodersBySerialNumber) {
+      if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
+        decoder = decodersBySerialNumber[serialNumber];
+        if (index === decoderIndex) {
+          break;
+        }
+      }
+      index++;
+    }
+    // at this point, decoder now contains the specified decoder
+    if (decoder === null) {
+      debugger;
+    }
+
+    index = 0;
+    let encoder = null;
+
+    for (let serialNumber in encodersBySerialNumber) {
+      if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
+        encoder = encodersBySerialNumber[serialNumber];
+        if (index === encoderIndex) {
+          break;
+        }
+        index++;
+      }
+    }
+    // at this point, encoder now contains the specified encoder
+    if (encoder === null) {
+      debugger;
+    }
+
+    decoder.assignedEncoder = encoder;
+    this.props.onSetDecoder(decoder);
   }
 
   buildDecoderRow(decoder, decoderIndex, encoderOptions) {
@@ -213,6 +256,7 @@ export default class Decoders extends Component {
 Decoders.propTypes = {
   onLoadEncoders: React.PropTypes.func.isRequired,
   onLoadDecoders: React.PropTypes.func.isRequired,
+  onSetDecoder: React.PropTypes.func.isRequired,
   encoders: React.PropTypes.object.isRequired,
   decoders: React.PropTypes.object.isRequired,
 };

@@ -4,6 +4,7 @@ import Landing from '../components/landing';
 
 import { loadEncoders } from '../store/encoders';
 import { loadDecoders } from '../store/decoders';
+import { setDecoder } from '../store/decoders';
 
 function mapStateToProps (state) {
   return {
@@ -19,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onLoadDecoders: () => {
       dispatch(loadDecoders());
+    },
+    onSetDecoder: (decoder) => {
+      dispatch(setDecoder(decoder));
     }
   };
 };

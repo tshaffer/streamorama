@@ -3,22 +3,11 @@
 		"name": "Ranchero",
 		"serialNumber": "R5C67M000024",
 		"assignedEncoder": {
-			"name": "bottomImpala",
-			"serialNumber": "L8C67L000084",
-			"source": "HDMI",
-			"streamType": "Multicast",
-			"protocol": "UDP",
-			"ttl": "1",
-			"destinationAddress": "239.0.153.201",
-			"port": "1234",
-			"maxBitrate": "3.0",
-			"fileName": "",
-			"videoCodec": "H264",
-			"videoFormat": "720p30",
-			"bitRate": "2.0",
-			"pipeline": "hdmi:, encoder:vformat=720p30&vbitrate=2000, udp://239.0.153.201:1234/?ttl=1&maxbitrate=3000",
-			"stream": "udp://239.0.153.201:1234/"
-		}
+			"serialNumber": "R5C67M000024",
+			"name": "ScreenStreamer",
+			"stream": "rtsp://192.168.0.107:8090/mem:/display/stream.ts"
+		},
+		"ipAddress": "0.0.0.0"
 	},
 	"L8D68K000035": {
 		"name": "XT3AtHome",
@@ -27,7 +16,7 @@
 			"serialNumber": "R5C67M000024",
 			"name": "ScreenStreamer",
 			"stream": "rtsp://192.168.0.107:8090/mem:/display/stream.ts"
-		}
+		}	
 	},
 	"X3K4AH000145": {
 		"serialNumber": "X3K4AH000145",

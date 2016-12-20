@@ -65,29 +65,3 @@ export function stopEncoder(encoder) {
     };
 }
 
-function addDecoderToRedux(decoder) {
-
-    console.log("index.js::setDecoder");
-    return {
-        type: ADD_DECODER,
-        decoder
-    };
-}
-
-export function setDecoder(decoder) {
-
-    return function (dispatch, getState) {
-
-        dispatch(addDecoderToRedux(decoder));
-
-        let serverURL = "http://localhost:8080/setDecoder";
-
-        return axios.get(serverURL, {
-            params: { decoderParams: decoder }
-        }).then(function(data) {
-            console.log("setDecoder - return from server call");
-            console.log(data);
-        });
-    };
-}
-
