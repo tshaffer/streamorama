@@ -19,16 +19,29 @@ class Landing extends Component {
     //   margin: 0,
     // };
 
+    // TODO
+    decoder.ipAddress = '0.0.0.0';
+
+    let encoder = 'None';
+    let stream = '';
+    if (decoder.assignedEncoder) {
+      encoder = decoder.assignedEncoder.name;
+      stream = decoder.assignedEncoder.stream;
+    }
+
     return (
       <TableRow key={decoder.serialNumber}>
         <TableRowColumn>
           {decoder.name}
         </TableRowColumn>
         <TableRowColumn>
-          {decoder.serialNumber}
+          {decoder.ipAddress}
         </TableRowColumn>
         <TableRowColumn>
-          {decoder.assignedEncoder === '' ? 'None' : decoder.assignedEncoder.name}
+          {encoder}
+        </TableRowColumn>
+        <TableRowColumn>
+          {stream}
         </TableRowColumn>
       </TableRow>
     );
@@ -68,9 +81,9 @@ class Landing extends Component {
             >
               <TableRow>
                 <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Serial Number</TableHeaderColumn>
-                <TableHeaderColumn>Assigned Encoder</TableHeaderColumn>
-                <TableHeaderColumn/>
+                <TableHeaderColumn>IP Address</TableHeaderColumn>
+                <TableHeaderColumn>Encoder</TableHeaderColumn>
+                <TableHeaderColumn>Stream</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody
