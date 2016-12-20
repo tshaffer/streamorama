@@ -12,11 +12,6 @@ class Landing extends Component {
 
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   encoderIndicesByDecoderRow : []
-    // };
-
     this.encoderIndicesByDecoderRow = [];
   }
 
@@ -61,12 +56,6 @@ class Landing extends Component {
       }
     }
 
-
-    // values in encoderIndicesByDecoderRow refer to index into this.props.encoders (for each decoder)
-    // this.setState({
-    //   encoderIndicesByDecoderRow
-    // });
-
     this.encoderIndicesByDecoderRow = encoderIndicesByDecoderRow;
   }
 
@@ -104,12 +93,9 @@ class Landing extends Component {
   }
 
   // handleEncoderChange(decoder, decoderIndex, event, index, encoderIndex) {
-
   handleEncoderChange(_, decoderIndex, __, ___, encoderIndex) {
-    // const encoderIndicesByDecoderRow = this.state.encoderIndicesByDecoderRow;
     const encoderIndicesByDecoderRow = this.encoderIndicesByDecoderRow;
     encoderIndicesByDecoderRow[decoderIndex] = encoderIndex;
-    // this.setState( { encoderIndicesByDecoderRow });
     this.encoderIndicesByDecoderRow = encoderIndicesByDecoderRow;
   }
 
@@ -141,10 +127,6 @@ class Landing extends Component {
     //     self.handleDecoderNameChange();
     //   }}
     // />
-
-    // <TableRowColumn>
-    //   {encoder}
-    // </TableRowColumn>
 
     return (
       <TableRow key={decoder.serialNumber}>
