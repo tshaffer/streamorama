@@ -17,10 +17,7 @@ class Landing extends Component {
           <Tabs>
             <Tab label="Decoders">
               <Decoders
-                onLoadEncoders={this.props.onLoadEncoders}
-                onLoadDecoders={this.props.onLoadDecoders}
-                encoders={this.props.encoders}
-                decoders={this.props.decoders}
+                {...this.props}
               />
             </Tab>
             <Tab label="Encoders">
