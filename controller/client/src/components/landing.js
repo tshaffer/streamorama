@@ -5,8 +5,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import Decoders from '../components/decoders';
+import Encoders from '../components/encoders';
 
 class Landing extends Component {
+
+  componentWillMount() {
+    this.props.onLoadEncoders();
+    this.props.onLoadDecoders();
+  }
 
   render() {
 
@@ -17,11 +23,14 @@ class Landing extends Component {
           <Tabs>
             <Tab label="Decoders">
               <Decoders
-                {...this.props}
+                encoders={this.props.encoders}
+                decoders={this.props.decoders}
               />
             </Tab>
             <Tab label="Encoders">
-              Encoders
+              <Encoders
+                encoders={this.props.encoders}
+              />
             </Tab>
           </Tabs>
         </div>

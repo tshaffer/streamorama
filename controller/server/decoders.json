@@ -3,9 +3,22 @@
 		"name": "Ranchero",
 		"serialNumber": "R5C67M000024",
 		"assignedEncoder": {
-			"serialNumber": "R5C67M000024",
-			"name": "ScreenStreamer",
-			"stream": "rtsp://192.168.0.107:8090/mem:/display/stream.ts"
+			"enabled": true,
+			"serverUrl": "http://10.1.0.180:8080",
+			"name": "FlibbetFool",
+			"serialNumber": "L8C67L000084",
+			"source": "Display",
+			"mode": "1",
+			"protocol": "UDP",
+			"ttl": "1",
+			"destinationAddress": "239.0.153.200",
+			"port": "1234",
+			"videoCodec": "H264",
+			"videoFormat": "1080p60",
+			"bitRate": "2000",
+			"maxBitRate": "8000",
+			"pipeline": "Display:mode=1, encoder:vformat=1080p60&vbitrate=2000, udp://239.0.153.200:1234/?ttl=1&maxbitrate=8000",
+			"stream": "udp://239.0.153.200:1234/"
 		},
 		"ipAddress": "0.0.0.0"
 	},

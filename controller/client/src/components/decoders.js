@@ -15,11 +15,6 @@ export default class Decoders extends Component {
     this.encoderIndicesByDecoderRow = [];
   }
 
-  componentWillMount() {
-    this.props.onLoadEncoders();
-    this.props.onLoadDecoders();
-  }
-
   buildEncoderIndicesByDecoderRow() {
 
     if (Object.keys(this.props.encoders.encodersBySerialNumber).length === 0 ||
@@ -260,8 +255,6 @@ export default class Decoders extends Component {
 }
 
 Decoders.propTypes = {
-  onLoadEncoders: React.PropTypes.func.isRequired,
-  onLoadDecoders: React.PropTypes.func.isRequired,
   onSetDecoder: React.PropTypes.func.isRequired,
   encoders: React.PropTypes.object.isRequired,
   decoders: React.PropTypes.object.isRequired,
