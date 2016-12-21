@@ -23,6 +23,7 @@ class Landing extends Component {
           <Tabs>
             <Tab label="Decoders">
               <Decoders
+                onSetDecoder={this.props.onSetDecoder}
                 encoders={this.props.encoders}
                 decoders={this.props.decoders}
               />
@@ -41,6 +42,7 @@ class Landing extends Component {
 }
 
 Landing.propTypes = {
+  onSetDecoder: React.PropTypes.func.isRequired,
   onLoadEncoders: React.PropTypes.func.isRequired,
   onLoadDecoders: React.PropTypes.func.isRequired,
   encoders: React.PropTypes.object.isRequired,

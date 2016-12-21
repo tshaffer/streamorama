@@ -28,7 +28,7 @@ export default class Decoders extends Component {
     for (let serialNumber in decodersBySerialNumber) {
       if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
         const decoder = decodersBySerialNumber[serialNumber];
-        if (decoder.assignedEncoder === '') {
+        if (!decoder.assignedEncoder.serialNumber || decoder.assignedEncoder.serialNumber === '') {
           encoderIndicesByDecoderRow.push(0);
         }
         else {
@@ -40,7 +40,7 @@ export default class Decoders extends Component {
             if (encodersBySerialNumber.hasOwnProperty(encoderSerialNumber)) {
               if (encoderSerialNumber === assignedEncoderSerialNumber) {
                 encoderIndicesByDecoderRow.push(encoderIndex);
-                // break out of the loop
+                // TODO break out of the loop
               }
               encoderIndex++;
             }
@@ -139,7 +139,7 @@ export default class Decoders extends Component {
       debugger;
     }
 
-    decoder.assignedEncoder = encoder;
+    decoder.assignedEncoder.serialNumber = encoder.serialNumber;
     this.props.onSetDecoder(decoder);
   }
 
@@ -155,11 +155,12 @@ export default class Decoders extends Component {
     // TODO
     decoder.ipAddress = '0.0.0.0';
 
-    // let encoder = 'None';
     let stream = '';
-    if (decoder.assignedEncoder) {
-      // encoder = decoder.assignedEncoder.name;
-      stream = decoder.assignedEncoder.stream;
+    if (decoder.assignedEncoder.serialNumber && decoder.assignedEncoder.serialNumber !== '') {
+      const assignedEncoder = this.props.encoders.encodersBySerialNumber[decoder.assignedEncoder.serialNumber];
+      if (assignedEncoder) {
+        stream = assignedEncoder.stream;
+      }
     }
 
     // didn't work!!
