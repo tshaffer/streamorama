@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BrightAuthor version="6" BrightAuthorVersion="4.7.0.1" type="project">
+<BrightAuthor version="6" BrightAuthorVersion="4.7.0.2" type="project">
   <meta>
     <name>testEncoding</name>
     <isBackup>False</isBackup>
@@ -9,7 +9,7 @@
     <videoConnector>HDMI</videoConnector>
     <deviceWebPageDisplay>Custom</deviceWebPageDisplay>
     <customDeviceWebPageSiteName>encoder</customDeviceWebPageSiteName>
-    <customDeviceWebPage>\\Mac\Home\Documents\Projects\streamoramaServerPackage\index.html</customDeviceWebPage>
+    <customDeviceWebPage>\\Mac\Home\Documents\Projects\streamoramaEncoderSetup\index.html</customDeviceWebPage>
     <alphabetizeVariableNames>True</alphabetizeVariableNames>
     <delayScheduleChangeUntilMediaEndEvent>False</delayScheduleChangeUntilMediaEndEvent>
     <htmlEnableJavascriptConsole>False</htmlEnableJavascriptConsole>
@@ -187,7 +187,7 @@
       <Audio>\\Mac\Home\Documents\Projects\streamorama\proto</Audio>
       <Media>\\Mac\Home\Documents\All Media\Videos</Media>
       <Fonts>\\Mac\Home\Documents\Projects\streamorama\proto</Fonts>
-      <HTML>\\Mac\Home\Documents\Projects\streamoramaServerPackage</HTML>
+      <HTML>\\Mac\Home\Documents\Projects\streamorama\proto</HTML>
       <PluginScriptsAutoruns>\\Mac\Home\Documents\Projects\streamorama\proto</PluginScriptsAutoruns>
       <CSV>\\Mac\Home\Documents\Projects\streamorama\proto</CSV>
       <RFChannelScan>\\Mac\Home\Documents\Projects\streamorama\proto</RFChannelScan>

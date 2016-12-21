@@ -28,11 +28,11 @@ export default class Decoders extends Component {
     for (let serialNumber in decodersBySerialNumber) {
       if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
         const decoder = decodersBySerialNumber[serialNumber];
-        if (!decoder.assignedEncoder.serialNumber || decoder.assignedEncoder.serialNumber === '') {
+        if (!decoder.assignedEncoder || decoder.assignedEncoder === '') {
           encoderIndicesByDecoderRow.push(0);
         }
         else {
-          const assignedEncoderSerialNumber = decoder.assignedEncoder.serialNumber;
+          const assignedEncoderSerialNumber = decoder.assignedEncoder;
 
           // walk through the encoders to find the serial number associated with this encoder
           let encoderIndex = 1;
@@ -139,7 +139,7 @@ export default class Decoders extends Component {
       debugger;
     }
 
-    decoder.assignedEncoder.serialNumber = encoder.serialNumber;
+    decoder.assignedEncoder = encoder.serialNumber;
     this.props.onSetDecoder(decoder);
   }
 
@@ -157,8 +157,8 @@ export default class Decoders extends Component {
       ipAddress = decoder.ipAddress;
     }
     let stream = '';
-    if (decoder.assignedEncoder.serialNumber && decoder.assignedEncoder.serialNumber !== '') {
-      const assignedEncoder = this.props.encoders.encodersBySerialNumber[decoder.assignedEncoder.serialNumber];
+    if (decoder.assignedEncoder && decoder.assignedEncoder !== '') {
+      const assignedEncoder = this.props.encoders.encodersBySerialNumber[decoder.assignedEncoder];
       if (assignedEncoder) {
         stream = assignedEncoder.stream;
       }

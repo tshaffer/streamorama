@@ -8,17 +8,13 @@
 	"L8D68K000035": {
 		"name": "XT3AtHome",
 		"serialNumber": "L8D68K000035",
-		"assignedEncoder": {
-			"serialNumber": "L8C67L000084"
-		},
+		"assignedEncoder": "L8C67L000084",
 		"ipAddress": "0.0.0.0"
 	},
 	"X3K4AH000145": {
 		"serialNumber": "X3K4AH000145",
 		"name": "HomeDecoder",
-		"assignedEncoder": {
-			"serialNumber": "L8D68K000035"
-		},
+		"assignedEncoder": "L8C67L000084",
 		"ipAddress": "0.0.0.0"
 	}
 }
