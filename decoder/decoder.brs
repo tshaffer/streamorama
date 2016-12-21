@@ -21,10 +21,11 @@ print "newDecoder"
 	decoder.bsp = bsp
 
     decoder.isStreaming = false
-    
+    decoder.streamUrl = ""
+
 	decoder.timer = CreateObject("roTimer")
 	decoder.timer.SetPort(decoder.msgPort)
-	decoder.timer.SetElapsed(10, 0)
+	decoder.timer.SetElapsed(2, 0)
 	decoder.timer.Start()
 
 	decoder.ProcessEvent = decoder_ProcessEvent
@@ -60,11 +61,11 @@ end Function
 
 Function decoder_ProcessTimerEvent()
 
-    if not m.isStreaming then
-        url = CreateObject("roUrlTransfer")
-        url.SetUrl("http://10.1.0.180:8080/getEncoderStream?serialNumber=" + m.serialNumber)
-        streamUrl$ = url.GetToString()
+    url = CreateObject("roUrlTransfer")
+    url.SetUrl("http://10.1.0.180:8080/getEncoderStream?serialNumber=" + m.serialNumber)
+    streamUrl$ = url.GetToString()
 
+    if not m.isStreaming or m.streamUrl <> streamUrl$ then
         ' TODO - could get a 204 - need to change code to account for that'
         m.StartStreaming(streamUrl$)
     endif
@@ -76,12 +77,17 @@ End Function
 
 Sub decoder_StartStreaming(streamUrl$)
 
+    videoPlayer = m.bsp.sign.zonesHSM[0].videoPlayer
+
+    if m.isStreaming then
+        videoPlayer.stop()
+    endif
+
     m.rtspStream = CreateObject("roRtspStream", streamUrl$)
 
     aa = {}
     aa["Rtsp"] = m.rtspStream
 
-    videoPlayer = m.bsp.sign.zonesHSM[0].videoPlayer
     ok = videoPlayer.PlayFile(aa)
 
     if ok = 0 then
@@ -89,6 +95,9 @@ Sub decoder_StartStreaming(streamUrl$)
     else
         print "SUCCESS"
     endif
+
+    m.isStreaming = true
+    m.streamUrl = streamUrl$
 
 End Sub
 
