@@ -13,8 +13,10 @@ export default class Encoders extends Component {
     //   margin: 0,
     // };
 
-    // TODO
-    encoder.ipAddress = '0.0.0.0';
+    let ipAddress = '0.0.0.0';
+    if (encoder.ipAddress) {
+      ipAddress = encoder.ipAddress;
+    }
 
     return (
       <TableRow key={encoder.serialNumber}>
@@ -22,7 +24,7 @@ export default class Encoders extends Component {
           {encoder.name}
         </TableRowColumn>
         <TableRowColumn>
-          {encoder.ipAddress}
+          {ipAddress}
         </TableRowColumn>
         <TableRowColumn>
           {encoder.stream}

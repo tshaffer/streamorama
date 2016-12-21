@@ -152,9 +152,10 @@ export default class Decoders extends Component {
     //   margin: 0,
     // };
 
-    // TODO
-    decoder.ipAddress = '0.0.0.0';
-
+    let ipAddress = '0.0.0.0';
+    if (decoder.ipAddress) {
+      ipAddress = decoder.ipAddress;
+    }
     let stream = '';
     if (decoder.assignedEncoder.serialNumber && decoder.assignedEncoder.serialNumber !== '') {
       const assignedEncoder = this.props.encoders.encodersBySerialNumber[decoder.assignedEncoder.serialNumber];
@@ -179,7 +180,7 @@ export default class Decoders extends Component {
           {decoder.name}
         </TableRowColumn>
         <TableRowColumn>
-          {decoder.ipAddress}
+          {ipAddress}
         </TableRowColumn>
         <TableRowColumn>
           <SelectField

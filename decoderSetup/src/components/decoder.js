@@ -17,8 +17,9 @@ export default class Decoder extends Component {
     {
       decoderEnabled: true,
       serialNumber: "TBD",
+      ipAddress: '',
       latency: 0,
-      encoderValue: ''
+      encoderSerialNumber: ''
     };
   }
 
@@ -26,8 +27,12 @@ export default class Decoder extends Component {
     axios.get('/GetSystemInfo', {})
       .then( (response) => {
         console.log(response);
-        const serialNumber = response.data.deviceuniqueid$;
-        this.setState({serialNumber: serialNumber});
+        this.setState(
+          {
+            serialNumber: response.data.deviceuniqueid$,
+            ipAddress: response.data.ethernetipaddress
+          },
+        );
       })
       .catch( (error) => {
         console.log(error);
@@ -51,7 +56,7 @@ export default class Decoder extends Component {
           if (encoders.hasOwnProperty(serialNumber)) {
             const encoder = encoders[serialNumber];
             self.props.onAddEncoder(encoder);
-            this.setState( { encoderValue: encoder.serialNumber });
+            this.setState( { encoderSerialNumber: encoder.serialNumber });
 
           }
         }
@@ -67,8 +72,9 @@ export default class Decoder extends Component {
 
     let decoder = {};
     decoder.serialNumber = this.state.serialNumber;
+    decoder.ipAddress = this.state.ipAddress;
     decoder.name = this.nameField.input.value;
-    decoder.assignedEncoder = this.props.encoders.encodersBySerialNumber[this.state.encoderValue];
+    decoder.assignedEncoder = this.state.encoderSerialNumber;
 
     // invoke handler on streamorama server (running on LAN server) that registers this device as a decoder
     axios.get(serverUrl + '/setDecoder', {
@@ -87,7 +93,7 @@ export default class Decoder extends Component {
 
 
   handleEncoderChange(_, __, serialNumber) {
-    this.setState( { encoderValue: serialNumber });
+    this.setState( { encoderSerialNumber: serialNumber });
   }
 
   buildEncoderRow(encoder) {
@@ -172,7 +178,7 @@ export default class Decoder extends Component {
               ref={(c) => {
                 self.serverUrlField = c;
               }}
-              defaultValue={"http://192.168.0.105:8080"}
+              defaultValue={"http://10.1.0.180:8080"}
               floatingLabelText="Server Url"
               floatingLabelFixed={true}
               disabled={!this.state.decoderEnabled}
@@ -197,7 +203,7 @@ export default class Decoder extends Component {
           <div>
             <SelectField
               floatingLabelText="Encoders"
-              value={this.state.encoderValue}
+              value={this.state.encoderSerialNumber}
               onChange={this.handleEncoderChange.bind(this)}
               disabled={!this.state.decoderEnabled}
             >

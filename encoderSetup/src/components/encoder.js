@@ -33,8 +33,12 @@ class Encoder extends Component {
     axios.get('/GetSystemInfo', {})
       .then( (response) => {
         console.log(response);
-        const serialNumber = response.data.deviceuniqueid$;
-        this.setState({serialNumber: serialNumber});
+        this.setState(
+          {
+            serialNumber: response.data.deviceuniqueid$,
+            ipAddress: response.data.ethernetipaddress
+          },
+        );
       })
       .catch( (error) => {
         console.log(error);
@@ -55,6 +59,7 @@ class Encoder extends Component {
 
       encoder.name = this.nameField.input.value;
       encoder.serialNumber = this.state.serialNumber;
+      encoder.ipAddress = this.state.ipAddress;
 
       if (this.state.sourceValue === 'hdmi') {
         encoder.source = "HDMI";

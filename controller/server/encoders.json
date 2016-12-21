@@ -19,8 +19,9 @@
 	"L8C67L000084": {
 		"enabled": true,
 		"serverUrl": "http://10.1.0.180:8080",
-		"name": "FlibbetFool",
+		"name": "DesktopXT3",
 		"serialNumber": "L8C67L000084",
+		"ipAddress": "10.1.0.81",
 		"source": "Display",
 		"mode": "1",
 		"protocol": "UDP",

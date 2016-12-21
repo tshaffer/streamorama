@@ -1,11 +1,9 @@
 {
 	"R5C67M000024": {
-		"name": "Ranchero",
 		"serialNumber": "R5C67M000024",
-		"assignedEncoder": {
-			"serialNumber": "L8D68K000035"
-		},
-		"ipAddress": "0.0.0.0"
+		"ipAddress": "10.1.0.68",
+		"name": "XD3Decoder",
+		"assignedEncoder": "L8C67L000084"
 	},
 	"L8D68K000035": {
 		"name": "XT3AtHome",
