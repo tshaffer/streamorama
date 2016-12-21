@@ -62,18 +62,11 @@ Function decoder_ProcessTimerEvent()
 
     if not m.isStreaming then
         url = CreateObject("roUrlTransfer")
-''        url.SetUrl("http://10.1.0.180:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
-        url.SetUrl("http://192.168.0.108:8080/getDecoderTargetStatus?serialNumber=" + m.serialNumber)
-        decoder$ = url.GetToString()
+        url.SetUrl("http://10.1.0.180:8080/getEncoderStream?serialNumber=" + m.serialNumber)
+        streamUrl$ = url.GetToString()
 
-        if len(decoder$) > 0 then
-            decoder = ParseJson(decoder$)
-            if type(decoder) = "roAssociativeArray" then
-                streamUrl$ = decoder.assignedEncoder.stream
-                m.StartStreaming(streamUrl$)
-            endif
-        endif
-
+        ' TODO - could get a 204 - need to change code to account for that'
+        m.StartStreaming(streamUrl$)
     endif
 
     return true
