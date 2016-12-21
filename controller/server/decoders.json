@@ -3,22 +3,7 @@
 		"name": "Ranchero",
 		"serialNumber": "R5C67M000024",
 		"assignedEncoder": {
-			"enabled": true,
-			"serverUrl": "http://10.1.0.180:8080",
-			"name": "FlibbetFool",
 			"serialNumber": "L8C67L000084",
-			"source": "Display",
-			"mode": "1",
-			"protocol": "UDP",
-			"ttl": "1",
-			"destinationAddress": "239.0.153.200",
-			"port": "1234",
-			"videoCodec": "H264",
-			"videoFormat": "1080p60",
-			"bitRate": "2000",
-			"maxBitRate": "8000",
-			"pipeline": "Display:mode=1, encoder:vformat=1080p60&vbitrate=2000, udp://239.0.153.200:1234/?ttl=1&maxbitrate=8000",
-			"stream": "udp://239.0.153.200:1234/"
 		},
 		"ipAddress": "0.0.0.0"
 	},
@@ -27,8 +12,6 @@
 		"serialNumber": "L8D68K000035",
 		"assignedEncoder": {
 			"serialNumber": "R5C67M000024",
-			"name": "ScreenStreamer",
-			"stream": "rtsp://192.168.0.107:8090/mem:/display/stream.ts"
 		},
 		"ipAddress": "0.0.0.0"
 	},
@@ -36,21 +19,7 @@
 		"serialNumber": "X3K4AH000145",
 		"name": "HomeDecoder",
 		"assignedEncoder": {
-			"name": "topImpala",
 			"serialNumber": "L8D68K000035",
-			"source": "HDMI",
-			"streamType": "Multicast",
-			"protocol": "UDP",
-			"ttl": "1",
-			"destinationAddress": "239.0.153.200",
-			"port": "1234",
-			"maxBitrate": "3.0",
-			"fileName": "",
-			"videoCodec": "H264",
-			"videoFormat": "720p30",
-			"bitRate": "2.0",
-			"pipeline": "hdmi:, encoder:vformat=720p30&vbitrate=2000, udp://239.0.153.200:1234/?ttl=1&maxbitrate=3000",
-			"stream": "udp://239.0.153.200:1234/"
 		},
 		"ipAddress": "0.0.0.0"
 	}
