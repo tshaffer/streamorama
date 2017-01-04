@@ -109,11 +109,16 @@ app.get('/getEncoderStream', function(req, res) {
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
       var encoderSerialNumber = decoder.assignedEncoder;
+      var encoderIndex = decoder.encoderIndex;
       if (encoderSerialNumber && encoderSerialNumber !== '') {
           var encoder = brightSignEncoders[encoderSerialNumber];
           if (encoder) {
-              res.send(encoder.stream);
-              return;
+              var encoderParams = {};
+              encoderParams.stream = encoder.stream;
+              encoderParams.index = encoderIndex;
+              res.setHeader('Content-Type', 'application/json');
+              res.send(JSON.stringify(encoderParams));
+             return;
           }
       }
   }

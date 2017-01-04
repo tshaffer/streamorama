@@ -140,6 +140,7 @@ export default class Decoders extends Component {
     }
 
     decoder.assignedEncoder = encoder.serialNumber;
+    decoder.encoderIndex = encoderIndex;
     this.props.onSetDecoder(decoder);
   }
 
