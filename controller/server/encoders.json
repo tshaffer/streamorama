@@ -1,29 +1,10 @@
 {
-	"L8D68K000035": {
-		"enabled": true,
-		"serverUrl": "http://10.1.0.180:8080",
-		"name": "XT3-1",
-		"serialNumber": "L8D68K000035",
-		"ipAddress": "10.1.0.71",
-		"source": "HDMI",
-		"mode": "2",
-		"protocol": "UDP",
-		"ttl": "1",
-		"destinationAddress": "239.0.153.201",
-		"port": "1234",
-		"videoCodec": "H264",
-		"videoFormat": "1080p60",
-		"bitRate": "2000",
-		"maxBitRate": "8000",
-		"pipeline": "HDMI:mode=2, encoder:vformat=1080p60&vbitrate=2000, udp://239.0.153.201:1234/?ttl=1&maxbitrate=8000",
-		"stream": "udp://239.0.153.201:1234/"
-	},
 	"L8C67L000084": {
 		"enabled": true,
-		"serverUrl": "http://10.1.0.180:8080",
+		"serverUrl": "http://10.1.0.105:8080",
 		"name": "XT3-0",
 		"serialNumber": "L8C67L000084",
-		"ipAddress": "10.1.0.81",
+		"ipAddress": "10.1.0.106",
 		"source": "Display",
 		"mode": "1",
 		"protocol": "UDP",
@@ -36,5 +17,24 @@
 		"maxBitRate": "8000",
 		"pipeline": "Display:mode=1, encoder:vformat=1080p60&vbitrate=2000, udp://239.0.153.200:1234/?ttl=1&maxbitrate=8000",
 		"stream": "udp://239.0.153.200:1234/"
+	},
+	"L8D68K000035": {
+		"enabled": true,
+		"serverUrl": "http://10.1.0.105:8080",
+		"name": "XT3-1",
+		"serialNumber": "L8D68K000035",
+		"ipAddress": "10.1.0.107",
+		"source": "HDMI",
+		"mode": "2",
+		"protocol": "UDP",
+		"ttl": "1",
+		"destinationAddress": "239.0.153.202",
+		"port": "1234",
+		"videoCodec": "H264",
+		"videoFormat": "1080p60",
+		"bitRate": "5000",
+		"maxBitRate": "8000",
+		"pipeline": "HDMI:mode=2, encoder:vformat=1080p60&vbitrate=17990, udp://239.0.153.202:1234/?ttl=1&maxbitrate=8000",
+		"stream": "udp://239.0.153.202:1234/"
 	}
 }

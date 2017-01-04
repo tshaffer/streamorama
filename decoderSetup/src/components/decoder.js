@@ -75,6 +75,7 @@ export default class Decoder extends Component {
     decoder.ipAddress = this.state.ipAddress;
     decoder.name = this.nameField.input.value;
     decoder.assignedEncoder = this.state.encoderSerialNumber;
+    decoder.encoderIndex = 0; // TODO - actually, set this to the appropriate index based on the above assignment.
 
     // invoke handler on streamorama server (running on LAN server) that registers this device as a decoder
     axios.get(serverUrl + '/setDecoder', {

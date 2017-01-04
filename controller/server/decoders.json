@@ -1,20 +1,9 @@
 {
 	"R5C67M000024": {
 		"serialNumber": "R5C67M000024",
-		"ipAddress": "10.1.0.68",
+		"ipAddress": "10.1.0.108",
 		"name": "XD3-0",
-		"assignedEncoder": "L8D68K000035"
-	},
-	"L8D68K000035": {
-		"name": "XT3AtHome",
-		"serialNumber": "L8D68K000035",
 		"assignedEncoder": "L8C67L000084",
-		"ipAddress": "0.0.0.0"
-	},
-	"X3K4AH000145": {
-		"serialNumber": "X3K4AH000145",
-		"name": "HomeDecoder",
-		"assignedEncoder": "L8C67L000084",
-		"ipAddress": "0.0.0.0"
+		"encoderIndex": 0
 	}
 }
