@@ -32,9 +32,9 @@
 		"port": "1234",
 		"videoCodec": "H264",
 		"videoFormat": "1080p60",
-		"bitRate": "5000",
+		"bitRate": "8000",
 		"maxBitRate": "8000",
-		"pipeline": "HDMI:mode=2, encoder:vformat=1080p60&vbitrate=17990, udp://239.0.153.202:1234/?ttl=1&maxbitrate=8000",
+		"pipeline": "HDMI:mode=2, encoder:vformat=1080p60&vbitrate=8000, udp://239.0.153.202:1234/?ttl=1&maxbitrate=8000",
 		"stream": "udp://239.0.153.202:1234/"
 	}
 }

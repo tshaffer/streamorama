@@ -12,11 +12,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, '../client/')));
 
 app.get('/getEncoders', function(req, res) {
+    console.log("getEncoders invoked");
     res.set('Access-Control-Allow-Origin', '*');
     res.send(brightSignEncoders);
 });
 
 app.get('/getDecoders', function(req, res) {
+    console.log("getDecoders invoked");
     res.set('Access-Control-Allow-Origin', '*');
     res.send(brightSignDecoders);
 });
