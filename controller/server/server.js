@@ -126,6 +126,37 @@ app.get('/getEncoderStream', function(req, res) {
 });
 
 
+app.get('/getEncoderStreamByIndex', function(req, res) {
+
+  console.log("getEncoderStreamByIndex invoked");
+  res.set('Access-Control-Allow-Origin', '*');
+
+  var decoderSerialNumber = req.query.serialNumber;
+  console.log("decoderSerialNumber: ", decoderSerialNumber);
+
+  var encoderIndex = req.query.encoderIndex;
+  console.log("encoderIndex: ", encoderIndex);
+
+  var decoder = brightSignDecoders[decoderSerialNumber];
+  if (decoder) {
+    var encoderSerialNumber = decoder.assignedEncoder;
+    decoder.encoderIndex = Number(encoderIndex);
+    if (encoderSerialNumber && encoderSerialNumber !== '') {
+      var encoder = brightSignEncoders[encoderSerialNumber];
+      if (encoder) {
+        var encoderParams = {};
+        encoderParams.stream = encoder.stream;
+        encoderParams.index = encoderIndex;
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(encoderParams));
+        return;
+      }
+    }
+  }
+  res.sendStatus(204);
+});
+
+
 app.get('/startEncoder', function(req, res) {
 
     console.log("setEncoderStatus invoked");
