@@ -109,13 +109,14 @@ app.get('/getEncoderStream', function(req, res) {
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
       var encoderSerialNumber = decoder.assignedEncoder;
-      var encoderIndex = decoder.encoderIndex;
+      // var encoderIndex = decoder.encoderIndex;
       if (encoderSerialNumber && encoderSerialNumber !== '') {
           var encoder = brightSignEncoders[encoderSerialNumber];
           if (encoder) {
               var encoderParams = {};
               encoderParams.stream = encoder.stream;
-              encoderParams.index = encoderIndex;
+              encoderParams.index = encoder.index;
+              encoderParams.numEncoders = Object.keys(brightSignEncoders).length;
               res.setHeader('Content-Type', 'application/json');
               res.send(JSON.stringify(encoderParams));
              return;
@@ -128,32 +129,44 @@ app.get('/getEncoderStream', function(req, res) {
 
 app.get('/getEncoderStreamByIndex', function(req, res) {
 
+  var responseSent = false;
+
   console.log("getEncoderStreamByIndex invoked");
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;
   console.log("decoderSerialNumber: ", decoderSerialNumber);
 
-  var encoderIndex = req.query.encoderIndex;
+  var encoderIndex = Number(req.query.encoderIndex);
   console.log("encoderIndex: ", encoderIndex);
 
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
-    var encoderSerialNumber = decoder.assignedEncoder;
-    decoder.encoderIndex = Number(encoderIndex);
-    if (encoderSerialNumber && encoderSerialNumber !== '') {
-      var encoder = brightSignEncoders[encoderSerialNumber];
-      if (encoder) {
-        var encoderParams = {};
-        encoderParams.stream = encoder.stream;
-        encoderParams.index = encoderIndex;
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(encoderParams));
-        return;
+    // var encoderSerialNumber = brightSignEncoders[decoder.encoderIndex].serialNumber;
+
+    // get encoder that has the specified index
+    for (var serialNumber in brightSignEncoders) {
+      if (brightSignEncoders.hasOwnProperty(serialNumber)) {
+        var encoder = brightSignEncoders[serialNumber];
+        if (encoder.index === encoderIndex) {
+
+          decoder.assignedEncoder = encoder.serialNumber;
+
+          var encoderParams = {};
+          encoderParams.stream = encoder.stream;
+          encoderParams.index = encoder.index;
+          encoderParams.numEncoders = Object.keys(brightSignEncoders).length;
+          res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify(encoderParams));
+          reponseSent = true;
+          return;
+        }
       }
-    }
+    };
   }
-  res.sendStatus(204);
+  if (!responseSent) {
+    res.sendStatus(204);
+  }
 });
 
 
@@ -171,6 +184,7 @@ app.get('/startEncoder', function(req, res) {
 
     res.send("ok");
 });
+
 
 app.get('/stopEncoder', function(req, res) {
 
@@ -196,8 +210,18 @@ console.log("launch streamorama server - listening on port 8080");
 var encodersStr = fs.readFileSync("encoders.json", "ascii");
 brightSignEncoders = JSON.parse(encodersStr);
 
+// TODO - hack - assign an index to each encoder
+var encoderIndex = 0;
+for (var serialNumber in brightSignEncoders) {
+  if (brightSignEncoders.hasOwnProperty(serialNumber)) {
+    var brightSignEncoder = brightSignEncoders[serialNumber];
+    brightSignEncoder.index = encoderIndex++;
+  }
+};
+
 var decodersStr = fs.readFileSync("decoders.json", "ascii");
 brightSignDecoders = JSON.parse(decodersStr);
 
 var port = process.env.PORT || 8080;
 app.listen(port);
+
