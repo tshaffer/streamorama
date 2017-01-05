@@ -109,7 +109,6 @@ app.get('/getEncoderStream', function(req, res) {
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
       var encoderSerialNumber = decoder.assignedEncoder;
-      // var encoderIndex = decoder.encoderIndex;
       if (encoderSerialNumber && encoderSerialNumber !== '') {
           var encoder = brightSignEncoders[encoderSerialNumber];
           if (encoder) {
@@ -142,7 +141,6 @@ app.get('/getEncoderStreamByIndex', function(req, res) {
 
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
-    // var encoderSerialNumber = brightSignEncoders[decoder.encoderIndex].serialNumber;
 
     // get encoder that has the specified index
     for (var serialNumber in brightSignEncoders) {
@@ -210,7 +208,9 @@ console.log("launch streamorama server - listening on port 8080");
 var encodersStr = fs.readFileSync("encoders.json", "ascii");
 brightSignEncoders = JSON.parse(encodersStr);
 
-// TODO - hack - assign an index to each encoder
+// TODO - hack - assign an index to each encoder so that it appears like an ordered list
+// TODO - long term, need a solution where the ordering matches up to what the user
+// TODO - sees on the screen (or some other rational predictable algorithm
 var encoderIndex = 0;
 for (var serialNumber in brightSignEncoders) {
   if (brightSignEncoders.hasOwnProperty(serialNumber)) {
