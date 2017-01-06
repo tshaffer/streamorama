@@ -5,5 +5,12 @@
 		"name": "XD3-0",
 		"assignedEncoder": "L8D68K000035",
 		"encoderIndex": 0
+	},
+	"L6D694001862": {
+		"serialNumber": "L6D694001862",
+		"ipAddress": "10.85.0.105",
+		"name": "XT105",
+		"assignedEncoder": "L8D69A002216",
+		"encoderIndex": 0
 	}
 }
