@@ -3,14 +3,7 @@
 		"serialNumber": "R5C67M000024",
 		"ipAddress": "10.1.0.108",
 		"name": "XD3-0",
-		"assignedEncoder": "L8D68K000035",
-		"encoderIndex": 0
-	},
-	"L6D694001862": {
-		"serialNumber": "L6D694001862",
-		"ipAddress": "10.85.0.105",
-		"name": "XT105",
-		"assignedEncoder": "L8D69A002216",
+		"assignedEncoder": "R4D69C001016",
 		"encoderIndex": 0
 	}
 }
