@@ -2,6 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 /**
  * A modal dialog can only be closed by selecting one of the actions.
@@ -33,7 +34,6 @@ export default class AddStreamDlg extends React.Component {
       <FlatButton
         label="Submit"
         primary={true}
-        disabled={true}
         onTouchTap={this.handleClose.bind(this)}
       />,
     ];
@@ -42,12 +42,18 @@ export default class AddStreamDlg extends React.Component {
       <div>
         <RaisedButton label="Add Stream" onTouchTap={this.handleOpen.bind(this)} />
         <Dialog
-          title="Dialog With Actions"
+          title="Add Stream"
           actions={actions}
           modal={true}
           open={this.state.open}
         >
-          Only actions can close this dialog.
+          <div>
+            <p>Stream name</p>
+            <TextField/>
+            <p>Stream address</p>
+            <TextField
+            />
+          </div>
         </Dialog>
       </div>
     );
