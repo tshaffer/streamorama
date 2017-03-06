@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import FlatButton from 'material-ui/RaisedButton';
 
 export default class Encoders extends Component {
 
@@ -47,7 +48,11 @@ export default class Encoders extends Component {
 
     return encoderRows;
   }
-  
+
+  handleAddStream() {
+    console.log('handleAddStream invoked');
+  }
+
   render() {
 
     const encoderRows = this.buildEncoderRows();
@@ -58,6 +63,11 @@ export default class Encoders extends Component {
 
         <div>
 
+          <FlatButton
+            disableTouchRipple={true}
+            label='Add Stream'
+            onTouchTap={this.handleAddStream.bind(this)}
+          />
           <Table>
             <TableHeader
               displaySelectAll={false}
