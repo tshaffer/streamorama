@@ -28,7 +28,7 @@ class Landing extends Component {
                 decoders={this.props.decoders}
               />
             </Tab>
-            <Tab label="Encoders">
+            <Tab label="Streams">
               <Encoders
                 encoders={this.props.encoders}
               />

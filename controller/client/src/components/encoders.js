@@ -24,22 +24,7 @@ export default class Encoders extends Component {
           {encoder.name}
         </TableRowColumn>
         <TableRowColumn>
-          {ipAddress}
-        </TableRowColumn>
-        <TableRowColumn>
           {encoder.stream}
-        </TableRowColumn>
-        <TableRowColumn>
-          {encoder.source}
-        </TableRowColumn>
-        <TableRowColumn>
-          {encoder.bitRate}
-        </TableRowColumn>
-        <TableRowColumn>
-          {encoder.videoCodec}
-        </TableRowColumn>
-        <TableRowColumn>
-          {encoder.videoFormat}
         </TableRowColumn>
       </TableRow>
     );
@@ -81,12 +66,7 @@ export default class Encoders extends Component {
             >
               <TableRow>
                 <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>IP Address</TableHeaderColumn>
-                <TableHeaderColumn>Stream</TableHeaderColumn>
-                <TableHeaderColumn>Source</TableHeaderColumn>
-                <TableHeaderColumn>Bit Rate</TableHeaderColumn>
-                <TableHeaderColumn>Codec</TableHeaderColumn>
-                <TableHeaderColumn>Video Format</TableHeaderColumn>
+                <TableHeaderColumn>Stream address</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody

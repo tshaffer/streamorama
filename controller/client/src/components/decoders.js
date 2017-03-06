@@ -239,9 +239,9 @@ export default class Decoders extends Component {
             >
               <TableRow>
                 <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>IP Address</TableHeaderColumn>
-                <TableHeaderColumn>Encoder</TableHeaderColumn>
-                <TableHeaderColumn>Stream</TableHeaderColumn>
+                <TableHeaderColumn>IP address</TableHeaderColumn>
+                <TableHeaderColumn>Select stream</TableHeaderColumn>
+                <TableHeaderColumn>Currently playing</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody
