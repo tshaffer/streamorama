@@ -36,8 +36,8 @@ export function setDecoder(decoder) {
 
     dispatch(addDecoder(decoder));
 
-    // let serverURL = 'http://localhost:8080/setDecoder';
-    let serverURL = "http://" + serverIPAddress + ":8080/setDecoder";
+    let serverURL = 'http://localhost:8080/setDecoder';
+    // let serverURL = "http://" + serverIPAddress + ":8080/setDecoder";
 
     return axios.get(serverURL, {
       params: { decoderParams: decoder }
@@ -53,8 +53,8 @@ export function loadDecoders() {
 
   return function(dispatch, _) {
 
-    // const getDecodersUrl = 'http://localhost:8080/getDecoders';
-    const getDecodersUrl = "http://" + serverIPAddress + ":8080/getDecoders";
+    const getDecodersUrl = 'http://localhost:8080/getDecoders';
+    // const getDecodersUrl = "http://" + serverIPAddress + ":8080/getDecoders";
     axios.get(getDecodersUrl)
       .then(function (decodersResponse) {
         console.log(decodersResponse);

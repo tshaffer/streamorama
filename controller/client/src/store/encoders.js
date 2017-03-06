@@ -22,8 +22,8 @@ export function loadEncoders() {
 
   return function(dispatch, _) {
 
-    // const getEncodersUrl = 'http://localhost:8080/getEncoders';
-    const getEncodersUrl = "http://" + serverIPAddress + ":8080/getEncoders";
+    const getEncodersUrl = 'http://localhost:8080/getEncoders';
+    // const getEncodersUrl = "http://" + serverIPAddress + ":8080/getEncoders";
 
     axios.get(getEncodersUrl)
       .then(function (encodersResponse) {

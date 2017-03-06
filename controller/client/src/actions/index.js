@@ -22,8 +22,8 @@ export function addEncoder(encoder) {
 
         dispatch(addEncoderToRedux(encoder));
 
-        // let serverURL = "http://localhost:8080/setEncoderParams";
-      let serverURL = "http://" + serverIPAddress + ":8080/setEncoderParams";
+        let serverURL = "http://localhost:8080/setEncoderParams";
+      // let serverURL = "http://" + serverIPAddress + ":8080/setEncoderParams";
 
         return axios.get(serverURL, {
             params: { encoderParams: encoder }
@@ -38,8 +38,8 @@ export function startEncoder(encoder) {
 
     return function (dispatch, getState) {
 
-        // let serverURL = "http://localhost:8080/startEncoder";
-      let serverURL = "http://" + serverIPAddress + ":8080/startEncoder";
+        let serverURL = "http://localhost:8080/startEncoder";
+      // let serverURL = "http://" + serverIPAddress + ":8080/startEncoder";
 
         let promise = axios.get(serverURL, {
             params: { serialNumber: encoder.serialNumber }
@@ -56,8 +56,8 @@ export function stopEncoder(encoder) {
 
     return function (dispatch, getState) {
 
-        // let serverURL = "http://localhost:8080/stopEncoder";
-      let serverURL = "http://" + serverIPAddress + ":8080/stopEncoder";
+        let serverURL = "http://localhost:8080/stopEncoder";
+      // let serverURL = "http://" + serverIPAddress + ":8080/stopEncoder";
 
         let promise = axios.get(serverURL, {
             params: { serialNumber: encoder.serialNumber }
