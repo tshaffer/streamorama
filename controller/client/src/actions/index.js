@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const serverIPAddress = "10.1.0.157";
+const serverIPAddress = "10.1.0.105";
 
 export function assignEncoderToDecoder(encoder, decoder) {
     console.log("assignEncoderToDecoder");
