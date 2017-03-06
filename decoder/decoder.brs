@@ -61,8 +61,11 @@ end Function
 
 Function decoder_ProcessTimerEvent()
 
+' EncoderIPAddress
+brightServerIPAddress = "10.1.0.105"
+
     url = CreateObject("roUrlTransfer")
-    url.SetUrl("http://10.1.0.180:8080/getEncoderStream?serialNumber=" + m.serialNumber)
+    url.SetUrl("http://" + brightServerIPAddress" + ":8080/getEncoderStream?serialNumber=" + m.serialNumber)
     streamUrl$ = url.GetToString()
 
     if not m.isStreaming or m.streamUrl <> streamUrl$ then
