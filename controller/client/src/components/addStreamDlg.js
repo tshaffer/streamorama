@@ -24,17 +24,24 @@ export default class AddStreamDlg extends React.Component {
     this.setState({open: false});
   }
 
+  handleAddStream() {
+    this.props.onAddStream('Flibbet', 'http://www.flibbet.com');
+    this.setState({open: false});
+  }
+
   render() {
     const actions = [
       <FlatButton
-        label="Cancel"
+        key={'0'}
+        label='Cancel'
         primary={true}
         onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
+        key={'1'}
         label="Submit"
         primary={true}
-        onTouchTap={this.handleClose.bind(this)}
+        onTouchTap={this.handleAddStream.bind(this)}
       />,
     ];
 
@@ -49,9 +56,12 @@ export default class AddStreamDlg extends React.Component {
         >
           <div>
             <p>Stream name</p>
-            <TextField/>
+            <TextField
+              id={'streamNameTxtField'}
+            />
             <p>Stream address</p>
             <TextField
+              id={'streamAddressTxtField'}
             />
           </div>
         </Dialog>
@@ -59,3 +69,7 @@ export default class AddStreamDlg extends React.Component {
     );
   }
 }
+
+AddStreamDlg.propTypes = {
+  onAddStream: React.PropTypes.func.isRequired,
+};

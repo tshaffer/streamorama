@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // DO NOT USE ME - I'M OBSOLETE
-const serverIPAddress = "10.1.0.105";
+const serverIPAddress = "10.1.0.58";
 
 // ------------------------------------
 // Constants
@@ -23,8 +23,8 @@ export function loadEncoders() {
 
   return function(dispatch, _) {
 
-    const getEncodersUrl = 'http://localhost:8080/getEncoders';
-    // const getEncodersUrl = "http://" + serverIPAddress + ":8080/getEncoders";
+    // const getEncodersUrl = 'localhost:8080/getEncoders';
+    const getEncodersUrl = "http://" + serverIPAddress + ":8080/getEncoders";
 
     axios.get(getEncodersUrl)
       .then(function (encodersResponse) {

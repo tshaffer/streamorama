@@ -50,8 +50,9 @@ export default class Encoders extends Component {
     return encoderRows;
   }
 
-  handleAddStream() {
+  handleAddStream(streamName, streamAddress) {
     console.log('handleAddStream invoked');
+    console.log('streamName: ', streamName, ' streamAddress: ', streamAddress);
   }
 
   render() {
@@ -64,7 +65,9 @@ export default class Encoders extends Component {
 
         <div>
 
-          <AddStreamDlg/>
+          <AddStreamDlg
+            onAddStream={this.handleAddStream.bind(this)}
+          />
 
           <Table>
             <TableHeader
