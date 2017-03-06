@@ -25,11 +25,18 @@ export default class AddStreamDlg extends React.Component {
   }
 
   handleAddStream() {
-    this.props.onAddStream('Flibbet', 'http://www.flibbet.com');
+
+    const streamName = this.streamNameTxtField.input.value;
+    const streamAddress = this.streamAddressTxtField.input.value;
+
+    this.props.onAddStream(streamName, streamAddress);
     this.setState({open: false});
   }
 
   render() {
+
+    let self = this;
+
     const actions = [
       <FlatButton
         key={'0'}
@@ -55,13 +62,21 @@ export default class AddStreamDlg extends React.Component {
           open={this.state.open}
         >
           <div>
-            <p>Stream name</p>
             <TextField
               id={'streamNameTxtField'}
+              ref={(c) => {
+                self.streamNameTxtField = c;
+              }}
+              floatingLabelText="Stream name"
+              floatingLabelFixed={true}
             />
-            <p>Stream address</p>
             <TextField
               id={'streamAddressTxtField'}
+              ref={(c) => {
+                self.streamAddressTxtField = c;
+              }}
+              floatingLabelText="Stream address"
+              floatingLabelFixed={true}
             />
           </div>
         </Dialog>
