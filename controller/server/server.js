@@ -9,9 +9,9 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', express.static(path.join(__dirname, '../client/')));
+// app.use('/', express.static(path.join(__dirname, '../client/')));
 // app.use('/', express.static(path.join(__dirname, './client/')));
-// app.use('/', express.static(path.join('/storage/sd/client/')));
+app.use('/', express.static(path.join('/storage/sd/client/')));
 
 app.get('/getEncoders', function(req, res) {
     console.log("getEncoders invoked");
@@ -39,8 +39,8 @@ app.get('/setDecoder', function (req, res) {
 
     // write updated file
     var decodersStr = JSON.stringify(brightSignDecoders, null, '\t');
-    fs.writeFileSync("decoders.json", decodersStr);
-  // fs.writeFileSync("storage/sd/decoders.json", decodersStr);
+    // fs.writeFileSync("decoders.json", decodersStr);
+    fs.writeFileSync("storage/sd/decoders.json", decodersStr);
 
     res.send('ok');
 });
@@ -60,8 +60,8 @@ app.get('/setEncoderParams', function(req, res) {
 
     // write updated file
     var encodersStr = JSON.stringify(brightSignEncoders, null, '\t');
-    fs.writeFileSync("encoders.json", encodersStr);
-  // fs.writeFileSync("storage/sd/encoders.json", encodersStr);
+    // fs.writeFileSync("encoders.json", encodersStr);
+    fs.writeFileSync("storage/sd/encoders.json", encodersStr);
 
     res.send("ok");
 });
@@ -209,8 +209,8 @@ var brightSignDecoders = {};
 
 console.log("launch streamorama server - listening on port 8080");
 
-var encodersStr = fs.readFileSync("encoders.json", "ascii");
-// var encodersStr = fs.readFileSync("storage/sd/encoders.json", "ascii");
+// var encodersStr = fs.readFileSync("encoders.json", "ascii");
+var encodersStr = fs.readFileSync("storage/sd/encoders.json", "ascii");
 brightSignEncoders = JSON.parse(encodersStr);
 
 // TODO - hack - assign an index to each encoder so that it appears like an ordered list
@@ -224,8 +224,8 @@ for (var serialNumber in brightSignEncoders) {
   }
 };
 
-var decodersStr = fs.readFileSync("decoders.json", "ascii");
-// var decodersStr = fs.readFileSync("storage/sd/decoders.json", "ascii");
+// var decodersStr = fs.readFileSync("decoders.json", "ascii");
+var decodersStr = fs.readFileSync("storage/sd/decoders.json", "ascii");
 brightSignDecoders = JSON.parse(decodersStr);
 
 var port = process.env.PORT || 8080;
