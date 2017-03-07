@@ -72,7 +72,7 @@ app.get('/getStreamTargetStatus', function(req, res) {
     res.set('Access-Control-Allow-Origin', '*');
 
     var serialNumber = req.query.serialNumber;
-    console.log("serialNumber: ", serialNumber);
+    console.log("serialNumber: " + serialNumber);
 
     var brightSignStream = brightSignStreams[serialNumber];
     if (brightSignStream) {
@@ -90,7 +90,7 @@ app.get('/getDecoderTargetStatus', function(req, res) {
     res.set('Access-Control-Allow-Origin', '*');
 
     var serialNumber = req.query.serialNumber;
-    console.log("serialNumber: ", serialNumber);
+    console.log("serialNumber: " + serialNumber);
 
     var brightSignDecoder = brightSignDecoders[serialNumber];
     if (brightSignDecoder) {
@@ -108,7 +108,7 @@ app.get('/getStreamStream', function(req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;
-  console.log("decoderSerialNumber: ", decoderSerialNumber);
+  console.log("decoderSerialNumber: " + decoderSerialNumber);
 
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
@@ -138,13 +138,16 @@ app.get('/getStreamStreamByIndex', function(req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;
-  console.log("decoderSerialNumber: ", decoderSerialNumber);
+  console.log("decoderSerialNumber: " + decoderSerialNumber);
 
   var streamIndex = Number(req.query.streamIndex);
-  console.log("streamIndex: ", streamIndex);
+  console.log("streamIndex: " + streamIndex);
 
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
+
+    console.log('decoderFound');
+    console.log(decoder);
 
     // get stream that has the specified index
     for (var serialNumber in brightSignStreams) {
@@ -165,6 +168,11 @@ app.get('/getStreamStreamByIndex', function(req, res) {
         }
       }
     };
+  }
+  else {
+    console.log('decoderNotFound');
+    console.log(decoderSerialNumber);
+    console.log(brightSignDecoders);
   }
   if (!responseSent) {
     res.sendStatus(204);
