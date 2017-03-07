@@ -6,9 +6,9 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 import AddStreamDlg from './addStreamDlg';
 
-export default class Encoders extends Component {
+export default class Streams extends Component {
 
-  buildEncoderRow(encoder) {
+  buildStreamRow(stream) {
 
     // const style = {
     //   // margin: 12,
@@ -16,38 +16,38 @@ export default class Encoders extends Component {
     // };
 
     let ipAddress = '0.0.0.0';
-    if (encoder.ipAddress) {
-      ipAddress = encoder.ipAddress;
+    if (stream.ipAddress) {
+      ipAddress = stream.ipAddress;
     }
 
     return (
-      <TableRow key={encoder.serialNumber}>
+      <TableRow key={stream.serialNumber}>
         <TableRowColumn>
-          {encoder.name}
+          {stream.name}
         </TableRowColumn>
         <TableRowColumn>
-          {encoder.stream}
+          {stream.stream}
         </TableRowColumn>
       </TableRow>
     );
   }
 
-  buildEncoderRows() {
+  buildStreamRows() {
 
-    const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
+    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
 
-    let encoderRows = [];
-    let encoderIndex = 0;
+    let streamRows = [];
+    let streamIndex = 0;
 
-    for (let serialNumber in encodersBySerialNumber) {
-      if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
-        const encoder = encodersBySerialNumber[serialNumber];
-        encoderRows.push(this.buildEncoderRow(encoder, encoderIndex));
-        encoderIndex++;
+    for (let serialNumber in streamsBySerialNumber) {
+      if (streamsBySerialNumber.hasOwnProperty(serialNumber)) {
+        const stream = streamsBySerialNumber[serialNumber];
+        streamRows.push(this.buildStreamRow(stream, streamIndex));
+        streamIndex++;
       }
     }
 
-    return encoderRows;
+    return streamRows;
   }
 
   handleAddStream(streamName, streamAddress) {
@@ -57,7 +57,7 @@ export default class Encoders extends Component {
 
   render() {
 
-    const encoderRows = this.buildEncoderRows();
+    const streamRows = this.buildStreamRows();
 
     return (
 
@@ -83,7 +83,7 @@ export default class Encoders extends Component {
             <TableBody
               displayRowCheckbox={false}
             >
-              {encoderRows}
+              {streamRows}
             </TableBody>
           </Table>
         </div>
@@ -93,6 +93,6 @@ export default class Encoders extends Component {
   }
 }
 
-Encoders.propTypes = {
-  encoders: React.PropTypes.object.isRequired,
+Streams.propTypes = {
+  streams: React.PropTypes.object.isRequired,
 };

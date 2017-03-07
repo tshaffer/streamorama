@@ -2,12 +2,12 @@ body {
     height: 100%;
 }
 
-#encoderStreamOptions {
+#streamStreamOptions {
     width: 800px;
     float: left;
 }
 
-#encoderEncodingOptions {
+#streamEncodingOptions {
     margin-left: 800px;
 }
 

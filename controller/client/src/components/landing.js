@@ -5,12 +5,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import Decoders from '../components/decoders';
-import Encoders from '../components/encoders';
+import Streams from '../components/streams';
 
 class Landing extends Component {
 
   componentWillMount() {
-    this.props.onLoadEncoders();
+    this.props.onLoadStreams();
     this.props.onLoadDecoders();
   }
 
@@ -24,13 +24,13 @@ class Landing extends Component {
             <Tab label="Decoders">
               <Decoders
                 onSetDecoder={this.props.onSetDecoder}
-                encoders={this.props.encoders}
+                streams={this.props.streams}
                 decoders={this.props.decoders}
               />
             </Tab>
             <Tab label="Streams">
-              <Encoders
-                encoders={this.props.encoders}
+              <Streams
+                streams={this.props.streams}
               />
             </Tab>
           </Tabs>
@@ -43,9 +43,9 @@ class Landing extends Component {
 
 Landing.propTypes = {
   onSetDecoder: React.PropTypes.func.isRequired,
-  onLoadEncoders: React.PropTypes.func.isRequired,
+  onLoadStreams: React.PropTypes.func.isRequired,
   onLoadDecoders: React.PropTypes.func.isRequired,
-  encoders: React.PropTypes.object.isRequired,
+  streams: React.PropTypes.object.isRequired,
   decoders: React.PropTypes.object.isRequired,
 };
 

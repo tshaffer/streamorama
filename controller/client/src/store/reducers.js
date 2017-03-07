@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import decodersReducer from './decoders';
-import encodersReducer from './encoders';
+import streamsReducer from './streams';
 
 const rootReducer = combineReducers({
   decoders: decodersReducer,
-  encoders: encodersReducer
+  streams: streamsReducer
 });
 
 export default rootReducer;

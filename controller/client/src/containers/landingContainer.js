@@ -2,21 +2,21 @@ import { connect } from 'react-redux';
 
 import Landing from '../components/landing';
 
-import { loadEncoders } from '../store/encoders';
+import { loadStreams } from '../store/streams';
 import { loadDecoders } from '../store/decoders';
 import { setDecoder } from '../store/decoders';
 
 function mapStateToProps (state) {
   return {
-    encoders: state.encoders,
+    streams: state.streams,
     decoders: state.decoders,
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLoadEncoders: () => {
-      dispatch(loadEncoders());
+    onLoadStreams: () => {
+      dispatch(loadStreams());
     },
     onLoadDecoders: () => {
       dispatch(loadDecoders());

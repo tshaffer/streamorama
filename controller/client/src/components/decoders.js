@@ -12,92 +12,92 @@ export default class Decoders extends Component {
 
   constructor(props) {
     super(props);
-    this.encoderIndicesByDecoderRow = [];
+    this.streamIndicesByDecoderRow = [];
   }
 
-  buildEncoderIndicesByDecoderRow() {
+  buildStreamIndicesByDecoderRow() {
 
-    if (Object.keys(this.props.encoders.encodersBySerialNumber).length === 0 ||
+    if (Object.keys(this.props.streams.streamsBySerialNumber).length === 0 ||
       Object.keys(this.props.decoders.decodersBySerialNumber).length === 0) return;
 
-    let encoderIndicesByDecoderRow = [];
+    let streamIndicesByDecoderRow = [];
 
-    const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
+    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
 
     const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
     for (let serialNumber in decodersBySerialNumber) {
       if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
         const decoder = decodersBySerialNumber[serialNumber];
-        if (!decoder.assignedEncoder || decoder.assignedEncoder === '') {
-          encoderIndicesByDecoderRow.push(0);
+        if (!decoder.assignedStream || decoder.assignedStream === '') {
+          streamIndicesByDecoderRow.push(0);
         }
         else {
-          const assignedEncoderSerialNumber = decoder.assignedEncoder;
+          const assignedStreamSerialNumber = decoder.assignedStream;
 
-          // walk through the encoders to find the serial number associated with this encoder
-          let encoderIndex = 1;
-          for (let encoderSerialNumber in encodersBySerialNumber) {
-            if (encodersBySerialNumber.hasOwnProperty(encoderSerialNumber)) {
-              if (encoderSerialNumber === assignedEncoderSerialNumber) {
-                encoderIndicesByDecoderRow.push(encoderIndex);
+          // walk through the streams to find the serial number associated with this stream
+          let streamIndex = 1;
+          for (let streamSerialNumber in streamsBySerialNumber) {
+            if (streamsBySerialNumber.hasOwnProperty(streamSerialNumber)) {
+              if (streamSerialNumber === assignedStreamSerialNumber) {
+                streamIndicesByDecoderRow.push(streamIndex);
                 // TODO break out of the loop
               }
-              encoderIndex++;
+              streamIndex++;
             }
           }
-          // const assignedEncoder = encodersBySerialNumber[assignedEncoderSerialNumber];
-          // encoderIndicesByDecoderRow.push(0);
+          // const assignedStream = streamsBySerialNumber[assignedStreamSerialNumber];
+          // streamIndicesByDecoderRow.push(0);
         }
       }
     }
 
-    this.encoderIndicesByDecoderRow = encoderIndicesByDecoderRow;
+    this.streamIndicesByDecoderRow = streamIndicesByDecoderRow;
   }
 
-  buildNoneAssignedEncoderOption() {
+  buildNoneAssignedStreamOption() {
     return (
       <MenuItem key={-1} value={0} primaryText={'None'}/>
     );
   }
 
-  buildEncoderOption(index, encoder) {
+  buildStreamOption(index, stream) {
 
     return (
-      <MenuItem key={index} value={index} primaryText={encoder.name}/>
+      <MenuItem key={index} value={index} primaryText={stream.name}/>
     );
   }
 
-  buildEncoderOptions() {
+  buildStreamOptions() {
 
-    const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
+    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
 
-    let encoderOptions = [];
+    let streamOptions = [];
 
-    encoderOptions.push(this.buildNoneAssignedEncoderOption());
+    streamOptions.push(this.buildNoneAssignedStreamOption());
 
-    let encoderIndex = 1;
-    for (let serialNumber in encodersBySerialNumber) {
-      if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
-        const encoder = encodersBySerialNumber[serialNumber];
-        encoderOptions.push(this.buildEncoderOption(encoderIndex, encoder));
-        encoderIndex++;
+    let streamIndex = 1;
+    for (let serialNumber in streamsBySerialNumber) {
+      if (streamsBySerialNumber.hasOwnProperty(serialNumber)) {
+        const stream = streamsBySerialNumber[serialNumber];
+        streamOptions.push(this.buildStreamOption(streamIndex, stream));
+        streamIndex++;
       }
     }
 
-    return encoderOptions;
+    return streamOptions;
   }
 
-  // handleEncoderChange(decoder, decoderIndex, event, index, encoderIndex) {
-  handleEncoderChange(_, decoderIndex, __, ___, encoderIndex) {
+  // handleStreamChange(decoder, decoderIndex, event, index, streamIndex) {
+  handleStreamChange(_, decoderIndex, __, ___, streamIndex) {
 
     // TODO - combine into a single line of code?
-    const encoderIndicesByDecoderRow = this.encoderIndicesByDecoderRow;
-    encoderIndicesByDecoderRow[decoderIndex] = encoderIndex;
-    this.encoderIndicesByDecoderRow = encoderIndicesByDecoderRow;
+    const streamIndicesByDecoderRow = this.streamIndicesByDecoderRow;
+    streamIndicesByDecoderRow[decoderIndex] = streamIndex;
+    this.streamIndicesByDecoderRow = streamIndicesByDecoderRow;
 
-    // TODO get encoders / decoders referenced by index - better way?
+    // TODO get streams / decoders referenced by index - better way?
     const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
-    const encodersBySerialNumber = this.props.encoders.encodersBySerialNumber;
+    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
 
     let index = 0;
     let decoder = null;
@@ -117,34 +117,34 @@ export default class Decoders extends Component {
     }
 
     index = 0;
-    let encoder = null;
+    let stream = null;
 
-    if (encoderIndex === 0) {
+    if (streamIndex === 0) {
       // TODO assign to None - not yet handled!!
       debugger;
     }
 
-    encoderIndex--;
-    for (let serialNumber in encodersBySerialNumber) {
-      if (encodersBySerialNumber.hasOwnProperty(serialNumber)) {
-        encoder = encodersBySerialNumber[serialNumber];
-        if (index === encoderIndex) {
+    streamIndex--;
+    for (let serialNumber in streamsBySerialNumber) {
+      if (streamsBySerialNumber.hasOwnProperty(serialNumber)) {
+        stream = streamsBySerialNumber[serialNumber];
+        if (index === streamIndex) {
           break;
         }
         index++;
       }
     }
-    // at this point, encoder now contains the specified encoder
-    if (encoder === null) {
+    // at this point, stream now contains the specified stream
+    if (stream === null) {
       debugger;
     }
 
-    decoder.assignedEncoder = encoder.serialNumber;
-    decoder.encoderIndex = encoderIndex;
+    decoder.assignedStream = stream.serialNumber;
+    decoder.streamIndex = streamIndex;
     this.props.onSetDecoder(decoder);
   }
 
-  buildDecoderRow(decoder, decoderIndex, encoderOptions) {
+  buildDecoderRow(decoder, decoderIndex, streamOptions) {
 
     const self = this;
 
@@ -158,10 +158,10 @@ export default class Decoders extends Component {
       ipAddress = decoder.ipAddress;
     }
     let stream = '';
-    if (decoder.assignedEncoder && decoder.assignedEncoder !== '') {
-      const assignedEncoder = this.props.encoders.encodersBySerialNumber[decoder.assignedEncoder];
-      if (assignedEncoder) {
-        stream = assignedEncoder.stream;
+    if (decoder.assignedStream && decoder.assignedStream !== '') {
+      const assignedStream = this.props.streams.streamsBySerialNumber[decoder.assignedStream];
+      if (assignedStream) {
+        stream = assignedStream.stream;
       }
     }
 
@@ -185,12 +185,12 @@ export default class Decoders extends Component {
         </TableRowColumn>
         <TableRowColumn>
           <SelectField
-            value={this.encoderIndicesByDecoderRow[decoderIndex]}
-            onChange={(event, encoderRowIndex, encoderIndex) => {
-              self.handleEncoderChange(decoder, decoderIndex, event, encoderRowIndex, encoderIndex);
+            value={this.streamIndicesByDecoderRow[decoderIndex]}
+            onChange={(event, streamRowIndex, streamIndex) => {
+              self.handleStreamChange(decoder, decoderIndex, event, streamRowIndex, streamIndex);
             }}
           >
-            {encoderOptions}
+            {streamOptions}
           </SelectField>
         </TableRowColumn>
         <TableRowColumn>
@@ -200,7 +200,7 @@ export default class Decoders extends Component {
     );
   }
 
-  buildDecoderRows(encoderOptions) {
+  buildDecoderRows(streamOptions) {
 
     const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
 
@@ -210,7 +210,7 @@ export default class Decoders extends Component {
     for (let serialNumber in decodersBySerialNumber) {
       if (decodersBySerialNumber.hasOwnProperty(serialNumber)) {
         const decoder = decodersBySerialNumber[serialNumber];
-        decoderRows.push(this.buildDecoderRow(decoder, decoderIndex, encoderOptions));
+        decoderRows.push(this.buildDecoderRow(decoder, decoderIndex, streamOptions));
         decoderIndex++;
       }
     }
@@ -220,10 +220,10 @@ export default class Decoders extends Component {
 
   render() {
 
-    this.buildEncoderIndicesByDecoderRow();
+    this.buildStreamIndicesByDecoderRow();
 
-    const encoderOptions = this.buildEncoderOptions();
-    const decoderRows = this.buildDecoderRows(encoderOptions);
+    const streamOptions = this.buildStreamOptions();
+    const decoderRows = this.buildDecoderRows(streamOptions);
 
     return (
 
@@ -259,6 +259,6 @@ export default class Decoders extends Component {
 
 Decoders.propTypes = {
   onSetDecoder: React.PropTypes.func.isRequired,
-  encoders: React.PropTypes.object.isRequired,
+  streams: React.PropTypes.object.isRequired,
   decoders: React.PropTypes.object.isRequired,
 };
