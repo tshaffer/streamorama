@@ -13,6 +13,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use('/', express.static(path.join(__dirname, './client/')));
 app.use('/', express.static(path.join('/storage/sd/client/')));
 
+function addDecoder(decoder) {
+
+  console.log('addDecoder');
+  console.log('serial number: ', decoder.serialNumber);
+  console.log('name: ', decoder.name);
+
+  // default assigned stream to 'first' stream in list
+  for (var streamUniqueId in brightSignStreams) {
+    if (brightSignStreams.hasOwnProperty(streamUniqueId)) {
+      var stream = brightSignStreams[streamUniqueId];
+      decoder.assignedStream = stream.name;
+      break;
+    }
+  };
+
+  // add / overwrite record for decoder
+  var key = decoder.serialNumber;
+  brightSignDecoders[key] = decoder;
+
+
+  // write updated file
+  var decodersStr = JSON.stringify(brightSignDecoders, null, '\t');
+  // fs.writeFileSync("decoders.json", decodersStr);
+  fs.writeFileSync("storage/sd/decoders.json", decodersStr);
+
+  return decoder;
+}
+
 app.get('/getStreams', function(req, res) {
     console.log("getStreams invoked");
     res.set('Access-Control-Allow-Origin', '*');
@@ -113,24 +141,25 @@ app.get('/getStreamStream', function(req, res) {
   var decoder = brightSignDecoders[decoderSerialNumber];
 
   if (!decoder) {
-    decoder = addDecoder(req.query.serialNumber, req.query.name);
+    // TODO - need a real name for the decoder
+    var decoder = { serialNumber: req.query.serialNumber, name: req.query.serialNumber };
+    decoder = addDecoder(decoder);
   }
 
-  if (decoder) {
-      var streamSerialNumber = decoder.assignedStream;
-      if (streamSerialNumber && streamSerialNumber !== '') {
-          var stream = brightSignStreams[streamSerialNumber];
-          if (stream) {
-              var streamParams = {};
-              streamParams.stream = stream.stream;
-              streamParams.index = stream.index;
-              streamParams.numStreams = Object.keys(brightSignStreams).length;
-              res.setHeader('Content-Type', 'application/json');
-              res.send(JSON.stringify(streamParams));
-             return;
-          }
+  var streamSerialNumber = decoder.assignedStream;
+  if (streamSerialNumber && streamSerialNumber !== '') {
+      var stream = brightSignStreams[streamSerialNumber];
+      if (stream) {
+          var streamParams = {};
+          streamParams.stream = stream.stream;
+          streamParams.index = stream.index;
+          streamParams.numStreams = Object.keys(brightSignStreams).length;
+          res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify(streamParams));
+         return;
       }
   }
+
   res.sendStatus(204);
 });
 
