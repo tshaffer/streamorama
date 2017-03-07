@@ -1,10 +1,14 @@
 {
-  "R4D68G000006": {
-    "name": "XD3-fromLab",
-    "stream": "udp://239.0.153.211:1234/"
+  "simpleUDP": {
+    "name": "simpleUDP",
+    "stream": "udp://239.0.55.100:4900"
   },
-  "L8C67L000084": {
-    "name": "XT3-0",
-    "stream": "udp://239.0.153.210:1234/"
+  "rtpStream": {
+    "name": "rtpStream",
+    "stream": "rtp://239.100.100.100:4900"
+  },
+  "m3u8Stream": {
+    "name": "m3u8Stream",
+    "stream": "http://s91.acdn.quickplay.com/live/hls/9990/s/livech1237/index.m3u8"
   }
 }
