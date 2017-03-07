@@ -83,18 +83,3 @@ export default function(state = initialState, action) {
 
   return state;
 }
-
-
-// ------------------------------------
-// Diagnostics
-// ------------------------------------
-// function dumpState(state) {
-//
-//   console.log('streams:');
-//   for (var serialNumber in state.streamsBySerialNumber) {
-//     if (state.streamsBySerialNumber.hasOwnProperty(serialNumber)) {
-//       console.log('serial number:', serialNumber);
-//       console.log(state.streamsBySerialNumber[serialNumber]);
-//     }
-//   }
-// }

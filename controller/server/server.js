@@ -13,10 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use('/', express.static(path.join(__dirname, './client/')));
 app.use('/', express.static(path.join('/storage/sd/client/')));
 
-app.get('/getEncoders', function(req, res) {
-    console.log("getEncoders invoked");
+app.get('/getStreams', function(req, res) {
+    console.log("getStreams invoked");
     res.set('Access-Control-Allow-Origin', '*');
-    res.send(brightSignEncoders);
+    res.send(brightSignStreams);
 });
 
 app.get('/getDecoders', function(req, res) {
@@ -46,40 +46,40 @@ app.get('/setDecoder', function (req, res) {
 });
 
 
-app.get('/setEncoderParams', function(req, res) {
+app.get('/setStreamParams', function(req, res) {
 
-    console.log("setEncoderParams invoked");
+    console.log("setStreamParams invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
-    var encoderParamsStr = req.query.encoderParams;
-    var encoderParams = JSON.parse(encoderParamsStr);
+    var streamParamsStr = req.query.streamParams;
+    var streamParams = JSON.parse(streamParamsStr);
 
-    // add / overwrite record for encoder
-    var key = encoderParams.serialNumber;
-    brightSignEncoders[key] = encoderParams;
+    // add / overwrite record for stream
+    var key = streamParams.serialNumber;
+    brightSignStreams[key] = streamParams;
 
     // write updated file
-    var encodersStr = JSON.stringify(brightSignEncoders, null, '\t');
-    // fs.writeFileSync("encoders.json", encodersStr);
-    fs.writeFileSync("storage/sd/encoders.json", encodersStr);
+    var streamsStr = JSON.stringify(brightSignStreams, null, '\t');
+    // fs.writeFileSync("streams.json", streamsStr);
+    fs.writeFileSync("storage/sd/streams.json", streamsStr);
 
     res.send("ok");
 });
 
-app.get('/getEncoderTargetStatus', function(req, res) {
+app.get('/getStreamTargetStatus', function(req, res) {
 
-    console.log("getEncoderTargetStatus invoked");
+    console.log("getStreamTargetStatus invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
     var serialNumber = req.query.serialNumber;
     console.log("serialNumber: ", serialNumber);
 
-    var brightSignEncoder = brightSignEncoders[serialNumber];
-    if (brightSignEncoder) {
-        res.send(brightSignEncoder);
+    var brightSignStream = brightSignStreams[serialNumber];
+    if (brightSignStream) {
+        res.send(brightSignStream);
     }
     else {
-        // no status on this encoder - let client know
+        // no status on this stream - let client know
         res.sendStatus(204);
     }
 });
@@ -97,14 +97,14 @@ app.get('/getDecoderTargetStatus', function(req, res) {
         res.send(brightSignDecoder);
     }
     else {
-        // no status on this encoder - let client know
+        // no status on this stream - let client know
         res.sendStatus(204);
     }
 });
 
-app.get('/getEncoderStream', function(req, res) {
+app.get('/getStreamStream', function(req, res) {
 
-  console.log("getEncoderStream invoked");
+  console.log("getStreamStream invoked");
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;
@@ -112,16 +112,16 @@ app.get('/getEncoderStream', function(req, res) {
 
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
-      var encoderSerialNumber = decoder.assignedEncoder;
-      if (encoderSerialNumber && encoderSerialNumber !== '') {
-          var encoder = brightSignEncoders[encoderSerialNumber];
-          if (encoder) {
-              var encoderParams = {};
-              encoderParams.stream = encoder.stream;
-              encoderParams.index = encoder.index;
-              encoderParams.numEncoders = Object.keys(brightSignEncoders).length;
+      var streamSerialNumber = decoder.assignedStream;
+      if (streamSerialNumber && streamSerialNumber !== '') {
+          var stream = brightSignStreams[streamSerialNumber];
+          if (stream) {
+              var streamParams = {};
+              streamParams.stream = stream.stream;
+              streamParams.index = stream.index;
+              streamParams.numStreams = Object.keys(brightSignStreams).length;
               res.setHeader('Content-Type', 'application/json');
-              res.send(JSON.stringify(encoderParams));
+              res.send(JSON.stringify(streamParams));
              return;
           }
       }
@@ -130,36 +130,36 @@ app.get('/getEncoderStream', function(req, res) {
 });
 
 
-app.get('/getEncoderStreamByIndex', function(req, res) {
+app.get('/getStreamStreamByIndex', function(req, res) {
 
   var responseSent = false;
 
-  console.log("getEncoderStreamByIndex invoked");
+  console.log("getStreamStreamByIndex invoked");
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;
   console.log("decoderSerialNumber: ", decoderSerialNumber);
 
-  var encoderIndex = Number(req.query.encoderIndex);
-  console.log("encoderIndex: ", encoderIndex);
+  var streamIndex = Number(req.query.streamIndex);
+  console.log("streamIndex: ", streamIndex);
 
   var decoder = brightSignDecoders[decoderSerialNumber];
   if (decoder) {
 
-    // get encoder that has the specified index
-    for (var serialNumber in brightSignEncoders) {
-      if (brightSignEncoders.hasOwnProperty(serialNumber)) {
-        var encoder = brightSignEncoders[serialNumber];
-        if (encoder.index === encoderIndex) {
+    // get stream that has the specified index
+    for (var serialNumber in brightSignStreams) {
+      if (brightSignStreams.hasOwnProperty(serialNumber)) {
+        var stream = brightSignStreams[serialNumber];
+        if (stream.index === streamIndex) {
 
-          decoder.assignedEncoder = encoder.serialNumber;
+          decoder.assignedStream = stream.serialNumber;
 
-          var encoderParams = {};
-          encoderParams.stream = encoder.stream;
-          encoderParams.index = encoder.index;
-          encoderParams.numEncoders = Object.keys(brightSignEncoders).length;
+          var streamParams = {};
+          streamParams.stream = stream.stream;
+          streamParams.index = stream.index;
+          streamParams.numStreams = Object.keys(brightSignStreams).length;
           res.setHeader('Content-Type', 'application/json');
-          res.send(JSON.stringify(encoderParams));
+          res.send(JSON.stringify(streamParams));
           reponseSent = true;
           return;
         }
@@ -172,55 +172,23 @@ app.get('/getEncoderStreamByIndex', function(req, res) {
 });
 
 
-app.get('/startEncoder', function(req, res) {
-
-    console.log("setEncoderStatus invoked");
-    res.set('Access-Control-Allow-Origin', '*');
-
-    var serialNumber = req.query.serialNumber;
-    console.log("serialNumber: ", serialNumber);
-
-    var encoderTargetStatus = {};
-    encoderTargetStatus.encoding = true;
-    brightSignEncoders[serialNumber] = encoderTargetStatus;
-
-    res.send("ok");
-});
-
-
-app.get('/stopEncoder', function(req, res) {
-
-    console.log("setEncoderStatus invoked");
-    res.set('Access-Control-Allow-Origin', '*');
-
-    var serialNumber = req.query.serialNumber;
-    console.log("serialNumber: ", serialNumber);
-
-    var encoderTargetStatus = {};
-    encoderTargetStatus.encoding = false;
-    brightSignEncoders[serialNumber] = encoderTargetStatus;
-
-    res.send("ok");
-});
-
-
-var brightSignEncoders = {};
+var brightSignStreams = {};
 var brightSignDecoders = {};
 
 console.log("launch streamorama server - listening on port 8080");
 
-// var encodersStr = fs.readFileSync("encoders.json", "ascii");
-var encodersStr = fs.readFileSync("storage/sd/encoders.json", "ascii");
-brightSignEncoders = JSON.parse(encodersStr);
+// var streamsStr = fs.readFileSync("streams.json", "ascii");
+var streamsStr = fs.readFileSync("storage/sd/streams.json", "ascii");
+brightSignStreams = JSON.parse(streamsStr);
 
-// TODO - hack - assign an index to each encoder so that it appears like an ordered list
+// TODO - hack - assign an index to each stream so that it appears like an ordered list
 // TODO - long term, need a solution where the ordering matches up to what the user
 // TODO - sees on the screen (or some other rational predictable algorithm
-var encoderIndex = 0;
-for (var serialNumber in brightSignEncoders) {
-  if (brightSignEncoders.hasOwnProperty(serialNumber)) {
-    var brightSignEncoder = brightSignEncoders[serialNumber];
-    brightSignEncoder.index = encoderIndex++;
+var streamIndex = 0;
+for (var serialNumber in brightSignStreams) {
+  if (brightSignStreams.hasOwnProperty(serialNumber)) {
+    var brightSignStream = brightSignStreams[serialNumber];
+    brightSignStream.index = streamIndex++;
   }
 };
 

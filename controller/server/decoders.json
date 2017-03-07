@@ -3,7 +3,7 @@
 		"serialNumber": "L8D68K000035",
 		"ipAddress": "10.1.0.167",
 		"name": "XT3-1",
-		"assignedEncoder": "R4D68G000006",
+		"assignedStream": "R4D68G000006",
 		"encoderIndex": 0
 	}
 }
