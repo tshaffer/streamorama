@@ -55,7 +55,8 @@ export function loadDecoders() {
   return function(dispatch, _) {
 
     // const getDecodersUrl = 'http://localhost:8080/getDecoders';
-    const getDecodersUrl = "http://" + serverIPAddress + ":8080/getDecoders";
+    // const getDecodersUrl = "http://" + serverIPAddress + ":8080/getDecoders";
+    const getDecodersUrl = "/getDecoders";
     axios.get(getDecodersUrl)
       .then(function (decodersResponse) {
         console.log(decodersResponse);
