@@ -155,7 +155,7 @@ app.get('/getStreamStreamByIndex', function(req, res) {
         var stream = brightSignStreams[serialNumber];
         if (stream.index === streamIndex) {
 
-          decoder.assignedStream = stream.serialNumber;
+          decoder.assignedStream = stream.name;
 
           var streamParams = {};
           streamParams.stream = stream.stream;
