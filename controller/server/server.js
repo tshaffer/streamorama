@@ -46,16 +46,16 @@ app.get('/setDecoder', function (req, res) {
 });
 
 
-app.get('/setStreamParams', function(req, res) {
+app.get('/addStream', function(req, res) {
 
-    console.log("setStreamParams invoked");
+    console.log("addStream invoked");
     res.set('Access-Control-Allow-Origin', '*');
 
     var streamParamsStr = req.query.streamParams;
     var streamParams = JSON.parse(streamParamsStr);
 
     // add / overwrite record for stream
-    var key = streamParams.serialNumber;
+    var key = streamParams.name;
     brightSignStreams[key] = streamParams;
 
     // write updated file
@@ -111,6 +111,11 @@ app.get('/getStreamStream', function(req, res) {
   console.log("decoderSerialNumber: " + decoderSerialNumber);
 
   var decoder = brightSignDecoders[decoderSerialNumber];
+
+  if (!decoder) {
+    decoder = addDecoder(req.query.serialNumber, req.query.name);
+  }
+
   if (decoder) {
       var streamSerialNumber = decoder.assignedStream;
       if (streamSerialNumber && streamSerialNumber !== '') {

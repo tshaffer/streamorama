@@ -1,7 +1,6 @@
 {
 	"L8C67L000084": {
         "serialNumber": "L8C67L000084",
-        "ipAddress": "10.1.0.74",
         "name": "XT3-0",
         "assignedStream": "simpleUDP"
     }

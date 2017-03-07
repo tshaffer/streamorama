@@ -17,12 +17,12 @@ export default class Decoders extends Component {
 
   buildStreamIndicesByDecoderRow() {
 
-    if (Object.keys(this.props.streams.streamsBySerialNumber).length === 0 ||
+    if (Object.keys(this.props.streams.streamsByUniqueStreamId).length === 0 ||
       Object.keys(this.props.decoders.decodersBySerialNumber).length === 0) return;
 
     let streamIndicesByDecoderRow = [];
 
-    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
+    const streamsByUniqueStreamId = this.props.streams.streamsByUniqueStreamId;
 
     const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
     for (let serialNumber in decodersBySerialNumber) {
@@ -36,8 +36,8 @@ export default class Decoders extends Component {
 
           // walk through the streams to find the serial number associated with this stream
           let streamIndex = 1;
-          for (let streamSerialNumber in streamsBySerialNumber) {
-            if (streamsBySerialNumber.hasOwnProperty(streamSerialNumber)) {
+          for (let streamSerialNumber in streamsByUniqueStreamId) {
+            if (streamsByUniqueStreamId.hasOwnProperty(streamSerialNumber)) {
               if (streamSerialNumber === assignedStreamSerialNumber) {
                 streamIndicesByDecoderRow.push(streamIndex);
                 // TODO break out of the loop
@@ -45,7 +45,7 @@ export default class Decoders extends Component {
               streamIndex++;
             }
           }
-          // const assignedStream = streamsBySerialNumber[assignedStreamSerialNumber];
+          // const assignedStream = streamsByUniqueStreamId[assignedStreamSerialNumber];
           // streamIndicesByDecoderRow.push(0);
         }
       }
@@ -69,16 +69,16 @@ export default class Decoders extends Component {
 
   buildStreamOptions() {
 
-    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
+    const streamsByUniqueStreamId = this.props.streams.streamsByUniqueStreamId;
 
     let streamOptions = [];
 
     streamOptions.push(this.buildNoneAssignedStreamOption());
 
     let streamIndex = 1;
-    for (let serialNumber in streamsBySerialNumber) {
-      if (streamsBySerialNumber.hasOwnProperty(serialNumber)) {
-        const stream = streamsBySerialNumber[serialNumber];
+    for (let serialNumber in streamsByUniqueStreamId) {
+      if (streamsByUniqueStreamId.hasOwnProperty(serialNumber)) {
+        const stream = streamsByUniqueStreamId[serialNumber];
         streamOptions.push(this.buildStreamOption(streamIndex, stream));
         streamIndex++;
       }
@@ -97,7 +97,7 @@ export default class Decoders extends Component {
 
     // TODO get streams / decoders referenced by index - better way?
     const decodersBySerialNumber = this.props.decoders.decodersBySerialNumber;
-    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
+    const streamsByUniqueStreamId = this.props.streams.streamsByUniqueStreamId;
 
     let index = 0;
     let decoder = null;
@@ -125,9 +125,9 @@ export default class Decoders extends Component {
     }
 
     streamIndex--;
-    for (let serialNumber in streamsBySerialNumber) {
-      if (streamsBySerialNumber.hasOwnProperty(serialNumber)) {
-        stream = streamsBySerialNumber[serialNumber];
+    for (let serialNumber in streamsByUniqueStreamId) {
+      if (streamsByUniqueStreamId.hasOwnProperty(serialNumber)) {
+        stream = streamsByUniqueStreamId[serialNumber];
         if (index === streamIndex) {
           break;
         }
@@ -139,7 +139,7 @@ export default class Decoders extends Component {
       debugger;
     }
 
-    decoder.assignedStream = stream.serialNumber;
+    decoder.assignedStream = stream.name;
     decoder.streamIndex = streamIndex;
     this.props.onSetDecoder(decoder);
   }
@@ -159,7 +159,7 @@ export default class Decoders extends Component {
     }
     let stream = '';
     if (decoder.assignedStream && decoder.assignedStream !== '') {
-      const assignedStream = this.props.streams.streamsBySerialNumber[decoder.assignedStream];
+      const assignedStream = this.props.streams.streamsByUniqueStreamId[decoder.assignedStream];
       if (assignedStream) {
         stream = assignedStream.stream;
       }

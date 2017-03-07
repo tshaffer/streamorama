@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // DO NOT USE ME - I'M OBSOLETE
-const serverIPAddress = "10.1.0.58";
+const serverIPAddress = '10.1.0.58';
 
 // ------------------------------------
 // Constants
@@ -19,12 +19,22 @@ export function setStreams(streams) {
   };
 }
 
+function addStreamAction(stream) {
+  return {
+    type: ADD_STREAM,
+    stream
+  };
+}
+
+// ------------------------------------
+// Action Creators
+// ------------------------------------
 export function loadStreams() {
 
   return function(dispatch, _) {
 
     // const getStreamsUrl = 'localhost:8080/getStreams';
-    const getStreamsUrl = "http://" + serverIPAddress + ":8080/getStreams";
+    const getStreamsUrl = 'http://' + serverIPAddress + ':8080/getStreams';
 
     axios.get(getStreamsUrl)
       .then(function (streamsResponse) {
@@ -39,43 +49,55 @@ export function loadStreams() {
   };
 }
 
+export function addStream(stream) {
+
+  return function (dispatch, _) {
+
+    dispatch(addStreamAction(stream));
+
+    let serverURL = '/addStream';
+
+    return axios.get(serverURL, {
+      params: { streamParams: stream }
+    }).then(function(data) {
+      console.log('addStream - return from server call');
+      console.log(data);
+    });
+  };
+}
+
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState =
   {
-    streamsBySerialNumber: {}
+    streamsByUniqueStreamId: {}
   };
 
 export default function(state = initialState, action) {
 
   switch (action.type) {
 
-    case SET_STREAMS:
-    {
-      let newStreamsBySerialNumber = Object.assign({}, action.streams);
+    case SET_STREAMS: {
+      let newStreamsByUniqueStreamId = Object.assign({}, action.streams);
 
       let newState = {
-        streamsBySerialNumber: newStreamsBySerialNumber
+        streamsByUniqueStreamId: newStreamsByUniqueStreamId
       };
-
-      // dumpState(newState);
 
       return newState;
     }
 
-    case ADD_STREAM:
-    {
-      let newStreamsBySerialNumber = Object.assign({}, state.streamsBySerialNumber);
+    case ADD_STREAM: {
+      let newStreamsByUniqueStreamId = Object.assign({}, state.streamsByUniqueStreamId);
 
       const stream = action.stream;
-      newStreamsBySerialNumber[stream.serialNumber] = stream;
+      newStreamsByUniqueStreamId[stream.name] = action.stream;
 
       let newState = {
-        streamsBySerialNumber: newStreamsBySerialNumber
+        streamsByUniqueStreamId: newStreamsByUniqueStreamId
       };
-
-      // dumpState(newState);
 
       return newState;
     }

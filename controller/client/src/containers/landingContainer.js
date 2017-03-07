@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 
 import Landing from '../components/landing';
 
-import { loadStreams } from '../store/streams';
-import { loadDecoders } from '../store/decoders';
-import { setDecoder } from '../store/decoders';
+import { addStream, loadStreams } from '../store/streams';
+import { setDecoder, loadDecoders } from '../store/decoders';
 
 function mapStateToProps (state) {
   return {
@@ -23,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSetDecoder: (decoder) => {
       dispatch(setDecoder(decoder));
+    },
+    onAddStream: (stream) => {
+      dispatch(addStream(stream));
     }
   };
 };

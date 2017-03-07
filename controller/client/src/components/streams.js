@@ -15,13 +15,8 @@ export default class Streams extends Component {
     //   margin: 0,
     // };
 
-    let ipAddress = '0.0.0.0';
-    if (stream.ipAddress) {
-      ipAddress = stream.ipAddress;
-    }
-
     return (
-      <TableRow key={stream.serialNumber}>
+      <TableRow key={stream.name}>
         <TableRowColumn>
           {stream.name}
         </TableRowColumn>
@@ -34,14 +29,14 @@ export default class Streams extends Component {
 
   buildStreamRows() {
 
-    const streamsBySerialNumber = this.props.streams.streamsBySerialNumber;
+    const streamsByUniqueStreamId = this.props.streams.streamsByUniqueStreamId;
 
     let streamRows = [];
     let streamIndex = 0;
 
-    for (let serialNumber in streamsBySerialNumber) {
-      if (streamsBySerialNumber.hasOwnProperty(serialNumber)) {
-        const stream = streamsBySerialNumber[serialNumber];
+    for (let serialNumber in streamsByUniqueStreamId) {
+      if (streamsByUniqueStreamId.hasOwnProperty(serialNumber)) {
+        const stream = streamsByUniqueStreamId[serialNumber];
         streamRows.push(this.buildStreamRow(stream, streamIndex));
         streamIndex++;
       }
@@ -53,6 +48,12 @@ export default class Streams extends Component {
   handleAddStream(streamName, streamAddress) {
     console.log('handleAddStream invoked');
     console.log('streamName: ', streamName, ' streamAddress: ', streamAddress);
+
+    const stream = {
+      name: streamName,
+      stream: streamAddress
+    };
+    this.props.onAddStream(stream);
   }
 
   render() {
@@ -95,4 +96,5 @@ export default class Streams extends Component {
 
 Streams.propTypes = {
   streams: React.PropTypes.object.isRequired,
+  onAddStream: React.PropTypes.func.isRequired,
 };

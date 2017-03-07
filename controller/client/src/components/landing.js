@@ -30,6 +30,7 @@ class Landing extends Component {
             </Tab>
             <Tab label="Streams">
               <Streams
+                onAddStream={this.props.onAddStream}
                 streams={this.props.streams}
               />
             </Tab>
@@ -43,6 +44,7 @@ class Landing extends Component {
 
 Landing.propTypes = {
   onSetDecoder: React.PropTypes.func.isRequired,
+  onAddStream: React.PropTypes.func.isRequired,
   onLoadStreams: React.PropTypes.func.isRequired,
   onLoadDecoders: React.PropTypes.func.isRequired,
   streams: React.PropTypes.object.isRequired,
