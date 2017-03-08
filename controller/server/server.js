@@ -107,7 +107,7 @@ app.get('/getStreamAddress', function(req, res) {
 
   if (!decoder || !decoder.assignedStream) {
     // TODO - need a real name for the decoder
-    var decoder = { serialNumber: req.query.serialNumber, name: req.query.serialNumber };
+    var decoder = { serialNumber: req.query.serialNumber, name: req.query.name };
     decoder = addDecoder(decoder);
   }
 
