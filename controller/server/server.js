@@ -182,8 +182,13 @@ var brightSignDecoders = {};
 console.log("launch streamorama server - listening on port 8080");
 
 // var streamsStr = fs.readFileSync("streams.json", "ascii");
-var streamsStr = fs.readFileSync("storage/sd/streams.json", "ascii");
-brightSignStreams = JSON.parse(streamsStr);
+var streamsStr = '';
+try {
+  streamsStr = fs.readFileSync("storage/sd/streams.json", "ascii");
+  brightSignStreams = JSON.parse(streamsStr);
+} catch(e) {
+  console.log('error opening streams.json', e);
+}
 
 // TODO - hack - assign an index to each stream so that it appears like an ordered list
 // TODO - long term, need a solution where the ordering matches up to what the user
@@ -197,8 +202,13 @@ for (var serialNumber in brightSignStreams) {
 };
 
 // var decodersStr = fs.readFileSync("decoders.json", "ascii");
-var decodersStr = fs.readFileSync("storage/sd/decoders.json", "ascii");
-brightSignDecoders = JSON.parse(decodersStr);
+var decodersStr = '';
+try {
+  decodersStr = fs.readFileSync("storage/sd/decoders.json", "ascii");
+  brightSignDecoders = JSON.parse(decodersStr);
+} catch(e) {
+  console.log('error opening decoders.json', e);
+}
 
 var port = process.env.PORT || 8080;
 app.listen(port);
