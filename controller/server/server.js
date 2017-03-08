@@ -80,6 +80,9 @@ app.get('/addStream', function(req, res) {
     var streamParamsStr = req.query.streamParams;
     var streamParams = JSON.parse(streamParamsStr);
 
+    // set the index to the stream count
+    streamParams.index = Object.keys(brightSignStreams).length;
+
     // add / overwrite record for stream
     var key = streamParams.name;
     brightSignStreams[key] = streamParams;
