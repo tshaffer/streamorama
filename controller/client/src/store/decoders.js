@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-// DO NOT USE ME - I'M OBSOLETE
-const serverIPAddress = '10.1.0.58';
-
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -37,8 +34,7 @@ export function setDecoder(decoder) {
 
     dispatch(addDecoder(decoder));
 
-    // let serverURL = 'http://localhost:8080/setDecoder';
-    let serverURL = 'http://' + serverIPAddress + ':8080/setDecoder';
+    let serverURL = '/setDecoder';
 
     return axios.get(serverURL, {
       params: { decoderParams: decoder }
@@ -54,8 +50,6 @@ export function loadDecoders() {
 
   return function(dispatch, _) {
 
-    // const getDecodersUrl = 'http://localhost:8080/getDecoders';
-    // const getDecodersUrl = "http://" + serverIPAddress + ":8080/getDecoders";
     const getDecodersUrl = '/getDecoders';
     axios.get(getDecodersUrl)
       .then(function (decodersResponse) {

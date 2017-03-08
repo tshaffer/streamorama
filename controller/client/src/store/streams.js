@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-// DO NOT USE ME - I'M OBSOLETE
-const serverIPAddress = '10.1.0.58';
-
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -33,8 +30,7 @@ export function loadStreams() {
 
   return function(dispatch, _) {
 
-    // const getStreamsUrl = 'localhost:8080/getStreams';
-    const getStreamsUrl = 'http://' + serverIPAddress + ':8080/getStreams';
+    const getStreamsUrl = '/getStreams';
 
     axios.get(getStreamsUrl)
       .then(function (streamsResponse) {

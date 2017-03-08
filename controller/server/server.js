@@ -32,7 +32,6 @@ function addDecoder(decoder) {
   var key = decoder.serialNumber;
   brightSignDecoders[key] = decoder;
 
-
   // write updated file
   var decodersStr = JSON.stringify(brightSignDecoders, null, '\t');
   // fs.writeFileSync("decoders.json", decodersStr);
@@ -73,7 +72,6 @@ app.get('/setDecoder', function (req, res) {
     res.send('ok');
 });
 
-
 app.get('/addStream', function(req, res) {
 
     console.log("addStream invoked");
@@ -94,45 +92,9 @@ app.get('/addStream', function(req, res) {
     res.send("ok");
 });
 
-app.get('/getStreamTargetStatus', function(req, res) {
+app.get('/getStreamAddress', function(req, res) {
 
-    console.log("getStreamTargetStatus invoked");
-    res.set('Access-Control-Allow-Origin', '*');
-
-    var serialNumber = req.query.serialNumber;
-    console.log("serialNumber: " + serialNumber);
-
-    var brightSignStream = brightSignStreams[serialNumber];
-    if (brightSignStream) {
-        res.send(brightSignStream);
-    }
-    else {
-        // no status on this stream - let client know
-        res.sendStatus(204);
-    }
-});
-
-app.get('/getDecoderTargetStatus', function(req, res) {
-
-    console.log("getDecoderTargetStatus invoked");
-    res.set('Access-Control-Allow-Origin', '*');
-
-    var serialNumber = req.query.serialNumber;
-    console.log("serialNumber: " + serialNumber);
-
-    var brightSignDecoder = brightSignDecoders[serialNumber];
-    if (brightSignDecoder) {
-        res.send(brightSignDecoder);
-    }
-    else {
-        // no status on this stream - let client know
-        res.sendStatus(204);
-    }
-});
-
-app.get('/getStreamStream', function(req, res) {
-
-  console.log("getStreamStream invoked");
+  console.log("getStreamAddress invoked");
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;
@@ -146,9 +108,9 @@ app.get('/getStreamStream', function(req, res) {
     decoder = addDecoder(decoder);
   }
 
-  var streamSerialNumber = decoder.assignedStream;
-  if (streamSerialNumber && streamSerialNumber !== '') {
-      var stream = brightSignStreams[streamSerialNumber];
+  var streamUniqueId = decoder.assignedStream;
+  if (streamUniqueId && streamUniqueId !== '') {
+      var stream = brightSignStreams[streamUniqueId];
       if (stream) {
           var streamParams = {};
           streamParams.stream = stream.stream;
@@ -164,11 +126,11 @@ app.get('/getStreamStream', function(req, res) {
 });
 
 
-app.get('/getStreamStreamByIndex', function(req, res) {
+app.get('/getStreamAddressByIndex', function(req, res) {
 
   var responseSent = false;
 
-  console.log("getStreamStreamByIndex invoked");
+  console.log("getStreamAddressByIndex invoked");
   res.set('Access-Control-Allow-Origin', '*');
 
   var decoderSerialNumber = req.query.serialNumber;

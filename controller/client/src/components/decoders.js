@@ -5,8 +5,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-// import TextField from 'material-ui/TextField';
-// import RaisedButton from 'material-ui/RaisedButton';
 
 export default class Decoders extends Component {
 
@@ -32,13 +30,13 @@ export default class Decoders extends Component {
           streamIndicesByDecoderRow.push(0);
         }
         else {
-          const assignedStreamSerialNumber = decoder.assignedStream;
+          const assignedStreamUniqueId = decoder.assignedStream;
 
           // walk through the streams to find the serial number associated with this stream
           let streamIndex = 1;
-          for (let streamSerialNumber in streamsByUniqueStreamId) {
-            if (streamsByUniqueStreamId.hasOwnProperty(streamSerialNumber)) {
-              if (streamSerialNumber === assignedStreamSerialNumber) {
+          for (let streamUniqueId in streamsByUniqueStreamId) {
+            if (streamsByUniqueStreamId.hasOwnProperty(streamUniqueId)) {
+              if (streamUniqueId === assignedStreamUniqueId) {
                 streamIndicesByDecoderRow.push(streamIndex);
                 // TODO break out of the loop
               }
@@ -153,10 +151,6 @@ export default class Decoders extends Component {
     //   margin: 0,
     // };
 
-    let ipAddress = '0.0.0.0';
-    if (decoder.ipAddress) {
-      ipAddress = decoder.ipAddress;
-    }
     let stream = '';
     if (decoder.assignedStream && decoder.assignedStream !== '') {
       const assignedStream = this.props.streams.streamsByUniqueStreamId[decoder.assignedStream];
@@ -165,23 +159,10 @@ export default class Decoders extends Component {
       }
     }
 
-    // didn't work!!
-    // {/*<TextField*/}
-    //   id='decoderNameField'
-    //   defaultValue={decoder.name}
-    //   onChange={() => {
-    //     debugger;
-    //     self.handleDecoderNameChange();
-    //   }}
-    // />
-
     return (
       <TableRow key={decoder.serialNumber}>
         <TableRowColumn>
           {decoder.name}
-        </TableRowColumn>
-        <TableRowColumn>
-          {ipAddress}
         </TableRowColumn>
         <TableRowColumn>
           <SelectField
@@ -239,7 +220,6 @@ export default class Decoders extends Component {
             >
               <TableRow>
                 <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>IP address</TableHeaderColumn>
                 <TableHeaderColumn>Select stream</TableHeaderColumn>
                 <TableHeaderColumn>Currently playing</TableHeaderColumn>
               </TableRow>
