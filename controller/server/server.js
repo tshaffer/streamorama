@@ -105,7 +105,7 @@ app.get('/getStreamAddress', function(req, res) {
 
   var decoder = brightSignDecoders[decoderSerialNumber];
 
-  if (!decoder) {
+  if (!decoder || !decoder.assignedStream) {
     // TODO - need a real name for the decoder
     var decoder = { serialNumber: req.query.serialNumber, name: req.query.serialNumber };
     decoder = addDecoder(decoder);
@@ -113,16 +113,16 @@ app.get('/getStreamAddress', function(req, res) {
 
   var streamUniqueId = decoder.assignedStream;
   if (streamUniqueId && streamUniqueId !== '') {
-      var stream = brightSignStreams[streamUniqueId];
-      if (stream) {
-          var streamParams = {};
-          streamParams.stream = stream.stream;
-          streamParams.index = stream.index;
-          streamParams.numStreams = Object.keys(brightSignStreams).length;
-          res.setHeader('Content-Type', 'application/json');
-          res.send(JSON.stringify(streamParams));
-         return;
-      }
+    var stream = brightSignStreams[streamUniqueId];
+    if (stream) {
+        var streamParams = {};
+        streamParams.stream = stream.stream;
+        streamParams.index = stream.index;
+        streamParams.numStreams = Object.keys(brightSignStreams).length;
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(streamParams));
+       return;
+    }
   }
 
   res.sendStatus(204);
