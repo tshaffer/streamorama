@@ -14,11 +14,17 @@ export default class Streams extends Component {
     this.props.onDeleteStream(stream);
   }
 
-  getHandleDeleteStream(stream){
-    return () => {
-      this.handleDeleteStream(stream);
-    };
-  }
+  // getHandleDeleteStream(stream){
+  //   return () => {
+  //     this.handleDeleteStream(stream);
+  //   };
+  // }
+
+// <RaisedButton label="Delete" onTouchTap={
+//   () => {
+//     this.handleDeleteStream(stream);
+//   }
+// } />
 
   buildStreamRow(stream) {
 
@@ -27,7 +33,7 @@ export default class Streams extends Component {
     return (
       <TableRow key={stream.name}>
         <TableRowColumn>
-          <RaisedButton label="Delete" onTouchTap={this.getHandleDeleteStream(stream)} />
+          <RaisedButton label="Delete" onTouchTap={this.handleDeleteStream.bind(this,stream)}/>
         </TableRowColumn>
         <TableRowColumn>
           {stream.name}
