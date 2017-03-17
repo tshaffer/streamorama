@@ -2,21 +2,32 @@ import React, { Component } from 'react';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 import AddStreamDlg from './addStreamDlg';
 
 export default class Streams extends Component {
 
+  handleDeleteStream(stream) {
+    console.log('delete stream: ', stream);
+  }
+
+  getHandleDeleteStream(stream){
+    return () => {
+      this.handleDeleteStream(stream);
+    };
+  }
+
   buildStreamRow(stream) {
 
-    // const style = {
-    //   // margin: 12,
-    //   margin: 0,
-    // };
+    console.log('buildStreamRow: ', stream);
 
     return (
       <TableRow key={stream.name}>
+        <TableRowColumn>
+          <RaisedButton label="Delete" onTouchTap={this.getHandleDeleteStream(stream)} />
+        </TableRowColumn>
         <TableRowColumn>
           {stream.name}
         </TableRowColumn>
@@ -77,6 +88,7 @@ export default class Streams extends Component {
               enableSelectAll={false}
             >
               <TableRow>
+                <TableHeaderColumn>Delete</TableHeaderColumn>
                 <TableHeaderColumn>Name</TableHeaderColumn>
                 <TableHeaderColumn>Stream address</TableHeaderColumn>
               </TableRow>
