@@ -31,6 +31,7 @@ class Landing extends Component {
             <Tab label="Streams">
               <Streams
                 onAddStream={this.props.onAddStream}
+                onDeleteStream={this.props.onDeleteStream}
                 streams={this.props.streams}
               />
             </Tab>
@@ -45,6 +46,7 @@ class Landing extends Component {
 Landing.propTypes = {
   onSetDecoder: React.PropTypes.func.isRequired,
   onAddStream: React.PropTypes.func.isRequired,
+  onDeleteStream: React.PropTypes.func.isRequired,
   onLoadStreams: React.PropTypes.func.isRequired,
   onLoadDecoders: React.PropTypes.func.isRequired,
   streams: React.PropTypes.object.isRequired,

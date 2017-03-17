@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Landing from '../components/landing';
 
-import { addStream, loadStreams } from '../store/streams';
+import { addStream, deleteStream, loadStreams } from '../store/streams';
 import { setDecoder, loadDecoders } from '../store/decoders';
 
 function mapStateToProps (state) {
@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddStream: (stream) => {
       dispatch(addStream(stream));
+    },
+    onDeleteStream: (stream) => {
+      dispatch(deleteStream(stream));
     }
   };
 };

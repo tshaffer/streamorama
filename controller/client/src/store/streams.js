@@ -4,6 +4,7 @@ import axios from 'axios';
 // Constants
 // ------------------------------------
 export const ADD_STREAM = 'ADD_STREAM';
+export const DELETE_STREAM = 'DELETE_STREAM';
 export const SET_STREAMS = 'SET_STREAMS';
 
 // ------------------------------------
@@ -19,6 +20,13 @@ export function setStreams(streams) {
 function addStreamAction(stream) {
   return {
     type: ADD_STREAM,
+    stream
+  };
+}
+
+function deleteStreamAction(stream) {
+  return {
+    type: DELETE_STREAM,
     stream
   };
 }
@@ -62,6 +70,23 @@ export function addStream(stream) {
   };
 }
 
+export function deleteStream(stream) {
+
+  return function (dispatch, _) {
+
+    dispatch(deleteStreamAction(stream));
+
+    let serverURL = '/deleteStream';
+
+    return axios.get(serverURL, {
+      params: { streamParams: stream }
+    }).then(function(data) {
+      console.log('deleteStream - return from server call');
+      console.log(data);
+    });
+  };
+}
+
 
 // ------------------------------------
 // Reducer
@@ -90,6 +115,19 @@ export default function(state = initialState, action) {
 
       const stream = action.stream;
       newStreamsByUniqueStreamId[stream.name] = action.stream;
+
+      let newState = {
+        streamsByUniqueStreamId: newStreamsByUniqueStreamId
+      };
+
+      return newState;
+    }
+
+    case DELETE_STREAM: {
+      let newStreamsByUniqueStreamId = Object.assign({}, state.streamsByUniqueStreamId);
+
+      const stream = action.stream;
+      delete newStreamsByUniqueStreamId[stream.name];
 
       let newState = {
         streamsByUniqueStreamId: newStreamsByUniqueStreamId

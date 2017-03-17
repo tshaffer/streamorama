@@ -11,6 +11,7 @@ export default class Streams extends Component {
 
   handleDeleteStream(stream) {
     console.log('delete stream: ', stream);
+    this.props.onDeleteStream(stream);
   }
 
   getHandleDeleteStream(stream){
@@ -88,7 +89,7 @@ export default class Streams extends Component {
               enableSelectAll={false}
             >
               <TableRow>
-                <TableHeaderColumn>Delete</TableHeaderColumn>
+                <TableHeaderColumn/>
                 <TableHeaderColumn>Name</TableHeaderColumn>
                 <TableHeaderColumn>Stream address</TableHeaderColumn>
               </TableRow>
@@ -109,4 +110,5 @@ export default class Streams extends Component {
 Streams.propTypes = {
   streams: React.PropTypes.object.isRequired,
   onAddStream: React.PropTypes.func.isRequired,
+  onDeleteStream: React.PropTypes.func.isRequired,
 };
