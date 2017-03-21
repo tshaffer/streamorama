@@ -9,9 +9,8 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', express.static(path.join(__dirname, '../client/')));
-// app.use('/', express.static(path.join(__dirname, './client/')));
-// app.use('/', express.static(path.join('/storage/sd/client/')));
+// app.use('/', express.static(path.join(__dirname, '../client/')));
+app.use('/', express.static(path.join('/storage/sd/client/')));
 
 function addDecoder(decoder) {
 
@@ -34,8 +33,8 @@ function addDecoder(decoder) {
 
   // write updated file
   var decodersStr = JSON.stringify(brightSignDecoders, null, '\t');
-  fs.writeFileSync("decoders.json", decodersStr);
-  // fs.writeFileSync("storage/sd/decoders.json", decodersStr);
+  // fs.writeFileSync("decoders.json", decodersStr);
+  fs.writeFileSync("storage/sd/decoders.json", decodersStr);
 
   return decoder;
 }
@@ -66,8 +65,8 @@ app.get('/setDecoder', function (req, res) {
 
     // write updated file
     var decodersStr = JSON.stringify(brightSignDecoders, null, '\t');
-    fs.writeFileSync("decoders.json", decodersStr);
-    // fs.writeFileSync("storage/sd/decoders.json", decodersStr);
+    // fs.writeFileSync("decoders.json", decodersStr);
+    fs.writeFileSync("storage/sd/decoders.json", decodersStr);
 
     res.send('ok');
 });
@@ -89,8 +88,8 @@ app.get('/addStream', function(req, res) {
 
     // write updated file
     var streamsStr = JSON.stringify(brightSignStreams, null, '\t');
-    fs.writeFileSync("streams.json", streamsStr);
-    // fs.writeFileSync("storage/sd/streams.json", streamsStr);
+    // fs.writeFileSync("streams.json", streamsStr);
+    fs.writeFileSync("storage/sd/streams.json", streamsStr);
 
     res.send("ok");
 });
@@ -109,8 +108,8 @@ app.get('/deleteStream', function(req, res) {
 
   // write updated file
   var streamsStr = JSON.stringify(brightSignStreams, null, '\t');
-  fs.writeFileSync("streams.json", streamsStr);
-  // fs.writeFileSync("storage/sd/streams.json", streamsStr);
+  // fs.writeFileSync("streams.json", streamsStr);
+  fs.writeFileSync("storage/sd/streams.json", streamsStr);
 
   res.send('ok');
 
@@ -207,8 +206,8 @@ console.log("launch streamorama server - listening on port 8080");
 
 var streamsStr = '';
 try {
-  streamsStr = fs.readFileSync("streams.json", "ascii");
-  // streamsStr = fs.readFileSync("storage/sd/streams.json", "ascii");
+  // streamsStr = fs.readFileSync("streams.json", "ascii");
+  streamsStr = fs.readFileSync("storage/sd/streams.json", "ascii");
   brightSignStreams = JSON.parse(streamsStr);
 } catch(e) {
   console.log('error opening streams.json', e);
@@ -227,9 +226,9 @@ for (var serialNumber in brightSignStreams) {
 
 var decodersStr = '';
 try {
-  // decodersStr = fs.readFileSync("storage/sd/decoders.json", "ascii");
   decodersStr = fs.readFileSync("decoders.json", "ascii");
-  brightSignDecoders = JSON.parse(decodersStr);
+  decodersStr = fs.readFileSync("storage/sd/decoders.json", "ascii");
+  // brightSignDecoders = JSON.parse(decodersStr);
 } catch(e) {
   console.log('error opening decoders.json', e);
 }
